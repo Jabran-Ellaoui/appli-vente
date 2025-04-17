@@ -6,7 +6,8 @@ public class Lot {
     private LocalDate receptionDate;
     private Employee manager;
 
-    public Lot(int number, String provenance, LocalDate receptionDate, Employee manager) {
+    public Lot(int number, String provenance, LocalDate receptionDate, Employee manager)
+    {
         this.number = number;
         this.provenance = provenance;
         this.receptionDate = receptionDate;
