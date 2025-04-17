@@ -26,4 +26,5 @@ public class ProductModel {
         this.provenance = provenance;
         this.ecoScore = ecoScore;
     }
+
 }

@@ -12,5 +12,4 @@ public class Lot {
         this.receptionDate = receptionDate;
         this.manager = manager;
     }
-
 }
