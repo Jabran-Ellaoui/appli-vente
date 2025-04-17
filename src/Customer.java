@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 
-/**
- * Représente un client
- */
 public class Customer
 {
     private int id;

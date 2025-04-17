@@ -1,11 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
-/**
- * Représente la fiche administrative du produit, provenant d'un certain lot.
- */
-
 public class ProductModel {
     private int barcode;
     private String label;

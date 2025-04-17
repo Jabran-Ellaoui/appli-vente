@@ -1,10 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Représente un ticket de caisse
- */
-
 public class SalesDetails
 {
     private int id;
