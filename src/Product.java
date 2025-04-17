@@ -1,3 +1,8 @@
+
+/**
+ * Représente le produit physique
+ */
+
 public class Product {
     private int id;
     private double unitPrice;

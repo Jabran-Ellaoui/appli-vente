@@ -1,4 +1,10 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+
+/**
+ * Représente la fiche administrative du produit, provenant d'un certain lot.
+ */
 
 public class ProductModel {
     private int barcode;
@@ -12,6 +18,7 @@ public class ProductModel {
     private int storageTemperature;
     private Lot provenance;
     private String ecoScore;
+    private ArrayList<Product> products;
 
     public ProductModel(int barcode, String label, int fidelityPointNb, int requiredAge, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, int storageTemperature, Lot provenance, String ecoScore) {
         this.barcode = barcode;
@@ -25,6 +32,7 @@ public class ProductModel {
         this.storageTemperature = storageTemperature;
         this.provenance = provenance;
         this.ecoScore = ecoScore;
+        this.products = new ArrayList<>();
     }
 
 }

@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+
+/**
+ * Représente un client
+ */
 public class Customer
 {
     private int id;
@@ -7,8 +12,11 @@ public class Customer
     private String email;
     private int phoneNumber;
     private int fidelityPointNb;
+    private Locality locality;
+    private ArrayList<SalesDetails> salesDetails;
 
-    public Customer(int id, String lastname, String firstname, String address, String email, int phoneNumber, int fidelityPointNb) {
+    public Customer(int id, String lastname, String firstname, String address, String email, int phoneNumber, int fidelityPointNb, Locality locality)
+    {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -16,5 +24,7 @@ public class Customer
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.fidelityPointNb = fidelityPointNb;
+        this.locality = locality;
+        this.salesDetails = new ArrayList<>();
     }
 }
