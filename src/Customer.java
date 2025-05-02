@@ -3,19 +3,20 @@ import java.util.ArrayList;
 /**
  * Représente un client
  */
+
 public class Customer
 {
-    private int id;
+    private Integer id;
     private String lastname;
     private String firstname;
     private String address;
     private String email;
-    private int phoneNumber;
-    private int fidelityPointNb;
+    private Integer phoneNumber;
+    private Integer fidelityPointNb;
     private Locality locality;
     private ArrayList<SalesDetails> salesDetails;
 
-    public Customer(int id, String lastname, String firstname, String address, String email, int phoneNumber, int fidelityPointNb, Locality locality)
+    public Customer(Integer id, String lastname, String firstname, String address, String email, Integer phoneNumber, Integer fidelityPointNb, Locality locality)
     {
         this.id = id;
         this.lastname = lastname;

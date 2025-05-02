@@ -6,15 +6,15 @@ import java.util.ArrayList;
  */
 public class Employee
 {
-    private int id;
+    private Integer id;
     private String lastname;
     private String firstname;
-    private int phoneNumber;
+    private Integer phoneNumber;
     private ArrayList<Lot> lots;
     private ArrayList<SalesDetails> salesDetails;
 
 
-    public Employee(int id, String lastname, String firstname, int phoneNumber)
+    public Employee(Integer id, String lastname, String firstname, Integer phoneNumber)
     {
         this.id = id;
         this.lastname = lastname;

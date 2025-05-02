@@ -4,13 +4,13 @@
  */
 
 public class Product {
-    private int id;
-    private double unitPrice;
-    private int promotionPercentage;
+    private Integer id;
+    private Double unitPrice;
+    private Integer promotionPercentage;
     private ProductModel model;
     private SalesDetails sale;
 
-    public Product(int id, double unitPrice, int promotionPercentage, ProductModel model, SalesDetails sale) {
+    public Product(Integer id, Double unitPrice, Integer promotionPercentage, ProductModel model, SalesDetails sale) {
         this.id = id;
         this.unitPrice = unitPrice;
         this.promotionPercentage = promotionPercentage;
