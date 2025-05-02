@@ -1,9 +1,5 @@
 import java.util.ArrayList;
 
-
-/**
- * Représente un employé du magasin
- */
 public class Employee
 {
     private Integer id;

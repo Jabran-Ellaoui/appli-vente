@@ -1,7 +1,4 @@
 
-/**
- * Représente le produit physique
- */
 
 public class Product {
     private Integer id;
