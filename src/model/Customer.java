@@ -1,8 +1,6 @@
-import java.util.ArrayList;
+package model;
 
-/**
- * Représente un client
- */
+import java.util.ArrayList;
 
 public class Customer
 {
