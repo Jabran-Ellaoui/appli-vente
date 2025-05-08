@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class SalesDetails
 {
-    private Integer id;
-    private Integer quantity;
+    private int id;
+    private int quantity;
     private boolean fidelityPointUsed;
     private String paymentMethod;
     private String comment;
@@ -16,7 +16,7 @@ public class SalesDetails
     private ArrayList<Product> products;
 
 
-    public SalesDetails(Integer id, Integer quantity, boolean fidelityPointUsed, String paymentMethod, String comment, Date date, Customer buyer, Employee seller)
+    public SalesDetails(int id, int quantity, boolean fidelityPointUsed, String paymentMethod, String comment, Date date, Customer buyer, Employee seller)
     {
         this.id = id;
         this.quantity = quantity;

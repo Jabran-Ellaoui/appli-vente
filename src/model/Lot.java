@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Lot {
-    private Integer number;
+    private int number;
     private String provenance;
     private LocalDate receptionDate;
     private Employee manager;
     private ArrayList<ProductModel> productsModel;
 
-    public Lot(Integer number, String provenance, LocalDate receptionDate, Employee manager)
+    public Lot(int number, String provenance, LocalDate receptionDate, Employee manager)
     {
         this.number = number;
         this.provenance = provenance;

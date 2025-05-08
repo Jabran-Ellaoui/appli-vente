@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Customer
 {
-    private Integer id;
+    private int id;
     private String lastname;
     private String firstname;
     private String address;
@@ -14,7 +14,7 @@ public class Customer
     private Locality locality;
     private ArrayList<SalesDetails> salesDetails;
 
-    public Customer(Integer id, String lastname, String firstname, String address, String email, Integer phoneNumber, Integer fidelityPointNb, Locality locality)
+    public Customer(int id, String lastname, String firstname, String address, String email, Integer phoneNumber, Integer fidelityPointNb, Locality locality)
     {
         this.id = id;
         this.lastname = lastname;

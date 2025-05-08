@@ -9,11 +9,11 @@ public class Main {
     {
         try {
             Connection connection =
-                    DriverManager.getConnection("jdbc:mysql://localhost:3306/library",
-                            "root",
-                            "rootpassword1234");
+                    DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","1234");
         }
-        catch (SQLException exception) {
+        catch (SQLException exception)
+        {
+
         }
 
     }

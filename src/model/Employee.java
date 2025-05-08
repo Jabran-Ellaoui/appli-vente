@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Employee
 {
-    private Integer id;
+    private int id;
     private String lastname;
     private String firstname;
-    private Integer phoneNumber;
+    private int phoneNumber;
     private ArrayList<Lot> lots;
     private ArrayList<SalesDetails> salesDetails;
 
 
-    public Employee(Integer id, String lastname, String firstname, Integer phoneNumber)
+    public Employee(int id, String lastname, String firstname, int phoneNumber)
     {
         this.id = id;
         this.lastname = lastname;
