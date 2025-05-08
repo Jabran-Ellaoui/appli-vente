@@ -19,6 +19,8 @@ public class Lot {
         this.productsModel = new ArrayList<>();
     }
 
+    public int getNumber() {
+        return number;
+    }
 
 }
-
