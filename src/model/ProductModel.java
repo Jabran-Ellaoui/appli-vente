@@ -4,20 +4,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ProductModel {
-    private int barcode;
+    private Integer barcode;
     private String label;
-    private int fidelityPointNb;
-    private int requiredAge;
+    private Integer fidelityPointNb;
+    private Integer requiredAge;
     private boolean keptWarm;
     private boolean keptCold;
     private LocalDate expirationDate;
-    private double weight;
+    private Double weight;
     private Integer storageTemperature;
     private Lot provenance;
     private String ecoScore;
     private ArrayList<Product> products;
 
-    public ProductModel(int barcode, String label, int fidelityPointNb, int requiredAge, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, Integer storageTemperature, Lot provenance, String ecoScore) {
+    public ProductModel(int barcode, String label, int fidelityPointNb, int requiredAge, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, int storageTemperature, Lot provenance, String ecoScore) {
         this.barcode = barcode;
         this.label = label;
         this.fidelityPointNb = fidelityPointNb;
