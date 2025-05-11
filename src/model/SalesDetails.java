@@ -13,7 +13,6 @@ public class SalesDetails
     private Date date;
     private Employee seller;
     private Customer buyer;
-    private ArrayList<Product> products;
 
 
     public SalesDetails(int id, int quantity, boolean fidelityPointUsed, String paymentMethod, String comment, Date date, Customer buyer, Employee seller)
@@ -26,7 +25,35 @@ public class SalesDetails
         this.date = date;
         this.buyer = buyer;
         this.seller = seller;
-        this.products = new ArrayList<>();
+    }
+
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public boolean isFidelityPointUsed() {
+        return fidelityPointUsed;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Employee getSeller() {
+        return seller;
+    }
+
+    public Customer getBuyer() {
+        return buyer;
     }
 
 }

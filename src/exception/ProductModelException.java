@@ -10,7 +10,8 @@ public class ProductModelException extends Exception {
         super(message, cause);
     }
 
-    public ProductModelException(Throwable cause) {
+    public ProductModelException(Throwable cause)
+    {
         super(cause);
     }
 }

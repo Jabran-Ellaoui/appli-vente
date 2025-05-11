@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ProductModel {
-    private Integer barcode;
+    private int barcode;
     private String label;
-    private Integer fidelityPointNb;
+    private int fidelityPointNb;
     private Integer requiredAge;
     private boolean keptWarm;
     private boolean keptCold;
@@ -15,9 +15,8 @@ public class ProductModel {
     private Integer storageTemperature;
     private Lot provenance;
     private String ecoScore;
-    private ArrayList<Product> products;
 
-    public ProductModel(int barcode, String label, int fidelityPointNb, int requiredAge, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, int storageTemperature, Lot provenance, String ecoScore) {
+    public ProductModel(int barcode, String label, int fidelityPointNb, Integer requiredAge, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, Integer storageTemperature, Lot provenance, String ecoScore) {
         this.barcode = barcode;
         this.label = label;
         this.fidelityPointNb = fidelityPointNb;
@@ -29,7 +28,6 @@ public class ProductModel {
         this.storageTemperature = storageTemperature;
         this.provenance = provenance;
         this.ecoScore = ecoScore;
-        this.products = new ArrayList<>();
     }
 
     public int getBarcode() {
