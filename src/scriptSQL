@@ -1,3 +1,4 @@
+drop database supermarche_db;
 CREATE DATABASE supermarche_db;
 USE supermarche_db;
 
@@ -15,8 +16,9 @@ CREATE TABLE customer (
     email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20),
     fidelity_point_nb INT,
-    region VARCHAR(10),
-    FOREIGN KEY (region) REFERENCES Locality(postal_code)
+    region_postal_code VARCHAR(10),
+    region_locality VARCHAR(100),
+    FOREIGN KEY (region_postal_code, region_locality) REFERENCES locality(postal_code, locality)
 );
 
 
@@ -25,6 +27,15 @@ CREATE TABLE employee (
     lastname VARCHAR(100) NOT NULL,
     firstname VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20)
+);
+
+CREATE TABLE lot (
+    number INT PRIMARY KEY,
+    provenance VARCHAR(100) NOT NULL,
+    reception_date DATE NOT NULL,
+    product_model_barcode VARCHAR(50),
+    manager INT,
+    FOREIGN KEY (manager) REFERENCES employee(id)
 );
 
 CREATE TABLE product_model (
@@ -38,28 +49,11 @@ CREATE TABLE product_model (
     expiration_date DATE NOT NULL,
     weight FLOAT NOT NULL,
     storage_temperature FLOAT,
-    manager_id INT,
-    FOREIGN KEY (managerID) REFERENCES Employee(ID)
+    provenance INT,
+    FOREIGN KEY (provenance) REFERENCES lot(number)
 );
 
-
-CREATE TABLE product (
-    id INT PRIMARY KEY,
-    unit_price DECIMAL(10,2) NOT NULL,
-    promotion_percentage DECIMAL(5,2),
-    model_barcode VARCHAR(50) NOT NULL,
-    FOREIGN KEY (modelBarcode) REFERENCES product_model(barcode)
-);
-
-CREATE TABLE lot (
-    number INT PRIMARY KEY,
-    provenance VARCHAR(100) NOT NULL,
-    reception_date DATE NOT NULL,
-    product_model_barcode VARCHAR(50),
-    FOREIGN KEY (productModelBarcode) REFERENCES ProductModel(barcode)
-);
-
-CREATE TABLE salesdetail (
+CREATE TABLE sales_detail (
     id INT PRIMARY KEY,
     quantity INT NOT NULL,
     fidelity_points_used BOOLEAN,
@@ -68,8 +62,17 @@ CREATE TABLE salesdetail (
     date DATE NOT NULL,
     buyer_id INT,
     seller_id INT,
-    product_id INT,
-    FOREIGN KEY (buyerID) REFERENCES Customer(ID),
-    FOREIGN KEY (sellerID) REFERENCES Employee(ID),
-    FOREIGN KEY (productID) REFERENCES Product(ID)
+    FOREIGN KEY (buyer_id) REFERENCES customer(id),
+    FOREIGN KEY (seller_id) REFERENCES employee(id)
 );
+
+CREATE TABLE product (
+    id INT PRIMARY KEY,
+    unit_price DECIMAL(10,2) NOT NULL,
+    promotion_percentage DECIMAL(5,2),
+    model_barcode VARCHAR(50) NOT NULL,
+    sale INT,
+    FOREIGN KEY (model_barcode) REFERENCES product_model(barcode),
+    FOREIGN KEY (sale) REFERENCES sales_detail(id)
+);
+

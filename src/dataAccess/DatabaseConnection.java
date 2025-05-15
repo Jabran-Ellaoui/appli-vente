@@ -9,23 +9,25 @@ import exception.ConnectionException;
 
 public class DatabaseConnection
 {
-    /*
-    * Cette classe permet de gérer la connexion à la base de données en créant une instance unique de la connexion
-    * */
-
+    private static DatabaseConnection instance;
     private static Connection connection;
 
-    public DatabaseConnection()
-    {
-
+    private DatabaseConnection() throws SQLException {
+        try {
+            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java", "root", "rootpassword1234");
+        } catch (SQLException exception) {
+            throw new ConnectionException("Erreur de connexion", exception);
+        }
     }
 
-    public static Connection getInstance() throws SQLException {
-        if (connection == null) {
-            connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/java", "root", "rootpassword1234");
-            System.out.println("hello");
+    public static DatabaseConnection getInstance() throws SQLException {
+        if (instance == null || instance.connection == null || instance.connection.isClosed()) {
+            instance = new DatabaseConnection();
         }
+        return instance;
+    }
+
+    public Connection getConnection() {
         return connection;
     }
-
 }

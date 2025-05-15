@@ -7,13 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductModelDAO implements DataAccessInterface
+public class ProductModelDAO implements DataAccessInterface<ProductModel>
 {
     private final Connection connection;
 
     public ProductModelDAO() throws ConnectionException {
         try {
-            this.connection = DatabaseConnection.getInstance();
+            this.connection = DatabaseConnection.getInstance().getConnection();
         } catch (SQLException exception) {
             throw new ConnectionException("Erreur de connexion", exception);
         }
@@ -21,21 +21,22 @@ public class ProductModelDAO implements DataAccessInterface
 
     public void create(ProductModel product) throws ConnectionException
     {
-        String sql = "INSERT INTO ProductModel (barcode, label, FidelityPointNb, requiredAge, keptWarm, keptCold, expirationDate, weight, storageTemperature, provenance) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql))
+        // Création requête
+        String sqlInstruction = "INSERT INTO product_model (barcode, label, FidelityPointNb, requiredAge, keptWarm, keptCold, expirationDate, weight, storageTemperature, provenance) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
         {
-            stmt.setInt(1, product.getBarcode());
-            stmt.setString(2, product.getLabel());
-            stmt.setInt(3, product.getFidelityPointNb());
-            stmt.setObject(4, product.getRequiredAge(), Types.INTEGER);
-            stmt.setBoolean(5, product.isKeptWarm());
-            stmt.setBoolean(6, product.isKeptCold());
-            stmt.setDate(7, Date.valueOf(product.getExpirationDate()));
-            stmt.setDouble(8, product.getWeight());
-            stmt.setObject(9, product.getStorageTemperature(), Types.DOUBLE);
-            stmt.setObject(10, product.getProvenance());
-            stmt.executeUpdate();
+            // Remplissage de l'objet
+            preparedStatement.setInt(1, product.getBarcode());
+            preparedStatement.setString(2, product.getLabel());
+            preparedStatement.setInt(3, product.getFidelityPointNb());
+            preparedStatement.setObject(4, product.getRequiredAge(), Types.INTEGER);
+            preparedStatement.setBoolean(5, product.isKeptWarm());
+            preparedStatement.setBoolean(6, product.isKeptCold());
+            preparedStatement.setDate(7, Date.valueOf(product.getExpirationDate()));
+            preparedStatement.setDouble(8, product.getWeight());
+            preparedStatement.setObject(9, product.getStorageTemperature(), Types.DOUBLE);
+            preparedStatement.setObject(10, product.getProvenance());
+            preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             throw new ConnectionException("Connexion impossible", exception);
         }

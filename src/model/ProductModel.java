@@ -11,7 +11,7 @@ public class ProductModel {
     private boolean keptWarm;
     private boolean keptCold;
     private LocalDate expirationDate;
-    private Double weight;
+    private double weight;
     private Integer storageTemperature;
     private Lot provenance;
     private String ecoScore;
@@ -28,6 +28,20 @@ public class ProductModel {
         this.storageTemperature = storageTemperature;
         this.provenance = provenance;
         this.ecoScore = ecoScore;
+    }
+
+    public ProductModel(int barcode, String label, int fidelityPointNb, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, Lot provenance) {
+        this.barcode = barcode;
+        this.label = label;
+        this.fidelityPointNb = fidelityPointNb;
+        this.requiredAge = null;
+        this.keptWarm = keptWarm;
+        this.keptCold = keptCold;
+        this.expirationDate = expirationDate;
+        this.weight = weight;
+        this.storageTemperature = null;
+        this.provenance = provenance;
+        this.ecoScore = null;
     }
 
     public int getBarcode() {
