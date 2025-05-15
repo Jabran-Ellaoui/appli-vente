@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class ProductModel {
         this.provenance = provenance;
         this.ecoScore = null;
     }
+
 
     public int getBarcode() {
         return barcode;

@@ -1,13 +1,12 @@
 package dataAccess;
 
-import model.ProductModel;
+import exception.SalesDetailsException;
 import model.SalesDetails;
 
 import exception.ConnectionException;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SalesDetailsDAO implements DataAccessInterface<SalesDetails>
@@ -27,28 +26,15 @@ public class SalesDetailsDAO implements DataAccessInterface<SalesDetails>
 
     }
 
-    public void create(SalesDetails salesDetails) throws ConnectionException
+    public void create(SalesDetails salesDetails) throws SalesDetailsException
     {
-        String sqlInstruction = "INSERT INTO sales_detail (id,quantity,fidelity_points_used, payment_method, comment, date, buyer_id, seller_id)" + "VALUES(?,?,?,?,?,?,?,?)";
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
-        {
-            preparedStatement.setInt(1, salesDetails.getQuantity());
-            preparedStatement.setBoolean(2, salesDetails.isFidelityPointUsed());
-            preparedStatement.setString(3, salesDetails.getPaymentMethod());
-            preparedStatement.setString(4, salesDetails.getComment());
-            preparedStatement.setObject(5, salesDetails.getDate());
-            preparedStatement.setObject(6, salesDetails.getBuyer());
-            preparedStatement.setObject(7, salesDetails.getSeller());
-        }
-        catch (SQLException exception)
-        {
-            throw new ConnectionException("Connexion impossible", exception);
-        }
+        String sqlInstruction = "INSERT INTO sales_detail (salesDetails)" + "VALUES(?)";
+
     }
 
     @Override
-    public void delete(int id) throws ConnectionException
+    public void delete(int id) throws SalesDetailsException
     {
         String sqlInstruction = "DELETE FROM sales_detail WHERE id = ?";
 
@@ -59,14 +45,15 @@ public class SalesDetailsDAO implements DataAccessInterface<SalesDetails>
         }
         catch (SQLException exception)
         {
-            throw new ConnectionException("Erreur de connexion", exception);
+            throw new SalesDetailsException("Erreur lors de la suppression", exception);
         }
 
     }
 
 
     @Override
-    public SalesDetails read(int id) throws ConnectionException {
+    public SalesDetails read(int id) throws SalesDetailsException
+    {
         String sqlInstruction = "SELECT id, quantity, fidelity_points_used, payment_method, comment, date, buyer_id, seller_id " + "FROM sales_detail WHERE id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
@@ -87,12 +74,12 @@ public class SalesDetailsDAO implements DataAccessInterface<SalesDetails>
                 }
             }
         } catch (SQLException exception) {
-            throw new ConnectionException("Erreur lors de la lecture de SalesDetails", exception);
+            throw new SalesDetailsException("Erreur lors de la lecture de SalesDetails", exception);
         }
     }
 
 
-    public void update(SalesDetails salesDetails) throws ConnectionException
+    public void update(SalesDetails salesDetails) throws SalesDetailsException, ConnectionException
     {
         String sqlInstruction = "UPDATE sales_details SET quantity = ?, fidelity_point_used = ?, payment_method = ?, comment = ?, date = ?, buyer_id = ?, seller_id = ? WHERE id = ?";
 
@@ -108,14 +95,13 @@ public class SalesDetailsDAO implements DataAccessInterface<SalesDetails>
         }
         catch (SQLException exception)
         {
-            throw new ConnectionException("Erreur de connexion", exception);
+            throw new SalesDetailsException("Erreur de connexion", exception);
         }
 
     }
 
-
     @Override
-    public List<ProductModel> readAll() throws ConnectionException {
+    public List<SalesDetails> readAll() throws ConnectionException {
         return List.of();
     }
 }

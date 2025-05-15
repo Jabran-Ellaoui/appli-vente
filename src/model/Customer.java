@@ -12,7 +12,6 @@ public class Customer
     private Integer phoneNumber;
     private Integer fidelityPointNb;
     private Locality locality;
-    private ArrayList<SalesDetails> salesDetails;
 
     public Customer(int id, String lastname, String firstname, String address, String email, Integer phoneNumber, Integer fidelityPointNb, Locality locality)
     {
@@ -24,6 +23,10 @@ public class Customer
         this.phoneNumber = phoneNumber;
         this.fidelityPointNb = fidelityPointNb;
         this.locality = locality;
-        this.salesDetails = new ArrayList<>();
+    }
+
+    public Customer(int id)
+    {
+        this.id = id;
     }
 }

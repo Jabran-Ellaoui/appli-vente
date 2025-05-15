@@ -1,6 +1,8 @@
 package dataAccess;
 
 import exception.ConnectionException;
+import exception.ProductModelException;
+import model.Lot;
 import model.ProductModel;
 
 import java.sql.*;
@@ -19,10 +21,10 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel>
         }
     }
 
-    public void create(ProductModel product) throws ConnectionException
+    public void create(ProductModel product) throws ProductModelException
     {
         // Création requête
-        String sqlInstruction = "INSERT INTO product_model (barcode, label, FidelityPointNb, requiredAge, keptWarm, keptCold, expirationDate, weight, storageTemperature, provenance) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlInstruction = "INSERT INTO product_model (barcode, label, fidelity_points_nb, required_age, kept_warm, kept_cold, expiration_date, weight, storage_temperature, provenance) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
         {
             // Remplissage de l'objet
@@ -38,13 +40,14 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel>
             preparedStatement.setObject(10, product.getProvenance());
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
-            throw new ConnectionException("Connexion impossible", exception);
+            throw new ProductModelException("Erreur lors de la création du produit", exception);
         }
     }
 
     @Override
-    public void delete(int barcode) throws ConnectionException {
-        String sqlInstruction = "DELETE FROM ProductModel WHERE barcode = ?";
+    public void delete(int barcode) throws ProductModelException
+    {
+        String sqlInstruction = "DELETE FROM product_model WHERE barcode = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
         {
             preparedStatement.setInt(1, barcode);
@@ -52,7 +55,7 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel>
         }
         catch (SQLException exception)
         {
-            throw new ConnectionException("Connexion impossible", exception);
+            throw new ProductModelException("Suppression impossible", exception);
         }
 
     }
@@ -61,7 +64,6 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel>
     @Override
     public ProductModel read(int id)
     {
-        return null;
     }
 
     @Override
@@ -80,12 +82,13 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel>
             preparedStatement.setObject(10, product.getProvenance());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new ConnectionException("Error updating ProductModel", e);
+            throw new ConnectionException("Erreur lors de la mise à jour du produit", e);
         }
     }
 
     @Override
-    public List<ProductModel> readAll() throws ConnectionException {
+    public List<ProductModel> readAll() throws ConnectionException
+    {
         String sqlInstruction = "SELECT * FROM ProductModel";
 
 
@@ -103,7 +106,7 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel>
             }
 
         } catch (SQLException e) {
-            throw new ConnectionException("Error updating ProductModel", e);
+            throw new ConnectionException("Erreur lors de la lecture du produit", e);
         }
 
 

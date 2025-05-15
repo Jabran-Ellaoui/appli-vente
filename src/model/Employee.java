@@ -8,9 +8,6 @@ public class Employee
     private String lastname;
     private String firstname;
     private int phoneNumber;
-    private ArrayList<Lot> lots;
-    private ArrayList<SalesDetails> salesDetails;
-
 
     public Employee(int id, String lastname, String firstname, int phoneNumber)
     {
@@ -18,7 +15,11 @@ public class Employee
         this.lastname = lastname;
         this.firstname = firstname;
         this.phoneNumber = phoneNumber;
-        this.lots = new ArrayList<>();
-        this.salesDetails = new ArrayList<>();
+
+    }
+
+    public Employee(int id)
+    {
+        this.id = id;
     }
 }
