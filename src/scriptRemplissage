@@ -1,0 +1,50 @@
+-- TEST
+-- 1. Locality
+INSERT INTO Locality (postalCode, locality) VALUES
+(1000, 'Brussels'),
+(2000, 'Antwerp'),
+(3000, 'Leuven'),
+(4000, 'Liège'),
+(5000, 'Namur'),
+(6000, 'Charleroi'),
+(7000, 'Mons'),
+(8000, 'Bruges'),
+(9000, 'Ghent'),
+(1348, 'Louvain-la-Neuve');
+
+-- 2. Employee
+INSERT INTO Employee (ID, lastname, firstname, phoneNumber) VALUES
+(1, 'Libart', 'Nathaniel', '0479123456'),
+(2, 'Nagaz', 'Nacim', '0489123456'),
+(3, 'Ellaoui', 'Jabran', '0498123456');
+
+-- 3. Customer
+INSERT INTO Customer (ID, lastname, firstname, address, email, phoneNumber, FidelityPointNb, region) VALUES
+(1, 'Martin', 'Sophie', 'Rue de la Loi 10', 'sophie.martin@gmail.com', '0470112233', 150, 1000),
+(2, 'Durand', 'Lucas', 'Avenue Louise 22', 'lucas.durand@gmail.com', '0488332211', 50, 4000);
+
+-- 4. Lot
+INSERT INTO Lot (number, provenance, receptionDate, manager) VALUES
+(1, 'France', '2025-04-01', 1),
+(2, 'Belgium', '2025-04-05', 2);
+
+-- 5. ProductModel
+INSERT INTO ProductModel (barcode, label, FidelityPointNb, requiredAge, keptWarm, keptCold, expirationDate, weight, storageTemperature, provenance, ecoScore) VALUES
+(101, 'Biscuit Chocolat', 10, NULL, false, false, '2025-08-01', 0.200, NULL, 1, 'B'),
+(102, 'Lait Demi-Ecreme', 5, NULL, false, true, '2025-05-20', 1.000, 4, 2, 'A'),
+(103, 'Bière Blonde', 8, 16, false, true, '2025-12-10', 0.250, 5, 2, 'C');
+
+-- 6. Product
+INSERT INTO Product (ID, unitPrice, promotionPercentage, model, sale) VALUES
+(1, 2.99, 0, 101, NULL),
+(2, 1.20, 10, 102, NULL),
+(3, 1.50, 0, 103, NULL);
+
+-- 7. SalesDetail
+INSERT INTO SalesDetail (ID, quantity, fidelityPointUsed, date, seller, buyer, paymentMethod, comment) VALUES
+(1, 2, true, '2025-05-10', 1, 1, 'Card', 'Offre spéciale'),
+(2, 1, false, '2025-05-11', 2, 2, 'Cash', NULL);
+
+-- Mise à jour des produits pour lier la vente
+UPDATE Product SET sale = 1 WHERE ID = 1;
+UPDATE Product SET sale = 2 WHERE ID = 2;
