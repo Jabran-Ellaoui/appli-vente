@@ -1,7 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class SalesDetails
 {
@@ -10,12 +9,12 @@ public class SalesDetails
     private boolean fidelityPointUsed;
     private String paymentMethod;
     private String comment;
-    private Date date;
+    private LocalDate date;
     private Employee seller;
     private Customer buyer;
 
 
-    public SalesDetails(int id, int quantity, boolean fidelityPointUsed, String paymentMethod, String comment, Date date, Customer buyer, Employee seller)
+    public SalesDetails(int id, int quantity, boolean fidelityPointUsed, String paymentMethod, String comment, LocalDate date, Customer buyer, Employee seller)
     {
         this.id = id;
         this.quantity = quantity;
@@ -44,7 +43,7 @@ public class SalesDetails
         return comment;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -56,4 +55,7 @@ public class SalesDetails
         return buyer;
     }
 
+    public int getId() {
+        return id;
+    }
 }

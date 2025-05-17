@@ -1,42 +1,36 @@
 package businessLogic;
 
-import dataAccess.ProductModelDAO;
-import exception.ConnectionException;
+import dataAccess.ProductModelDAOInterface;
 import exception.ProductModelException;
 import model.ProductModel;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProductModelService {
-    private final ProductModelDAO productModelDAO;
+    private final ProductModelDAOInterface productModelDAO;
 
-    public ProductModelService(ProductModelDAO productModelDAO) {
+    public ProductModelService(ProductModelDAOInterface productModelDAO) {
         this.productModelDAO = productModelDAO;
     }
 
-    public ProductModel getProductModel(int id) throws SQLException, ProductModelException {
+    public ProductModel getProductModel(int id) throws ProductModelException {
         return productModelDAO.read(id);
     }
 
-    public ArrayList<ProductModel> getAllProducts() throws ConnectionException, ProductModelException {
+    public ArrayList<ProductModel> getAllProducts() throws ProductModelException {
         return (ArrayList<ProductModel>)productModelDAO.readAll();
     }
 
     // à finir
-    public void addNewProduct(ProductModel productModel) throws ConnectionException, ProductModelException {
-        // règle métier ex: pas de produit avec un poids <= 0
-        if (productModel.getWeight() <= 0) {
-            throw new IllegalArgumentException("Le poids du produit doit être positif.");
-        }
+    public void addNewProduct(ProductModel productModel) throws ProductModelException {
         productModelDAO.create(productModel);
     }
 
-    public void updateProduct(ProductModel productModel) throws ConnectionException, ProductModelException {
+    public void updateProduct(ProductModel productModel) throws ProductModelException {
         productModelDAO.update(productModel);
     }
 
-    public void deleteProduct(int barcode) throws ConnectionException, ProductModelException {
+    public void deleteProduct(int barcode) throws ProductModelException {
         productModelDAO.delete(barcode);
     }
 }

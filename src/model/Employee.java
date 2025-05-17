@@ -22,4 +22,20 @@ public class Employee
     {
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
 }

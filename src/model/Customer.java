@@ -29,4 +29,36 @@ public class Customer
     {
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Integer getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public Integer getFidelityPointNb() {
+        return fidelityPointNb;
+    }
+
+    public Locality getLocality() {
+        return locality;
+    }
 }

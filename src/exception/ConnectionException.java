@@ -9,7 +9,6 @@ public class ConnectionException extends SQLException
     public ConnectionException(String message, SQLException e)
     {
         super(message);
-        JOptionPane.showMessageDialog (null, message,
-                "Erreur de connection", JOptionPane.ERROR_MESSAGE) ;
+        JOptionPane.showMessageDialog (null, message,"Erreur de connection", JOptionPane.ERROR_MESSAGE);
     }
 }

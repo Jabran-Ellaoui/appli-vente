@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductModelDAO implements DataAccessInterface<ProductModel> {
+public class ProductModelDAO implements ProductModelDAOInterface {
     private final Connection connection;
 
     public ProductModelDAO() throws ConnectionException {
@@ -63,7 +63,7 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel> {
         }
     }
     @Override
-    public ProductModel read(int id) throws ConnectionException, ProductModelException {
+    public ProductModel read(int id) throws ProductModelException {
         String sqlInstruction = "SELECT * FROM product_model WHERE barcode = ?";
         ProductModel productModel;
         try {
@@ -91,6 +91,8 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel> {
         }
         return productModel;
     }
+
+    // changer les types integer à mettre dans la bd !!!!!!!!!!!!!!!!!!!!!! + vérifier les exceptions
     @Override
     public void update(ProductModel product) throws ProductModelException {
         String sqlInstruction = "UPDATE product_model SET label=?, eco_score = ?, fidelity_point_nb=?, required_age=?, kept_warm=?, kept_cold=?, expiration_date=?, weight=?, storage_temperature=?, provenance=? WHERE barcode=?";
@@ -118,15 +120,15 @@ public class ProductModelDAO implements DataAccessInterface<ProductModel> {
             preparedStatement.setInt(1, barcode);
             preparedStatement.executeUpdate();
         }
-        catch (SQLException exception)
+        catch (SQLException productModelException)
         {
-            throw new ProductModelException("Suppression impossible", exception);
+            throw new ProductModelException("Erreur lors de la suppression du produit", productModelException);
         }
 
     }
 
     @Override
-    public List<ProductModel> readAll() throws ConnectionException, ProductModelException {
+    public ArrayList<ProductModel> readAll() throws ProductModelException {
         String sqlInstruction = "SELECT * FROM product_model";
         ArrayList<ProductModel> products = new ArrayList<>();
         // à voir si on met les preparedstatement dans les try ?
