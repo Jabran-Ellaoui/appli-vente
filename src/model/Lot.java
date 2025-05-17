@@ -17,6 +17,10 @@ public class Lot {
         this.manager = manager;
     }
 
+    public Lot(int number) {
+        this.number = number;
+    }
+
     public int getNumber() {
         return number;
     }

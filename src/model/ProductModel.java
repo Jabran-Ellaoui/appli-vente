@@ -31,7 +31,7 @@ public class ProductModel {
         this.ecoScore = ecoScore;
     }
 
-    public ProductModel(int barcode, String label, int fidelityPointNb, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, Lot provenance) {
+    public ProductModel(int barcode, String label, int fidelityPointNb, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, int provenance) {
         this.barcode = barcode;
         this.label = label;
         this.fidelityPointNb = fidelityPointNb;
@@ -41,7 +41,7 @@ public class ProductModel {
         this.expirationDate = expirationDate;
         this.weight = weight;
         this.storageTemperature = null;
-        this.provenance = provenance;
+        this.provenance = new Lot(provenance); // destiné au DAO
         this.ecoScore = null;
     }
 
@@ -58,7 +58,7 @@ public class ProductModel {
         return fidelityPointNb;
     }
 
-    public int getRequiredAge() {
+    public Integer getRequiredAge() {
         return requiredAge;
     }
 
@@ -78,7 +78,7 @@ public class ProductModel {
         return weight;
     }
 
-    public int getStorageTemperature() {
+    public Integer getStorageTemperature() {
         return storageTemperature;
     }
 
@@ -90,4 +90,47 @@ public class ProductModel {
         return ecoScore;
     }
 
+    public void setBarcode(int barcode) {
+        this.barcode = barcode;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setFidelityPointNb(int fidelityPointNb) {
+        this.fidelityPointNb = fidelityPointNb;
+    }
+
+    public void setRequiredAge(Integer requiredAge) {
+        this.requiredAge = requiredAge;
+    }
+
+    public void setKeptWarm(boolean keptWarm) {
+        this.keptWarm = keptWarm;
+    }
+
+    public void setKeptCold(boolean keptCold) {
+        this.keptCold = keptCold;
+    }
+
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setStorageTemperature(Integer storageTemperature) {
+        this.storageTemperature = storageTemperature;
+    }
+
+    public void setProvenance(Lot provenance) {
+        this.provenance = provenance;
+    }
+
+    public void setEcoScore(String ecoScore) {
+        this.ecoScore = ecoScore;
+    }
 }

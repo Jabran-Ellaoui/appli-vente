@@ -5,6 +5,7 @@ import exception.ConnectionException;
 import exception.ProductModelException;
 import model.ProductModel;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProductModelService {
@@ -14,11 +15,11 @@ public class ProductModelService {
         this.productModelDAO = productModelDAO;
     }
 
-    public ProductModel getProductModel(int id) throws ConnectionException {
+    public ProductModel getProductModel(int id) throws SQLException, ProductModelException {
         return productModelDAO.read(id);
     }
 
-    public ArrayList<ProductModel> getAllProducts() throws ConnectionException {
+    public ArrayList<ProductModel> getAllProducts() throws ConnectionException, ProductModelException {
         return (ArrayList<ProductModel>)productModelDAO.readAll();
     }
 
@@ -31,7 +32,7 @@ public class ProductModelService {
         productModelDAO.create(productModel);
     }
 
-    public void updateProduct(ProductModel productModel) throws ConnectionException {
+    public void updateProduct(ProductModel productModel) throws ConnectionException, ProductModelException {
         productModelDAO.update(productModel);
     }
 
