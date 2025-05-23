@@ -165,7 +165,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
     @Override
     public ArrayList<SalesDetails> readAll() throws SalesDetailsException
     {/*
-        List<SalesDetails> detailsList = new ArrayList<>();
+        ArrayList<SalesDetails> detailsList = new ArrayList<>();
         String sqlInstruction = "SELECT id, quantity, fidelity_point_used, sale_date, payment_method, comment, buyer_id, seller_id " + "FROM sales_details";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);

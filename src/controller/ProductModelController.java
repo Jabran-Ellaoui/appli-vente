@@ -28,7 +28,8 @@ public class ProductModelController {
         }
     }
 
-    public ArrayList<ProductModel> getAllProductModels() {
+    public ArrayList<ProductModel> getAllProductModels()
+    {
         try {
             return productModelService.getAllProducts();
         } catch (ProductModelException exception)
