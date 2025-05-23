@@ -1,6 +1,7 @@
 package controller;
 
 import businessLogic.SalesDetailsService;
+import exception.ConnectionException;
 import exception.SalesDetailsException;
 import model.SalesDetails;
 
@@ -9,8 +10,8 @@ import java.util.ArrayList;
 public class SalesDetailsController {
     private final SalesDetailsService salesDetailsService;
 
-    public SalesDetailsController(SalesDetailsService salesDetailsService) {
-        this.salesDetailsService = salesDetailsService;
+    public SalesDetailsController() throws ConnectionException {
+        this.salesDetailsService = new SalesDetailsService();
     }
 
     public SalesDetails getSalesDetails(int id)

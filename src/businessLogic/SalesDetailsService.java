@@ -1,6 +1,8 @@
 package businessLogic;
 
+import dataAccess.SalesDetailsDAO;
 import dataAccess.SalesDetailsDAOInterface;
+import exception.ConnectionException;
 import exception.SalesDetailsException;
 import model.SalesDetails;
 
@@ -9,8 +11,8 @@ import java.util.ArrayList;
 public class SalesDetailsService {
     private final SalesDetailsDAOInterface salesDetailsDAO;
 
-    public SalesDetailsService(SalesDetailsDAOInterface salesDetailsDAO) throws SalesDetailsException {
-        this.salesDetailsDAO = salesDetailsDAO;
+    public SalesDetailsService() throws ConnectionException {
+        this.salesDetailsDAO = new SalesDetailsDAO();
     }
 
     public SalesDetails getSalesDetails(int id) throws SalesDetailsException {
