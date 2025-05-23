@@ -191,13 +191,12 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
 
                 detailsList.add(new SalesDetails(id, quantity, fidelity, payment, comment, new java.util.Date(saleDate.getTime()), buyer, seller));
             }
-
+            return (ArrayList<SalesDetails>) detailsList;
         }
         catch (SQLException exception)
         {
             throw new SalesDetailsException("Erreur lors de la lecture de tous les enregistrements", exception);
         }
-        return (ArrayList<SalesDetails>) detailsList;
     */
         return null;
     }

@@ -14,7 +14,7 @@ public class DatabaseConnection
 
     private DatabaseConnection() throws SQLException {
         try {
-            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java", "root", "rootpassword1234");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarche_db", "root", "rootpassword1234");
         } catch (SQLException exception) {
             throw new ConnectionException("Erreur de connexion", exception);
         }

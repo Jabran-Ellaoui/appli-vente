@@ -1,4 +1,5 @@
 package controller;
+import exception.ConnectionException;
 import exception.ProductModelException;
 import model.Lot;
 import exception.LotException;
@@ -11,9 +12,8 @@ public class LotController
 {
     private final LotService lotService;
 
-    public LotController(LotService lotService)
-    {
-        this.lotService = lotService;
+    public LotController() throws ConnectionException {
+        this.lotService = new LotService();
     }
 
     public ArrayList<Lot> getAllLot()

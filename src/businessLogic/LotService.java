@@ -1,20 +1,19 @@
 package businessLogic;
 
+import dataAccess.LotDAO;
 import dataAccess.LotDAOInterface;
+import exception.ConnectionException;
 import exception.LotException;
-import exception.SalesDetailsException;
 import model.Lot;
-import model.SalesDetails;
 
 import java.util.ArrayList;
 
 public class LotService
 {
-    private final LotDAOInterface lotDAO;
+    private LotDAOInterface lotDAO;
 
-    public LotService(LotDAOInterface lotDAO)
-    {
-        this.lotDAO = lotDAO;
+    public LotService() throws ConnectionException {
+        this.lotDAO = new LotDAO();
     }
 
     public ArrayList<Lot> getAllLot() throws LotException {

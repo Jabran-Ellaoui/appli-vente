@@ -1,6 +1,7 @@
 package controller;
 
 import businessLogic.ProductModelService;
+import exception.ConnectionException;
 import exception.ProductModelException;
 import model.ProductModel;
 
@@ -10,9 +11,8 @@ public class ProductModelController {
 
     private final ProductModelService productModelService;
 
-    public ProductModelController(ProductModelService productModelService)
-    {
-        this.productModelService = productModelService;
+    public ProductModelController() throws ConnectionException {
+        this.productModelService = new ProductModelService();
     }
 
     public ProductModel getProductModelById(int id)

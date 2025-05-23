@@ -1,6 +1,8 @@
 package businessLogic;
 
+import dataAccess.ProductModelDAO;
 import dataAccess.ProductModelDAOInterface;
+import exception.ConnectionException;
 import exception.ProductModelException;
 import model.ProductModel;
 
@@ -9,8 +11,8 @@ import java.util.ArrayList;
 public class ProductModelService {
     private final ProductModelDAOInterface productModelDAO;
 
-    public ProductModelService(ProductModelDAOInterface productModelDAO) {
-        this.productModelDAO = productModelDAO;
+    public ProductModelService() throws ConnectionException {
+        this.productModelDAO = new ProductModelDAO();
     }
 
     public ProductModel getProductModel(int id) throws ProductModelException {

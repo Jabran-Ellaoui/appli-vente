@@ -1,6 +1,9 @@
 package view;
 
+import exception.ConnectionException;
+import exception.ProductModelException;
 import model.*;
+import controller.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +22,24 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         super("Le Grand Bazar");
         setBounds(100,100,500,500);
+        // Création des controllers
+
+        try {
+            LotController lotController = new LotController();
+        } catch (ConnectionException exception) {
+            exception.printStackTrace();
+            JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+        try {
+            ProductModelController productModelController = new ProductModelController();
+        } catch (ConnectionException exception) {
+            exception.printStackTrace();
+            JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+        }
+
+
 
         // partie container
         frameContainer = this.getContentPane();
@@ -57,20 +78,37 @@ public class MainWindow extends JFrame {
         // Administration
         // Produit
         createProductModel = new JMenuItem("Créer Produit");
-        createProductModel.addActionListener(e -> {
+        createProductModel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frameContainer.removeAll();
 
+                frameContainer.revalidate();
+                frameContainer.repaint();
+            }
         });
         productModelAdministration.add(createProductModel);
 
         deleteProductModel = new JMenuItem("Supprimer Produit");
-        deleteProductModel.addActionListener(e -> {
-
+        deleteProductModel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frameContainer.removeAll();
+                //nouveau
+                // frameContainer.add(, BorderLayout.CENTER);
+                frameContainer.revalidate();
+                frameContainer.repaint();
+            }
         });
         productModelAdministration.add(deleteProductModel);
 
         updateProductModel = new JMenuItem("Mettre à jour Produit");
-        updateProductModel.addActionListener(e -> {
-
+        updateProductModel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frameContainer.removeAll();
+                //nouveau
+                // frameContainer.add(, BorderLayout.CENTER);
+                frameContainer.revalidate();
+                frameContainer.repaint();
+            }
         });
         productModelAdministration.add(updateProductModel);
 
@@ -161,6 +199,10 @@ public class MainWindow extends JFrame {
     public static void main(String[] args) {
         MainWindow mainWindow = new MainWindow();
         System.out.println("Hello World !");
+    }
+
+    private class SwitchPanel {
+
     }
 
 }

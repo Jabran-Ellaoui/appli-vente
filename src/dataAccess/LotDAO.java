@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class LotDAO implements LotDAOInterface
 {
-
     private final Connection connection;
 
     public LotDAO() throws ConnectionException {
@@ -43,12 +42,11 @@ public class LotDAO implements LotDAOInterface
 
                 lots.add(new Lot(number, provenance, date, employee));
             }
+            return lots;
         }
         catch (SQLException exception)
         {
             throw new LotException("Erreur de lecture des lots", exception);
         }
-
-        return lots;
     }
 }
