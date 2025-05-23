@@ -1,0 +1,166 @@
+package view;
+
+import model.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+
+public class MainWindow extends JFrame {
+    Container frameContainer;
+    private JMenuBar menuBar;
+    private JMenu file, administration, productModelAdministration, salesDetailsAdministration, search;
+    private JMenuItem exit, createProductModel, deleteProductModel, updateProductModel, readOneProductModel, readAllProductModel, createSalesDetails, deleteSalesDetails, updateSalesDetails, readOneSalesDetails, readAllSalesDetails, searchProduct, searchSalesDetails, searchCustomer;
+
+    public MainWindow() {
+        super("Le Grand Bazar");
+        setBounds(100,100,500,500);
+
+        // partie container
+        frameContainer = this.getContentPane();
+        frameContainer.setLayout(new BorderLayout());
+
+        // partie menu
+        // création menubar
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+
+        // création menu
+        file = new JMenu("Fichier");
+        menuBar.add(file);
+
+        administration = new JMenu("Administration");
+        menuBar.add(administration);
+
+        productModelAdministration = new JMenu("Type de produit");
+        administration.add(productModelAdministration);
+
+        salesDetailsAdministration = new JMenu("Vente");
+        administration.add(salesDetailsAdministration);
+
+        search = new JMenu("Recherche");
+        menuBar.add(search);
+
+        // création menuitem
+        // Fichier
+        exit = new JMenuItem("Quitter");
+        exit.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this, "Quitter l'application ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) System.exit(0);
+        });
+        file.add(exit);
+
+        // Administration
+        // Produit
+        createProductModel = new JMenuItem("Créer Produit");
+        createProductModel.addActionListener(e -> {
+
+        });
+        productModelAdministration.add(createProductModel);
+
+        deleteProductModel = new JMenuItem("Supprimer Produit");
+        deleteProductModel.addActionListener(e -> {
+
+        });
+        productModelAdministration.add(deleteProductModel);
+
+        updateProductModel = new JMenuItem("Mettre à jour Produit");
+        updateProductModel.addActionListener(e -> {
+
+        });
+        productModelAdministration.add(updateProductModel);
+
+        readOneProductModel = new JMenuItem("Voir un Produit");
+        readOneProductModel.addActionListener(e -> {
+
+        });
+        productModelAdministration.add(readOneProductModel);
+
+        readAllProductModel = new JMenuItem("Voir tous les Produits");
+        readAllProductModel.addActionListener(e -> {
+
+        });
+        productModelAdministration.add(readAllProductModel);
+
+        // Sales Details
+        createSalesDetails = new JMenuItem("Créer Vente");
+        createSalesDetails.addActionListener(e -> {
+
+        });
+        salesDetailsAdministration.add(createSalesDetails);
+
+        deleteSalesDetails = new JMenuItem("Supprimer Vente");
+        deleteSalesDetails.addActionListener(e -> {
+
+        });
+        salesDetailsAdministration.add(deleteSalesDetails);
+
+        updateSalesDetails = new JMenuItem("Mettre à jour Vente");
+        updateSalesDetails.addActionListener(e -> {
+
+        });
+        salesDetailsAdministration.add(updateSalesDetails);
+
+        readOneSalesDetails = new JMenuItem("Voir une Vente");
+        readOneSalesDetails.addActionListener(e -> {
+
+        });
+        salesDetailsAdministration.add(readOneSalesDetails);
+
+        readAllSalesDetails = new JMenuItem("Voir toutes les Ventes");
+        readAllSalesDetails.addActionListener(e-> {
+
+        });
+        salesDetailsAdministration.add(readAllSalesDetails);
+
+        // Recherches
+        searchCustomer = new JMenuItem("Recherche Client");
+        searchCustomer.addActionListener(e -> {
+
+        });
+        search.add(searchCustomer);
+
+        searchProduct = new JMenuItem("Recherche Produit");
+        searchProduct.addActionListener(e -> {
+
+        });
+        search.add(searchProduct);
+
+        searchSalesDetails = new JMenuItem("Recherche Vente");
+        searchSalesDetails.addActionListener(e -> {
+
+        });
+        search.add(searchSalesDetails);
+
+
+
+        // partie panneau principal
+        HomePanel homePanel = new HomePanel();
+        frameContainer.add(homePanel,BorderLayout.NORTH);
+
+
+
+
+        this.addWindowListener( new WindowAdapter() {
+            public void windowClosing( WindowEvent e) {
+                System.exit(0);
+            }
+        } );
+        setVisible(true);
+    }
+
+    private class ExitListener implements ActionListener {
+        public void actionPerformed (ActionEvent event) {
+            System.exit(0);
+        }
+    }
+    public static void main(String[] args) {
+        MainWindow mainWindow = new MainWindow();
+        System.out.println("Hello World !");
+    }
+
+}
