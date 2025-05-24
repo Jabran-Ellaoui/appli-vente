@@ -32,7 +32,7 @@ public class LotDAO implements LotDAOInterface
         {
             while (data.next())
             {
-                lots.add(new Lot(data.getInt("number"), data.getString("provenance"), data.getDate("reception_date").toLocalDate(), new Employee(data.getInt("id"))));
+                lots.add(new Lot(data.getInt("number"), data.getString("provenance"), data.getDate("reception_date").toLocalDate(), new Employee(data.getInt("manager"))));
             }
             return lots;
         }

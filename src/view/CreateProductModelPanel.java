@@ -41,7 +41,7 @@ public class CreateProductModelPanel extends JPanel {
         barcodeLabel = new JLabel("Code-barres");
         barcodeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         formPanel.add(barcodeLabel);
-        barcode = new JTextField(10);
+        barcode = new JTextField(9);
         formPanel.add(barcode);
 
         labelLabel = new JLabel("Intitulé");
@@ -122,12 +122,20 @@ public class CreateProductModelPanel extends JPanel {
         submit = new JButton("Validation");
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                if (!validateCreateProductModelForm()) {
+                    return;
+                }
+                try {
                 ProductModel productModel;
                 Date selected = (Date) expirationDate.getValue();
                 LocalDate expirationDateFormat = selected.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 productModel = new ProductModel(Integer.parseInt(barcode.getText()), label.getText(), Integer.parseInt(fidelityPointNb.getText()), (!requiredAge.getText().equals("") ? Integer.valueOf(requiredAge.getText()) : null), keptWarm.isSelected(), keptCold.isSelected(), expirationDateFormat, Integer.valueOf(weight.getText()), (!storageTemperature.getText().equals("") ? Integer.valueOf(storageTemperature.getText()) : null), (Lot) provenance.getSelectedItem(), (!ecoScore.getText().equals("") ? ecoScore.getText() : null));
                 productModelController.createProductModel(productModel);
                 JOptionPane.showMessageDialog(null, productModel,"Avertissement", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Erreur lors de la création du produit :\n" + exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         buttonsPanel.add(submit);
@@ -141,9 +149,11 @@ public class CreateProductModelPanel extends JPanel {
                 requiredAge.setText("");
                 weight.setText("");
                 storageTemperature.setText("");
-                provenance.setSelectedIndex(0);
-                keptCold.setSelected(false);
-                keptWarm.setSelected(false);
+                ecoScore.setText("");
+                if (provenance.getItemCount() > 0) {
+                    provenance.setSelectedIndex(0);
+                }
+                keptGroup.clearSelection();
                 expirationDate.setValue(new Date());
             }
         });
@@ -153,5 +163,67 @@ public class CreateProductModelPanel extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(formPanel, BorderLayout.CENTER);
         this.add(buttonsPanel, BorderLayout.SOUTH);
+    }
+    private boolean validateCreateProductModelForm() {
+        String errorMessages = "";
+
+        if (barcode.getText().trim().isEmpty()) {
+            errorMessages += "- Le code-barres est requis.\n";
+        } else {
+            try {
+                Integer.parseInt(barcode.getText());
+            } catch (NumberFormatException e) {
+                errorMessages += "- Le code-barres doit être un nombre entier.\n";
+            }
+        }
+
+        if (label.getText().trim().isEmpty()) {
+            errorMessages += "- L'intitulé est requis.\n";
+        }
+
+        if (!fidelityPointNb.getText().trim().isEmpty()) {
+            try {
+                Integer.parseInt(fidelityPointNb.getText());
+            } catch (NumberFormatException e) {
+                errorMessages += "- Le nombre de points de fidélité doit être un nombre entier.\n";
+            }
+        }
+
+        if (!requiredAge.getText().trim().isEmpty()) {
+            try {
+                Integer.parseInt(requiredAge.getText());
+            } catch (NumberFormatException e) {
+                errorMessages += "- L'âge requis doit être un nombre entier.\n";
+            }
+        }
+
+        if (weight.getText().trim().isEmpty()) {
+            errorMessages += "- Le poids est requis.\n";
+        } else {
+            try {
+                Integer.parseInt(weight.getText());
+            } catch (NumberFormatException e) {
+                errorMessages += "- Le poids doit être un nombre entier.\n";
+            }
+        }
+
+        if (!storageTemperature.getText().trim().isEmpty()) {
+            try {
+                Integer.parseInt(storageTemperature.getText());
+            } catch (NumberFormatException e) {
+                errorMessages += "- La température de stockage doit être un nombre entier.\n";
+            }
+        }
+
+        if (provenance.getSelectedItem() == null) {
+            errorMessages += "- Un lot de provenance doit être sélectionné.\n";
+        }
+
+        if (!errorMessages.isEmpty()) {
+            JOptionPane.showMessageDialog(this, errorMessages, "Erreur de validation", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 }
