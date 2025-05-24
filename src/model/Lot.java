@@ -25,4 +25,9 @@ public class Lot {
         return number;
     }
 
+    @Override
+    public String toString() {
+        return "Lot n° " + number;
+    }
+
 }

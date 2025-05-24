@@ -133,4 +133,18 @@ public class ProductModel {
     public void setEcoScore(String ecoScore) {
         this.ecoScore = ecoScore;
     }
+
+    public String toString() {
+        return "Code-barres : " + barcode + "\n" +
+                "Libellé : " + label + "\n" +
+                "Points fidélité : " + fidelityPointNb + "\n" +
+                "Âge requis : " + (requiredAge != null ? requiredAge + " ans" : "Aucun") + "\n" +
+                "Conservé au chaud : " + (keptWarm ? "Oui" : "Non") + "\n" +
+                "Conservé au froid : " + (keptCold ? "Oui" : "Non") + "\n" +
+                "Date d'expiration : " + (expirationDate != null ? expirationDate.toString() : "Non spécifiée") + "\n" +
+                "Poids : " + weight + " kg\n" +
+                "Température de stockage : " + (storageTemperature != null ? storageTemperature + "°C" : "Non spécifiée") + "\n" +
+                "Provenance : " + (provenance != null ? provenance.toString() : "Inconnue") + "\n" +
+                "Éco-score : " + (ecoScore != null ? ecoScore : "Non disponible");
+    }
 }

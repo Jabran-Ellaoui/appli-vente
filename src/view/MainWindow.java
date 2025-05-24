@@ -21,7 +21,7 @@ public class MainWindow extends JFrame {
 
     public MainWindow() {
         super("Le Grand Bazar");
-        setBounds(100,100,500,500);
+        setBounds(100,100,700,700);
         // Création des controllers
 
         try {
@@ -80,10 +80,16 @@ public class MainWindow extends JFrame {
         createProductModel = new JMenuItem("Créer Produit");
         createProductModel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                frameContainer.removeAll();
+                try {
+                    ProductModelController productModelController = new ProductModelController();
+                    LotController lotController = new LotController();
+                    CreateProductModelPanel createProductModelPanel = new CreateProductModelPanel(productModelController, lotController, MainWindow.this);
+                    switchPanel(createProductModelPanel);
+                } catch (ConnectionException exception) {
+                    exception.printStackTrace();
+                    JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+                }
 
-                frameContainer.revalidate();
-                frameContainer.repaint();
             }
         });
         productModelAdministration.add(createProductModel);
@@ -91,11 +97,7 @@ public class MainWindow extends JFrame {
         deleteProductModel = new JMenuItem("Supprimer Produit");
         deleteProductModel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                frameContainer.removeAll();
-                //nouveau
-                // frameContainer.add(, BorderLayout.CENTER);
-                frameContainer.revalidate();
-                frameContainer.repaint();
+
             }
         });
         productModelAdministration.add(deleteProductModel);
@@ -201,8 +203,19 @@ public class MainWindow extends JFrame {
         System.out.println("Hello World !");
     }
 
-    private class SwitchPanel {
+    public void homePage() {
+        frameContainer.removeAll();
+        HomePanel homePanel = new HomePanel();
+        frameContainer.add(homePanel, BorderLayout.CENTER);
+        frameContainer.revalidate();
+        frameContainer.repaint();
+    }
 
+    private void switchPanel(JPanel newPanel) {
+        frameContainer.removeAll();
+        frameContainer.add(newPanel, BorderLayout.CENTER);
+        frameContainer.revalidate();
+        frameContainer.repaint();
     }
 
 }
