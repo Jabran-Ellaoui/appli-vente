@@ -3,7 +3,7 @@ CREATE DATABASE supermarche_db;
 USE supermarche_db;
 
 CREATE TABLE locality (
-    postal_code VARCHAR(10),
+    postal_code INT,
     locality VARCHAR(100) NOT NULL,
     PRIMARY KEY (postal_code, locality)
 );
@@ -17,7 +17,7 @@ CREATE TABLE customer (
     email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20),
     fidelity_point_nb INT,
-    region_postal_code VARCHAR(10),
+    region_postal_code INT,
     region_locality VARCHAR(100),
     FOREIGN KEY (region_postal_code, region_locality) REFERENCES locality(postal_code, locality)
 );
@@ -34,7 +34,6 @@ CREATE TABLE lot (
     number INT PRIMARY KEY,
     provenance VARCHAR(100) NOT NULL,
     reception_date DATE NOT NULL,
-    product_model_barcode VARCHAR(50),
     manager INT,
     FOREIGN KEY (manager) REFERENCES employee(id)
 );
