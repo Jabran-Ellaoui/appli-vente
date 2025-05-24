@@ -1,5 +1,5 @@
--- 1. Locality
-INSERT INTO Locality (postalCode, locality) VALUES
+-- Locality
+INSERT INTO locality (postal_code, locality) VALUES
 (5000, 'Namur'),
 (5001, 'Belgrade'),
 (5002, 'Saint-Servais'),
@@ -21,67 +21,67 @@ INSERT INTO Locality (postalCode, locality) VALUES
 (5340, 'Gesves'),
 (5350, 'Ohey');
 
--- 2. Employee
-INSERT INTO Employee (ID, lastname, firstname, phoneNumber) VALUES
+-- Employee
+INSERT INTO employee (id, lastname, firstname, phone_number) VALUES
 (1, 'Libart', 'Nathaniel', '0479123456'),
 (2, 'Nagaz', 'Nacim', '0489123456'),
 (3, 'Ellaoui', 'Jabran', '0498123456');
 
--- 3. Customer
-INSERT INTO Customer (ID, lastname, firstname, address, email, phoneNumber, FidelityPointNb, region) VALUES
-(1, 'Messi', 'Lionel', 'Rue de la Loi 10', 'lionel.messi@gmail.com', '0470112233', 150, 5000),
-(2, 'Ronaldo', 'Cristiano', 'Place d’Armes 5', 'cristiano.ronaldo@gmail.com', '0488332211', 50, 5100),
-(3, 'Neymar', 'Jr', 'Avenue de la Gare 12', 'neymar.jr@yahoo.com', '0479312456', 200, 5300),
-(4, 'Ozil', 'Mesut', 'Rue du Commerce 6', 'mesut.ozil@hotmail.com', '0479123344', 120, 5020),
-(5, 'Benzema', 'Karim', 'Rue Haute 15', 'karim.benzema@gmail.com', '0499123123', 90, 5101),
-(6, 'Hazard', 'Eden', 'Boulevard Albert 24', 'eden.hazard@gmail.com', '0489221122', 300, 5150),
-(7, 'Salah', 'Mohamed', 'Chemin Vert 19', 'mohamed.salah@gmail.com', '0489432110', 180, 5310),
-(8, 'De Bruyne', 'Kevin', 'Rue Saint-Jacques 7', 'kevin.debruyne@gmail.com', '0479222334', 75, 5140),
-(9, 'Lewandowski', 'Robert', 'Avenue des Lilas 8', 'robert.lewandowski@gmail.com', '0479334455', 250, 5330),
-(10, 'Modric', 'Luka', 'Place du Marché 12', 'luka.modric@gmail.com', '0499445566', 60, 5340),
-(11, 'Kane', 'Harry', 'Rue du Château 18', 'harry.kane@gmail.com', '0479123990', 170, 5350),
-(12, 'Suárez', 'Luis', 'Chaussée de Namur 20', 'luis.suarez@gmail.com', '0489123145', 45, 5002),
-(13, 'Griezmann', 'Antoine', 'Rue Neuve 30', 'antoine.griezmann@gmail.com', '0498134523', 195, 5021),
-(14, 'Ramos', 'Sergio', 'Avenue de la Libération 25', 'sergio.ramos@gmail.com', '0479234123', 80, 5022),
-(15, 'Pogba', 'Paul', 'Rue du Parc 10', 'paul.pogba@gmail.com', '0479123451', 100, 5003),
-(16, 'Alisson', 'Becker', 'Avenue des Sports 4', 'alisson.becker@gmail.com', '0479123511', 210, 5004),
-(17, 'Müller', 'Thomas', 'Rue de l’Église 16', 'thomas.mueller@gmail.com', '0489123654', 60, 5024),
-(18, 'Casemiro', 'Carlos', 'Chemin du Moulin 5', 'carlos.casemiro@gmail.com', '0498123579', 130, 5190),
-(19, 'Silva', 'Thiago', 'Rue des Écoles 11', 'thiago.silva@gmail.com', '0479123888', 155, 5020),
-(20, 'Sancho', 'Jadon', 'Place du Souvenir 2', 'jadon.sancho@gmail.com', '0479123991', 210, 5100),
-(21, 'Sterling', 'Raheem', 'Rue du Moulin 9', 'raheem.sterling@gmail.com', '0489211111', 175, 5300),
-(22, 'Kimmich', 'Joshua', 'Rue Victor Hugo 14', 'joshua.kimmich@gmail.com', '0479122991', 50, 5021),
-(23, 'Alaba', 'David', 'Avenue Roi Albert 22', 'david.alaba@gmail.com', '0479222111', 230, 5101),
-(24, 'Witsel', 'Axel', 'Rue des Fossés 13', 'axel.witsel@gmail.com', '0498333211', 90, 5150),
-(25, 'Verratti', 'Marco', 'Rue des Champs 11', 'marco.verratti@gmail.com', '0479123922', 140, 5310),
-(26, 'Son', 'Heung-min', 'Rue Joseph 4', 'heungmin.son@gmail.com', '0489123999', 160, 5140),
-(27, 'Bonucci', 'Leonardo', 'Place de l’Abbaye 8', 'leonardo.bonucci@gmail.com', '0479123155', 120, 5330),
-(28, 'Courtois', 'Thibaut', 'Rue du Calvaire 20', 'thibaut.courtois@gmail.com', '0498123991', 65, 5340),
-(29, 'Haaland', 'Erling', 'Rue des Tilleuls 3', 'erling.haaland@gmail.com', '0479123988', 220, 5350),
-(30, 'Aubameyang', 'Pierre-Emerick', 'Avenue de la Paix 7', 'pierre.aubameyang@gmail.com', '0479123977', 110, 5001),
-(31, 'Bale', 'Gareth', 'Rue du Village 15', 'gareth.bale@gmail.com', '0479123944', 55, 5002),
-(32, 'Rakitic', 'Ivan', 'Place Verte 1', 'ivan.rakitic@gmail.com', '0499123955', 180, 5003),
-(33, 'Piqué', 'Gerard', 'Rue Ernest 19', 'gerard.pique@gmail.com', '0479123933', 150, 5004),
-(34, 'Busquets', 'Sergio', 'Rue de l’Abbaye 22', 'sergio.busquets@gmail.com', '0479123921', 140, 5020),
-(35, 'Walker', 'Kyle', 'Avenue du Printemps 17', 'kyle.walker@gmail.com', '0489123987', 200, 5100),
-(36, 'Giroud', 'Olivier', 'Rue du Monument 13', 'olivier.giroud@gmail.com', '0479123966', 110, 5300),
-(37, 'Chiellini', 'Giorgio', 'Rue du Progrès 6', 'giorgio.chiellini@gmail.com', '0479123978', 90, 5021),
-(38, 'Sane', 'Leroy', 'Rue du Château d’Eau 10', 'leroy.sane@gmail.com', '0479123989', 170, 5101),
-(39, 'Depay', 'Memphis', 'Avenue du Roi 28', 'memphis.depay@gmail.com', '0479123992', 195, 5150),
-(40, 'Dzeko', 'Edin', 'Rue de la Station 18', 'edin.dzeko@gmail.com', '0479123993', 135, 5310),
-(41, 'Foden', 'Phil', 'Rue Neuve 19', 'phil.foden@gmail.com', '0479123994', 60, 5140),
-(42, 'Zlatan', 'Ibrahimovic', 'Rue de la Chapelle 14', 'zlatan.ibrahimovic@gmail.com', '0479123995', 220, 5330),
-(43, 'Casillas', 'Iker', 'Place du Général 3', 'iker.casillas@gmail.com', '0479123996', 110, 5340),
-(44, 'Totti', 'Francesco', 'Rue des Fontaines 21', 'francesco.totti@gmail.com', '0479123997', 185, 5350),
-(45, 'Maradona', 'Diego', 'Rue du Pont 24', 'diego.maradona@gmail.com', '0479123998', 120, 5001),
-(46, 'Pelé', 'Edson', 'Avenue de la Gare 8', 'edson.pele@gmail.com', '0479123999', 160, 5002),
-(47, 'Ronaldinho', 'Gaúcho', 'Rue des Roses 2', 'gaucho.ronaldinho@gmail.com', '0479124000', 95, 5003),
-(48, 'Cruyff', 'Johan', 'Rue des Pâquerettes 7', 'johan.cruyff@gmail.com', '0479124001', 210, 5004),
-(49, 'Van Basten', 'Marco', 'Chemin du Parc 10', 'marco.vanbasten@gmail.com', '0479124002', 135, 5020),
-(50, 'Zidane', 'Zinedine', 'Rue du Moulin 3', 'zizou@gmail.com', '0479124003', 80, 5100);
+-- Customer
+INSERT INTO customer (id, lastname, firstname, address, email, phone_number, fidelity_point_nb, region_postal_code, region_locality) VALUES
+(1, 'Messi', 'Lionel', 'Rue de la Loi 10', 'lionel.messi@gmail.com', '0470112233', 150, '5000', 'Namur'),
+(2, 'Ronaldo', 'Cristiano', 'Place d’Armes 5', 'cristiano.ronaldo@gmail.com', '0488332211', 50, '5100', 'Jambes'),
+(3, 'Neymar', 'Jr', 'Avenue de la Gare 12', 'neymar.jr@yahoo.com', '0479312456', 200, '5300', 'Andenne'),
+(4, 'Ozil', 'Mesut', 'Rue du Commerce 6', 'mesut.ozil@hotmail.com', '0479123344', 120, '5020', 'Vedrin'),
+(5, 'Benzema', 'Karim', 'Rue Haute 15', 'karim.benzema@gmail.com', '0499123123', 90, '5101', 'Erpent'),
+(6, 'Hazard', 'Eden', 'Boulevard Albert 24', 'eden.hazard@gmail.com', '0489221122', 300, '5150', 'Floreffe'),
+(7, 'Salah', 'Mohamed', 'Chemin Vert 19', 'mohamed.salah@gmail.com', '0489432110', 180, '5310', 'Éghezée'),
+(8, 'De Bruyne', 'Kevin', 'Rue Saint-Jacques 7', 'kevin.debruyne@gmail.com', '0479222334', 75, '5140', 'Sombreffe'),
+(9, 'Lewandowski', 'Robert', 'Avenue des Lilas 8', 'robert.lewandowski@gmail.com', '0479334455', 250, '5330', 'Assesse'),
+(10, 'Modric', 'Luka', 'Place du Marché 12', 'luka.modric@gmail.com', '0499445566', 60, '5340', 'Gesves'),
+(11, 'Kane', 'Harry', 'Rue du Château 18', 'harry.kane@gmail.com', '0479123990', 170, '5350', 'Ohey'),
+(12, 'Suárez', 'Luis', 'Chaussée de Namur 20', 'luis.suarez@gmail.com', '0489123145', 45, '5002', 'Saint-Servais'),
+(13, 'Griezmann', 'Antoine', 'Rue Neuve 30', 'antoine.griezmann@gmail.com', '0498134523', 195, '5021', 'Boninne'),
+(14, 'Ramos', 'Sergio', 'Avenue de la Libération 25', 'sergio.ramos@gmail.com', '0479234123', 80, '5022', 'Cognelée'),
+(15, 'Pogba', 'Paul', 'Rue du Parc 10', 'paul.pogba@gmail.com', '0479123451', 100, '5003', 'Saint-Marc'),
+(16, 'Alisson', 'Becker', 'Avenue des Sports 4', 'alisson.becker@gmail.com', '0479123511', 210, '5004', 'Bouge'),
+(17, 'Müller', 'Thomas', 'Rue de l’Église 16', 'thomas.mueller@gmail.com', '0489123654', 60, '5024', 'Marche-les-Dames'),
+(18, 'Casemiro', 'Carlos', 'Chemin du Moulin 5', 'carlos.casemiro@gmail.com', '0498123579', 130, '5190', 'Jemeppe-sur-Sambre'),
+(19, 'Silva', 'Thiago', 'Rue des Écoles 11', 'thiago.silva@gmail.com', '0479123888', 155, '5020', 'Vedrin'),
+(20, 'Sancho', 'Jadon', 'Place du Souvenir 2', 'jadon.sancho@gmail.com', '0479123991', 210, '5100', 'Jambes'),
+(21, 'Sterling', 'Raheem', 'Rue du Moulin 9', 'raheem.sterling@gmail.com', '0489211111', 175, '5300', 'Andenne'),
+(22, 'Kimmich', 'Joshua', 'Rue Victor Hugo 14', 'joshua.kimmich@gmail.com', '0479122991', 50, '5021', 'Boninne'),
+(23, 'Alaba', 'David', 'Avenue Roi Albert 22', 'david.alaba@gmail.com', '0479222111', 230, '5101', 'Erpent'),
+(24, 'Witsel', 'Axel', 'Rue des Fossés 13', 'axel.witsel@gmail.com', '0498333211', 90, '5150', 'Floreffe'),
+(25, 'Verratti', 'Marco', 'Rue des Champs 11', 'marco.verratti@gmail.com', '0479123922', 140, '5310', 'Éghezée'),
+(26, 'Son', 'Heung-min', 'Rue Joseph 4', 'heungmin.son@gmail.com', '0489123999', 160, '5140', 'Sombreffe'),
+(27, 'Bonucci', 'Leonardo', 'Place de l’Abbaye 8', 'leonardo.bonucci@gmail.com', '0479123155', 120, '5330', 'Assesse'),
+(28, 'Courtois', 'Thibaut', 'Rue du Calvaire 20', 'thibaut.courtois@gmail.com', '0498123991', 65, '5340', 'Gesves'),
+(29, 'Haaland', 'Erling', 'Rue des Tilleuls 3', 'erling.haaland@gmail.com', '0479123988', 220, '5350', 'Ohey'),
+(30, 'Aubameyang', 'Pierre-Emerick', 'Avenue de la Paix 7', 'pierre.aubameyang@gmail.com', '0479123977', 110, '5001', 'Belgrade'),
+(31, 'Bale', 'Gareth', 'Rue du Village 15', 'gareth.bale@gmail.com', '0479123944', 55, '5002', 'Saint-Servais'),
+(32, 'Rakitic', 'Ivan', 'Place Verte 1', 'ivan.rakitic@gmail.com', '0499123955', 180, '5003', 'Saint-Marc'),
+(33, 'Piqué', 'Gerard', 'Rue Ernest 19', 'gerard.pique@gmail.com', '0479123933', 150, '5004', 'Bouge'),
+(34, 'Busquets', 'Sergio', 'Rue de l’Abbaye 22', 'sergio.busquets@gmail.com', '0479123921', 140, '5020', 'Vedrin'),
+(35, 'Walker', 'Kyle', 'Avenue du Printemps 17', 'kyle.walker@gmail.com', '0489123987', 200, '5100', 'Jambes'),
+(36, 'Giroud', 'Olivier', 'Rue du Monument 13', 'olivier.giroud@gmail.com', '0479123966', 110, '5300', 'Andenne'),
+(37, 'Chiellini', 'Giorgio', 'Rue du Progrès 6', 'giorgio.chiellini@gmail.com', '0479123978', 90, '5021', 'Boninne'),
+(38, 'Sane', 'Leroy', 'Rue du Château d’Eau 10', 'leroy.sane@gmail.com', '0479123989', 170, '5101', 'Erpent'),
+(39, 'Depay', 'Memphis', 'Avenue du Roi 28', 'memphis.depay@gmail.com', '0479123992', 195, '5150', 'Floreffe'),
+(40, 'Dzeko', 'Edin', 'Rue de la Station 18', 'edin.dzeko@gmail.com', '0479123993', 135, '5310', 'Éghezée'),
+(41, 'Foden', 'Phil', 'Rue Neuve 19', 'phil.foden@gmail.com', '0479123994', 60, '5140', 'Sombreffe'),
+(42, 'Zlatan', 'Ibrahimovic', 'Rue de la Chapelle 14', 'zlatan.ibrahimovic@gmail.com', '0479123995', 220, '5330', 'Assesse'),
+(43, 'Casillas', 'Iker', 'Place du Général 3', 'iker.casillas@gmail.com', '0479123996', 110, '5340', 'Gesves'),
+(44, 'Totti', 'Francesco', 'Rue des Fontaines 21', 'francesco.totti@gmail.com', '0479123997', 185, '5350', 'Ohey'),
+(45, 'Maradona', 'Diego', 'Rue du Pont 24', 'diego.maradona@gmail.com', '0479123998', 120, '5001', 'Belgrade'),
+(46, 'Pelé', 'Edson', 'Avenue de la Gare 8', 'edson.pele@gmail.com', '0479123999', 160, '5002', 'Saint-Servais'),
+(47, 'Ronaldinho', 'Gaúcho', 'Rue des Roses 2', 'gaucho.ronaldinho@gmail.com', '0479124000', 95, '5003', 'Saint-Marc'),
+(48, 'Cruyff', 'Johan', 'Rue des Pâquerettes 7', 'johan.cruyff@gmail.com', '0479124001', 210, '5004', 'Bouge'),
+(49, 'Van Basten', 'Marco', 'Chemin du Parc 10', 'marco.vanbasten@gmail.com', '0479124002', 135, '5020', 'Vedrin'),
+(50, 'Zidane', 'Zinedine', 'Rue du Moulin 3', 'zizou@gmail.com', '0479124003', 80, '5100', 'Jambes');
 
--- 4. Lot
-INSERT INTO Lot (number, provenance, receptionDate, manager) VALUES
+-- Lot
+INSERT INTO Lot (number, provenance, reception_date, manager) VALUES
 (1, 'France', '2025-04-01', 1),
 (2, 'Belgium', '2025-04-05', 2),
 (3, 'Netherlands', '2025-04-06', 3),
@@ -103,8 +103,8 @@ INSERT INTO Lot (number, provenance, receptionDate, manager) VALUES
 (19, 'France', '2025-04-27', 1),
 (20, 'Belgium', '2025-04-28', 2);
 
--- 5. ProductModel
-INSERT INTO ProductModel (barcode, label, fidelityPointNb, requiredAge, keptWarm, keptCold, expirationDate, weight, storageTemperature, provenance, ecoScore) VALUES
+-- ProductModel
+INSERT INTO product_model (barcode, label, fidelity_point_nb, required_age, kept_warm, kept_cold, expiration_date, weight, storage_temperature, provenance, eco_score) VALUES
 (101, 'Biscuit Chocolat', 10, NULL, false, false, '2025-08-01', 0.200, NULL, 1, 'B'),
 (102, 'Lait Demi-Ecreme', 5, NULL, false, true, '2025-05-20', 1.000, 4, 2, 'A'),
 (103, 'Bière Blonde', 8, 16, false, true, '2025-12-10', 0.250, 5, 2, 'C'),
@@ -164,10 +164,10 @@ INSERT INTO ProductModel (barcode, label, fidelityPointNb, requiredAge, keptWarm
 (157, 'Ravioli Fromage', 9, NULL, false, false, '2026-09-01', 0.350, NULL, 5, 'B'),
 (158, 'Tagliatelles', 6, NULL, false, false, '2026-12-01', 0.500, NULL, 5, 'A'),
 (159, 'Nouilles Chinoises', 5, NULL, false, false, '2027-05-23', 0.400, NULL, 10, 'A'),
-(160, 'Bouillon Volaille', 4, NULL, false, false, '2027-03-12', 0.200, NULL, 4, 'B'),
+(160, 'Bouillon Volaille', 4, NULL, false, false, '2027-03-12', 0.200, NULL, 4, 'B');
 
--- 6. Product
-INSERT INTO Product (ID, unitPrice, promotionPercentage, model, sale) VALUES
+-- Product
+INSERT INTO product (id, unit_price, promotion_percentage, model_barcode, sale) VALUES
 (1, 2.99, 0, 101, NULL),
 (2, 1.20, 10, 102, NULL),
 (3, 1.50, 0, 103, NULL),
@@ -229,18 +229,30 @@ INSERT INTO Product (ID, unitPrice, promotionPercentage, model, sale) VALUES
 (59, 2.10, 0, 159, NULL),
 (60, 1.85, 0, 160, NULL);
 
--- 7. SalesDetail
-INSERT INTO SalesDetail (ID, quantity, fidelityPointUsed, date, seller, buyer, paymentMethod, comment) VALUES
-(1, 2, true, '2025-05-10', 1, 1, 'Card', 'Offre spéciale'),
-(2, 1, false, '2025-05-11', 2, 2, 'Cash', NULL),
-(3, 3, false, '2025-05-12', 3, 1, 'Card', NULL),
-(4, 1, true, '2025-05-13', 2, 1, 'Card', 'Promo fidélité'),
-(5, 5, false, '2025-05-14', 1, 2, 'Cash', 'Achat groupé'),
-(6, 2, true, '2025-05-15', 3, 2, 'Card', 'Offre printemps'),
-(7, 1, false, '2025-05-16', 2, 1, 'Card', NULL),
-(8, 4, false, '2025-05-17', 1, 1, 'Cash', 'Commande spéciale'),
-(9, 2, true, '2025-05-18', 2, 2, 'Card', 'Fête des mères'),
-(10, 1, false, '2025-05-19', 3, 2, 'Card', NULL);
+-- SalesDetail
+INSERT INTO sales_detail (id, quantity, fidelity_points_used, date, seller_id, buyer_id, payment_method, comment) VALUES
+(1, 2, false, '2025-05-22', 1, 14, 'Card', NULL),
+(2, 5, false, '2025-05-22', 2, 15, 'Cash', 'Achat groupé'),
+(3, 1, true, '2025-05-22', 3, 16, 'Card', 'Offre printemps'),
+(4, 2, false, '2025-05-22', 1, 17, 'Card', NULL),
+(5, 3, true, '2025-05-22', 2, 18, 'Card', NULL),
+(6, 1, false, '2025-05-22', 3, 19, 'Card', NULL),
+(7, 4, false, '2025-05-22', 2, 20, 'Cash', 'Commande spéciale'),
+
+(8, 4, false, '2025-05-23', 1, 8, 'Cash', 'Commande spéciale'),
+(9, 2, true, '2025-05-23', 2, 9, 'Card', NULL),
+(10, 1, false, '2025-05-23', 3, 10, 'Card', NULL),
+(11, 3, true, '2025-05-23', 1, 11, 'Card', 'Offre spéciale'),
+(12, 1, false, '2025-05-23', 2, 12, 'Cash', NULL),
+(13, 4, true, '2025-05-23', 3, 13, 'Card', 'Promo fidélité'),
+
+(14, 2, true, '2025-05-24', 1, 1, 'Card', 'Offre spéciale'),
+(15, 1, false, '2025-05-24', 2, 2, 'Cash', NULL),
+(16, 3, false, '2025-05-24', 3, 3, 'Card', NULL),
+(17, 1, true, '2025-05-24', 2, 4, 'Card', 'Promo fidélité'),
+(18, 5, false, '2025-05-24', 1, 5, 'Cash', 'Achat groupé'),
+(19, 2, true, '2025-05-24', 3, 6, 'Card', 'Offre printemps'),
+(20, 1, false, '2025-05-24', 2, 7, 'Card', NULL);
 
 -- Mise à jour des produits pour lier la vente
 UPDATE Product SET sale = 1 WHERE ID = 1;
@@ -253,3 +265,13 @@ UPDATE Product SET sale = 7 WHERE ID = 7;
 UPDATE Product SET sale = 8 WHERE ID = 8;
 UPDATE Product SET sale = 9 WHERE ID = 9;
 UPDATE Product SET sale = 10 WHERE ID = 10;
+UPDATE Product SET sale = 11 WHERE ID = 11;
+UPDATE Product SET sale = 12 WHERE ID = 12;
+UPDATE Product SET sale = 13 WHERE ID = 13;
+UPDATE Product SET sale = 14 WHERE ID = 14;
+UPDATE Product SET sale = 15 WHERE ID = 15;
+UPDATE Product SET sale = 16 WHERE ID = 16;
+UPDATE Product SET sale = 17 WHERE ID = 17;
+UPDATE Product SET sale = 18 WHERE ID = 18;
+UPDATE Product SET sale = 19 WHERE ID = 19;
+UPDATE Product SET sale = 20 WHERE ID = 20;
