@@ -1,4 +1,5 @@
 package controller;
+
 import exception.ConnectionException;
 import exception.ProductModelException;
 import model.Lot;
