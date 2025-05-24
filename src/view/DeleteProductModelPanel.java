@@ -16,13 +16,16 @@ public class DeleteProductModelPanel extends JPanel {
     public DeleteProductModelPanel(ProductModelController productModelController, MainWindow mainWindow) {
         this.productModelController = productModelController;
         formPanel = new JPanel();
-        buttonsPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(1,2,5,5));
+        formPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
         barcodeLabel = new JLabel("Code-barres :");
-        formPanel.add(barcodeLabel);
         barcode = new JTextField(9);
+        barcode.setPreferredSize(new Dimension(150, 25));
+        formPanel.add(barcodeLabel);
         formPanel.add(barcode);
 
+
+        buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         backToWelcomePanel = new JButton("Retour");
         backToWelcomePanel.addActionListener(e -> {
             mainWindow.homePage();
@@ -36,6 +39,14 @@ public class DeleteProductModelPanel extends JPanel {
             }
             try {
                 productModelController.deleteProductModel(Integer.parseInt(barcode.getText()));
+                String[] options = {"Oui", "Non"};
+                int response = JOptionPane.showOptionDialog(this, "Produit supprimé.\nVoulez-vous en supprimer un autre ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if (response == JOptionPane.YES_OPTION) {
+                    barcode.setText("");
+                } else {
+                    mainWindow.homePage();
+                }
+
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(formPanel, exception.getMessage(), "Erreur dans l'écriture des informations", JOptionPane.ERROR_MESSAGE);
             }
@@ -58,6 +69,11 @@ public class DeleteProductModelPanel extends JPanel {
             } catch (NumberFormatException e) {
                 errorMessages += "- Le code-barres doit être un nombre entier.\n";
             }
+        }
+
+        if (!errorMessages.isEmpty()) {
+            JOptionPane.showMessageDialog(this, errorMessages, "Erreur de validation", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
         return true;
     }

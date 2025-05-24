@@ -131,10 +131,10 @@ public class CreateProductModelPanel extends JPanel {
                 LocalDate expirationDateFormat = selected.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 productModel = new ProductModel(Integer.parseInt(barcode.getText()), label.getText(), Integer.parseInt(fidelityPointNb.getText()), (!requiredAge.getText().equals("") ? Integer.valueOf(requiredAge.getText()) : null), keptWarm.isSelected(), keptCold.isSelected(), expirationDateFormat, Integer.valueOf(weight.getText()), (!storageTemperature.getText().equals("") ? Integer.valueOf(storageTemperature.getText()) : null), (Lot) provenance.getSelectedItem(), (!ecoScore.getText().equals("") ? ecoScore.getText() : null));
                 productModelController.createProductModel(productModel);
-                JOptionPane.showMessageDialog(null, productModel,"Avertissement", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, productModel,"Fiche Produit", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception exception) {
                     exception.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Erreur lors de la création du produit :\n" + exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erreur de validation : \n" + exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

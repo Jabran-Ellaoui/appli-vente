@@ -17,7 +17,7 @@ public class MainWindow extends JFrame {
     Container frameContainer;
     private JMenuBar menuBar;
     private JMenu file, administration, productModelAdministration, salesDetailsAdministration, search;
-    private JMenuItem exit, createProductModel, deleteProductModel, updateProductModel, readOneProductModel, readAllProductModel, createSalesDetails, deleteSalesDetails, updateSalesDetails, readOneSalesDetails, readAllSalesDetails, searchProduct, searchSalesDetails, searchCustomer;
+    private JMenuItem exit, createProductModel, deleteProductModel, updateProductModel, readOneProductModel, readAllProductModel, createSalesDetails, deleteSalesDetails, updateSalesDetails, readOneSalesDetails, readAllSalesDetails, searchProduct, searchSalesDetails, searchCustomer, animation;
 
     public MainWindow() {
         super("Le Grand Bazar");
@@ -52,10 +52,20 @@ public class MainWindow extends JFrame {
         // Fichier
         exit = new JMenuItem("Quitter");
         exit.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "Quitter l'application ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            String[] options = {"Oui", "Non"};
+            int confirm = JOptionPane.showOptionDialog(this, "Quitter l'application ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if (confirm == JOptionPane.YES_OPTION) System.exit(0);
         });
         file.add(exit);
+
+        animation = new JMenuItem("Animation");
+        animation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AnimationPanel animationPanel = new AnimationPanel(MainWindow.this);
+                switchPanel(animationPanel);
+            }
+        });
+        file.add(animation);
 
         // Administration
         // Produit
@@ -164,6 +174,7 @@ public class MainWindow extends JFrame {
 
         });
         search.add(searchSalesDetails);
+
 
 
 
