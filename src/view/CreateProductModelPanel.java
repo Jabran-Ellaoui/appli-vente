@@ -129,7 +129,7 @@ public class CreateProductModelPanel extends JPanel {
                 ProductModel productModel;
                 Date selected = (Date) expirationDate.getValue();
                 LocalDate expirationDateFormat = selected.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                productModel = new ProductModel(Integer.parseInt(barcode.getText()), label.getText(), Integer.parseInt(fidelityPointNb.getText()), (!requiredAge.getText().equals("") ? Integer.valueOf(requiredAge.getText()) : null), keptWarm.isSelected(), keptCold.isSelected(), expirationDateFormat, Integer.valueOf(weight.getText()), (!storageTemperature.getText().equals("") ? Integer.valueOf(storageTemperature.getText()) : null), (Lot) provenance.getSelectedItem(), (!ecoScore.getText().equals("") ? ecoScore.getText() : null));
+                productModel = new ProductModel(Integer.parseInt(barcode.getText()), label.getText(), Integer.parseInt(fidelityPointNb.getText()), (!requiredAge.getText().equals("") ? Integer.valueOf(requiredAge.getText()) : null), keptWarm.isSelected(), keptCold.isSelected(), expirationDateFormat, Double.valueOf(weight.getText()), (!storageTemperature.getText().equals("") ? Integer.valueOf(storageTemperature.getText()) : null), (Lot) provenance.getSelectedItem(), (!ecoScore.getText().equals("") ? ecoScore.getText() : null));
                 productModelController.createProductModel(productModel);
                 JOptionPane.showMessageDialog(null, productModel,"Fiche Produit", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception exception) {
@@ -201,7 +201,7 @@ public class CreateProductModelPanel extends JPanel {
             errorMessages += "- Le poids est requis.\n";
         } else {
             try {
-                Integer.parseInt(weight.getText());
+                Double.parseDouble(weight.getText());
             } catch (NumberFormatException e) {
                 errorMessages += "- Le poids doit être un nombre entier.\n";
             }
