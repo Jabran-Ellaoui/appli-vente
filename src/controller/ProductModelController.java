@@ -15,62 +15,33 @@ public class ProductModelController {
         this.productModelService = new ProductModelService();
     }
 
-    public ProductModel getProductModelById(int id)
+    public ProductModel getProductModelById(int id) throws ProductModelException
     {
-        try
-        {
+
             return productModelService.getProductModel(id);
-        }
-        catch (ProductModelException exception)
-        {
-            System.err.println("Erreur lors de la récupération du produit : " + exception.getMessage());
-            return null;
-        }
+
     }
 
-    public ArrayList<ProductModel> getAllProductModels()
+    public ArrayList<ProductModel> getAllProductModels() throws ProductModelException
     {
-        try {
-            return productModelService.getAllProducts();
-        } catch (ProductModelException exception)
-        {
-            System.err.println("Erreur lors de la récupération de tous les produits : " + exception.getMessage());
-            return new ArrayList<>();
-        }
+        return productModelService.getAllProducts();
     }
 
-    public void createProductModel(ProductModel productModel)
-    {
-        try
-        {
+    public void createProductModel(ProductModel productModel) throws ProductModelException {
+
             productModelService.addNewProduct(productModel);
-        }
-        catch (ProductModelException exception)
-        {
-            System.err.println("Erreur lors de la création du produit : " + exception.getMessage());
-        }
+
     }
 
-    public void updateProductModel(ProductModel productModel)
-    {
-        try {
+    public void updateProductModel(ProductModel productModel) throws ProductModelException {
+
             productModelService.updateProduct(productModel);
-        }
-        catch (ProductModelException exception)
-        {
-            System.err.println("Erreur lors de la mise à jour du produit : " + exception.getMessage());
-        }
+
     }
 
-    public void deleteProductModel(int barcode)
-    {
-        try
-        {
+    public void deleteProductModel(int barcode) throws ProductModelException {
+
             productModelService.deleteProduct(barcode);
-        }
-        catch (ProductModelException exception)
-        {
-            System.err.println("Erreur lors de la suppression du produit : " + exception.getMessage());
-        }
+
     }
 }

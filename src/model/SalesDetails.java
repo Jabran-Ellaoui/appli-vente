@@ -31,7 +31,7 @@ public class SalesDetails
         return quantity;
     }
 
-    public boolean isFidelityPointUsed() {
+    public boolean isFidelityPointsUsed() {
         return fidelityPointUsed;
     }
 

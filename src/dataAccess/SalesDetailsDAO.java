@@ -6,6 +6,7 @@ import model.*;
 
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,24 +25,24 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
     public void create(SalesDetails salesDetails) throws SalesDetailsException
     {
 
-        String sqlInstruction = "INSERT INTO sales_details " + "(id, quantity, fidelity_point_used, sale_date, seller_id) " + "VALUES (?, ?, ?, ?, ?)";
+        String sqlInstruction = "INSERT INTO sales_detail (id, quantity, fidelity_points_used, sale_date, seller_id) " + "VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
         {
             preparedStatement.setInt(1, salesDetails.getId());
             preparedStatement.setInt(2, salesDetails.getQuantity());
-            preparedStatement.setBoolean(3, salesDetails.isFidelityPointUsed());
+            preparedStatement.setBoolean(3, salesDetails.isFidelityPointsUsed());
             preparedStatement.setDate(4, Date.valueOf(salesDetails.getDate()));
             preparedStatement.setInt(5, salesDetails.getSeller().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException exception)
         {
-            throw new SalesDetailsException("Erreur lors de la création de l'objet", exception);
+            throw new SalesDetailsException("Erreur lors de la création du détail de vente", exception);
         }
 
         if (salesDetails.getBuyer() != null)
         {
-            String sqlInstruction2 = "UPDATE sales_details SET buyer_id = ? WHERE id = ?";
+            String sqlInstruction2 = "UPDATE sales_detail SET buyer_id = ? WHERE id = ?";
             try (PreparedStatement preparedStatement2 = connection.prepareStatement(sqlInstruction2))
             {
                 preparedStatement2.setInt(1, salesDetails.getBuyer().getId());
@@ -56,7 +57,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
 
         if (salesDetails.getPaymentMethod() != null)
         {
-            String sqlInstruction3 = "UPDATE sales_details SET payment_method = ? WHERE id = ?";
+            String sqlInstruction3 = "UPDATE sales_detail SET payment_method = ? WHERE id = ?";
             try (PreparedStatement preparedStatement3 = connection.prepareStatement(sqlInstruction3))
             {
                 preparedStatement3.setString(1, salesDetails.getPaymentMethod());
@@ -65,13 +66,13 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             }
             catch (SQLException exception)
             {
-                throw new SalesDetailsException("Erreur lors de l'insertion du moyen de paiement'", exception);
+                throw new SalesDetailsException("Erreur lors de l'insertion du moyen de paiement", exception);
             }
         }
 
         if (salesDetails.getComment() != null)
         {
-            String sqlInstruction4 = "UPDATE sales_details SET comment = ? WHERE id = ?";
+            String sqlInstruction4 = "UPDATE sales_detail SET comment = ? WHERE id = ?";
             try (PreparedStatement preparedStatement4 = connection.prepareStatement(sqlInstruction4))
             {
                 preparedStatement4.setString(1, salesDetails.getComment());
@@ -90,7 +91,8 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
     {
         String sql = "DELETE FROM sales_detail WHERE id = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (PreparedStatement ps = connection.prepareStatement(sql))
+        {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException exception) {
@@ -98,45 +100,33 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
         }
     }
 
-    public SalesDetails read(int id) throws SalesDetailsException {
-        /*
-        String sqlInstruction = "SELECT id, quantity, fidelity_point_used, sale_date, payment_method, comment, buyer_id, seller_id" + " FROM sales_details WHERE id = ?";
+    public SalesDetails read(int id) throws SalesDetailsException
+    {
+
+        String sqlInstruction = "SELECT id, quantity, fidelity_points_used, sale_date, payment_method, comment, buyer_id, seller_id FROM sales_detail WHERE id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
         {
             preparedStatement.setInt(1, id);
             try (ResultSet data = preparedStatement.executeQuery())
             {
-                if (data.next())
+                if (!data.next())
                 {
-
-                    int quantity = data.getInt("quantity");
-                    boolean fidelity = data.getBoolean("fidelity_point_used");
-                    Date saleDate = data.getDate("sale_date");
-                    int sellerId = data.getInt("seller_id");
-                    Employee seller = new Employee(sellerId);
-
-                    String tmpPayment = data.getString("payment_method");
-                    String payment = data.wasNull() ? null : tmpPayment;
-
-                    String tmpComment = data.getString("comment");
-                    String comment = data.wasNull() ? null : tmpComment;
-
-                    int buyerId = data.getInt("buyer_id");
-                    Customer buyer = data.wasNull() ? null : new Customer(buyerId);
-
-                    return new SalesDetails(id, quantity, fidelity, payment, comment, new java.util.Date(saleDate.getTime()), buyer, seller);
+                    throw new SalesDetailsException("Aucune vente trouvée pour l'ID" + id, new SQLException("Data non trouvée"));
                 }
+
+                Employee seller = new Employee(data.getInt("seller_id"));
+                String payment = data.wasNull() ? null : data.getString("payment_method");
+                String comment = data.wasNull() ? null : data.getString("comment");
+                Customer buyer = data.wasNull() ? null : new Customer(data.getInt("buyer_id"));
+
+                return new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), payment, comment, data.getDate("saleDate").toLocalDate(), buyer, seller);
             }
-            catch (SQLException exception)
-            {
-                throw new SalesDetailsException("Erreur lors de la lecture", exception);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
-        */
-        return null;
+        catch (SQLException exception)
+        {
+            throw new SalesDetailsException("Erreur lors de la lecture des détails de vente", exception);
+        }
     }
 
     public void update(SalesDetails salesDetails) throws SalesDetailsException
@@ -146,7 +136,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
         {
             preparedStatement.setInt(1, salesDetails.getQuantity());
-            preparedStatement.setBoolean(2, salesDetails.isFidelityPointUsed());
+            preparedStatement.setBoolean(2, salesDetails.isFidelityPointsUsed());
             preparedStatement.setString(3, salesDetails.getPaymentMethod());
             preparedStatement.setString(4, salesDetails.getComment());
             preparedStatement.setDate(5, Date.valueOf(salesDetails.getDate()));
@@ -158,46 +148,34 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
         }
         catch (SQLException exception)
         {
-            throw new SalesDetailsException("Erreur lors de la mise à jour", exception);
+            throw new SalesDetailsException("Erreur lors de la mise à jour du détail de vente", exception);
         }
     }
 
     @Override
     public ArrayList<SalesDetails> readAll() throws SalesDetailsException
-    {/*
+    {
         ArrayList<SalesDetails> detailsList = new ArrayList<>();
-        String sqlInstruction = "SELECT id, quantity, fidelity_point_used, sale_date, payment_method, comment, buyer_id, seller_id " + "FROM sales_details";
+        String sqlInstruction = "SELECT id, quantity, fidelity_points_used, sale_date, payment_method, comment, buyer_id, seller_id FROM sales_detail";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
-             ResultSet data = preparedStatement.executeQuery())
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction); ResultSet data = preparedStatement.executeQuery())
         {
             while (data.next())
             {
-                int id = data.getInt("id");
-                int quantity = data.getInt("quantity");
-                boolean fidelity = data.getBoolean("fidelity_point_used");
-                Date saleDate = data.getDate("sale_date");
-                int sellerId = data.getInt("seller_id");
-                Employee seller = new Employee(sellerId);
 
-                String tmpPayment = data.getString("payment_method");
-                String payment    = data.wasNull() ? null : tmpPayment;
+                Employee seller = new Employee(data.getInt("seller_id"));
 
-                String tmpComment = data.getString("comment");
-                String comment    = data.wasNull() ? null : tmpComment;
+                String payment    = data.wasNull() ? null : data.getString("payment_method");
+                String comment    = data.wasNull() ? null : data.getString("comment");
+                Customer buyer = data.wasNull() ? null : new Customer(data.getInt("buyer_id"));
 
-                int tmpBuyerId = data.getInt("buyer_id");
-                Customer buyer = data.wasNull() ? null : new Customer(tmpBuyerId);
-
-                detailsList.add(new SalesDetails(id, quantity, fidelity, payment, comment, new java.util.Date(saleDate.getTime()), buyer, seller));
+                detailsList.add(new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), payment, comment, data.getDate("sale_date").toLocalDate(), buyer, seller));
             }
-            return (ArrayList<SalesDetails>) detailsList;
+            return detailsList;
         }
         catch (SQLException exception)
         {
-            throw new SalesDetailsException("Erreur lors de la lecture de tous les enregistrements", exception);
+            throw new SalesDetailsException("Erreur lors de la lecture de tous les enregistrements des détails de vente", exception);
         }
-    */
-        return null;
     }
 }

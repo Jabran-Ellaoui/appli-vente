@@ -36,7 +36,7 @@ public class ProductModelDAO implements ProductModelDAOInterface {
             preparedStatement.executeUpdate();
 
             if(product.getStorageTemperature() != null) {
-                String sqlInstructionStorageTemperature = "update product_model set storage_temparature = ? where barcode = ? ";
+                String sqlInstructionStorageTemperature = "update product_model set storage_temperature = ? where barcode = ? ";
                 preparedStatement = connection.prepareStatement(sqlInstructionStorageTemperature);
                 preparedStatement.setInt(1, product.getStorageTemperature());
                 preparedStatement.setInt(2, product.getBarcode());
@@ -63,38 +63,37 @@ public class ProductModelDAO implements ProductModelDAOInterface {
         }
     }
     @Override
-    public ProductModel read(int id) throws ProductModelException {
-        String sqlInstruction = "SELECT * FROM product_model WHERE barcode = ?";
-        ProductModel productModel;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
-            ResultSet data = preparedStatement.executeQuery();
-            Integer requiredAge;
-            Integer storageTemperature;
-            String ecoScore;
-            data.next();
-            productModel = new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), data.getBoolean("keep_warm"), data.getBoolean("keep_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), data.getInt("provenance"));
-            requiredAge = data.getInt("required_age");
-            if(!data.wasNull()) {
-                productModel.setRequiredAge((Integer) requiredAge);
+    public ProductModel read(int id) throws ProductModelException
+    {
+        String sqlInstruction = "SELECT barcode, label, fidelity_point_nb, kept_warm, kept_cold, expiration_date, weight, provenance, required_age, storage_temperature, eco_score FROM product_model WHERE barcode = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
+        {
+            preparedStatement.setInt(1, id);
+            try (ResultSet data = preparedStatement.executeQuery())
+            {
+                if (!data.next())
+                {
+                    throw new ProductModelException("Le produit n'existe pas :" + id);
+                }
+
+                Integer requiredAge = data.wasNull() ? null : data.getInt("required_age");
+                Integer storageTemperature = data.wasNull() ? null : data.getInt("storage_temperature");
+                String ecoScore = data.wasNull() ? null : data.getString("eco_score");
+
+                return new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), requiredAge, data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), storageTemperature, data.getObject("provenance", Lot.class), ecoScore);
             }
-            storageTemperature = data.getInt("storage_temperature");
-            if(!data.wasNull()) {
-                productModel.setStorageTemperature((Integer) storageTemperature);
-            }
-            ecoScore = data.getString("eco_score");
-            if(!data.wasNull()) {
-                productModel.setEcoScore(ecoScore);
-            }
-        } catch (SQLException productModelException) {
+        }
+        catch (SQLException productModelException)
+        {
             throw new ProductModelException("Erreur lors de la lecture du produit", productModelException);
         }
-        return productModel;
     }
 
     // changer les types integer à mettre dans la bd !!!!!!!!!!!!!!!!!!!!!! + vérifier les exceptions
     @Override
-    public void update(ProductModel product) throws ProductModelException {
+    public void update(ProductModel product) throws ProductModelException
+    {
         String sqlInstruction = "UPDATE product_model SET label=?, eco_score = ?, fidelity_point_nb=?, required_age=?, kept_warm=?, kept_cold=?, expiration_date=?, weight=?, storage_temperature=?, provenance=? WHERE barcode=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction)) {
             preparedStatement.setString(1, product.getLabel());
@@ -108,10 +107,13 @@ public class ProductModelDAO implements ProductModelDAOInterface {
             preparedStatement.setObject(9, product.getStorageTemperature(), Types.DOUBLE);
             preparedStatement.setObject(10, product.getProvenance());
             preparedStatement.executeUpdate();
-        } catch (SQLException productModelException) {
+        }
+        catch (SQLException productModelException)
+        {
             throw new ProductModelException("Erreur lors de la mise à jour du produit", productModelException);
         }
     }
+
     @Override
     public void delete(int barcode) throws ProductModelException {
         String sqlInstruction = "DELETE FROM product_model WHERE barcode = ? ";
@@ -131,34 +133,24 @@ public class ProductModelDAO implements ProductModelDAOInterface {
     public ArrayList<ProductModel> readAll() throws ProductModelException {
         String sqlInstruction = "SELECT * FROM product_model";
         ArrayList<ProductModel> products = new ArrayList<>();
-        // à voir si on met les preparedstatement dans les try ?
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction); ResultSet data = preparedStatement.executeQuery())
         {
-            ResultSet data = preparedStatement.executeQuery();
-            ProductModel productModel;
-            Integer requiredAge;
-            Integer storageTemperature;
-            String ecoScore;
-            while (data.next()) {
-                productModel = new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), data.getBoolean("keep_warm"), data.getBoolean("keep_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), data.getInt("provenance"));
-                requiredAge = data.getInt("required_age");
-                if(!data.wasNull()) {
-                    productModel.setRequiredAge((Integer) requiredAge);
-                }
-                storageTemperature = data.getInt("storage_temperature");
-                if(!data.wasNull()) {
-                    productModel.setStorageTemperature((Integer) storageTemperature);
-                }
-                ecoScore = data.getString("eco_score");
-                if(!data.wasNull()) {
-                    productModel.setEcoScore(ecoScore);
-                }
-                products.add(productModel);
+            while (data.next())
+            {
+                Integer requiredAge = data.wasNull() ? null : data.getInt("required_age");
+                Integer storageTemperature = data.wasNull() ? null : data.getInt("storage_temperature");
+                String ecoScore = data.wasNull() ? null : data.getString("eco_score");
+
+                Lot provenance = new Lot(data.getInt("provenance"));
+
+                products.add(new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_points_nb"), data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), provenance));
             }
-        } catch (SQLException productModelException) {
+            return products;
+        } catch (SQLException productModelException)
+        {
             throw new ProductModelException("Erreur lors de la lecture des produits", productModelException);
         }
-        return products;
     }
 
 }

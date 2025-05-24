@@ -10,9 +10,10 @@ import java.util.ArrayList;
 
 public class LotService
 {
-    private LotDAOInterface lotDAO;
+    private final LotDAOInterface lotDAO;
 
     public LotService() throws ConnectionException {
+
         this.lotDAO = new LotDAO();
     }
 

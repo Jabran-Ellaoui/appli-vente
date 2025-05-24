@@ -25,6 +25,18 @@ public class Customer
         this.locality = locality;
     }
 
+    public Customer(int id, String lastname, String firstname, String address, String email, Locality locality)
+    {
+        this.id = id;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = null;
+        this.fidelityPointNb = null;
+        this.locality = locality;
+    }
+
     public Customer(int id)
     {
         this.id = id;
@@ -60,5 +72,37 @@ public class Customer
 
     public Locality getLocality() {
         return locality;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhoneNumber(Integer phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setFidelityPointNb(Integer fidelityPointNb) {
+        this.fidelityPointNb = fidelityPointNb;
+    }
+
+    public void setLocality(Locality locality) {
+        this.locality = locality;
     }
 }

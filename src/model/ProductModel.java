@@ -31,7 +31,7 @@ public class ProductModel {
         this.ecoScore = ecoScore;
     }
 
-    public ProductModel(int barcode, String label, int fidelityPointNb, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, int provenance) {
+    public ProductModel(int barcode, String label, int fidelityPointNb, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, Lot provenance) {
         this.barcode = barcode;
         this.label = label;
         this.fidelityPointNb = fidelityPointNb;
@@ -41,7 +41,7 @@ public class ProductModel {
         this.expirationDate = expirationDate;
         this.weight = weight;
         this.storageTemperature = null;
-        this.provenance = new Lot(provenance); // destiné au DAO
+        this.provenance = provenance;
         this.ecoScore = null;
     }
 

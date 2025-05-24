@@ -28,19 +28,11 @@ public class LotDAO implements LotDAOInterface
         ArrayList<Lot> lots = new ArrayList<>();
         String sqlInstruction = "SELECT * FROM lot";
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction); ResultSet data = preparedStatement.executeQuery())
         {
-            ResultSet data = preparedStatement.executeQuery();
-            Lot lot;
-
             while (data.next())
             {
-                int number = data.getInt("number");
-                String provenance = data.getString("provenance");
-                LocalDate date = data.getDate("receptionDate").toLocalDate();
-                Employee employee = data.getObject("employee", Employee.class);
-
-                lots.add(new Lot(number, provenance, date, employee));
+                lots.add(new Lot(data.getInt("number"), data.getString("provenance"), data.getDate("reception_date").toLocalDate(), new Employee(data.getInt("id"))));
             }
             return lots;
         }

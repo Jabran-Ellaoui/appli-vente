@@ -1,5 +1,6 @@
 package dataAccess;
 
+import exception.EmployeeException;
 import exception.ProductModelException;
 import model.Employee;
 
@@ -8,6 +9,6 @@ import java.util.ArrayList;
 
 public interface EmployeeDAOInterface
 {
-    ArrayList<Employee> readall() throws SQLException;
+    ArrayList<Employee> readAll() throws EmployeeException;
 }
 
