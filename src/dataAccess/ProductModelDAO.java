@@ -82,7 +82,8 @@ public class ProductModelDAO implements ProductModelDAOInterface {
                 Integer storageTemperature = data.wasNull() ? null : data.getInt("storage_temperature");
                 String ecoScore = data.wasNull() ? null : data.getString("eco_score");
 
-                return new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), requiredAge, data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), storageTemperature, data.getObject("provenance", Lot.class), ecoScore);
+                Lot provenance = new Lot(data.getInt("provenance"));
+                return new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), requiredAge, data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), storageTemperature, provenance, ecoScore);
             }
         }
         catch (SQLException productModelException)

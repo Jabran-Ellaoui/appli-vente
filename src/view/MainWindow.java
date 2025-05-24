@@ -104,18 +104,28 @@ public class MainWindow extends JFrame {
         updateProductModel = new JMenuItem("Mettre à jour Produit");
         updateProductModel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                frameContainer.removeAll();
-                //nouveau
-                // frameContainer.add(, BorderLayout.CENTER);
-                frameContainer.revalidate();
-                frameContainer.repaint();
+                try {
+                    ProductModelController productModelController = new ProductModelController();
+                    UpdateProductModelPanel updateProductModelPanel = new UpdateProductModelPanel();
+                    switchPanel(updateProductModelPanel);
+                } catch (ConnectionException exception) {
+                    exception.printStackTrace();
+                    JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         productModelAdministration.add(updateProductModel);
 
         readOneProductModel = new JMenuItem("Voir un Produit");
         readOneProductModel.addActionListener(e -> {
-
+            try {
+                ProductModelController productModelController = new ProductModelController();
+                ReadOneProductModelPanel readOneProductModelPanel = new ReadOneProductModelPanel(productModelController, MainWindow.this);
+                switchPanel(readOneProductModelPanel);
+            } catch (ConnectionException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
         });
         productModelAdministration.add(readOneProductModel);
 
