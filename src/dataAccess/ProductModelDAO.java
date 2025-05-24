@@ -107,7 +107,9 @@ public class ProductModelDAO implements ProductModelDAOInterface {
             preparedStatement.setDate(7, Date.valueOf(product.getExpirationDate()));
             preparedStatement.setDouble(8, product.getWeight());
             preparedStatement.setObject(9, product.getStorageTemperature(), Types.DOUBLE);
-            preparedStatement.setObject(10, product.getProvenance());
+            Lot provenance = product.getProvenance();
+            preparedStatement.setInt(10, provenance.getNumber());
+            preparedStatement.setInt(11, product.getBarcode());
             preparedStatement.executeUpdate();
         }
         catch (SQLException productModelException)
@@ -146,7 +148,7 @@ public class ProductModelDAO implements ProductModelDAOInterface {
 
                 Lot provenance = new Lot(data.getInt("provenance"));
 
-                products.add(new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_points_nb"), requiredAge, data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), storageTemperature, provenance, ecoScore));
+                products.add(new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), requiredAge, data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), storageTemperature, provenance, ecoScore));
             }
             return products;
         } catch (SQLException productModelException)

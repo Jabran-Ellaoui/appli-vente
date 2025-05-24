@@ -197,7 +197,7 @@ public class UpdateProductModelPanel extends JPanel {
         });
         buttonsPanel.add(reset);
 
-        clear = new JButton("Reset");
+        clear = new JButton("Supprimer tout");
         clear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 barcode.setText("");
