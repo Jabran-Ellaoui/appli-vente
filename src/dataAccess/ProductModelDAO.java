@@ -21,7 +21,7 @@ public class ProductModelDAO implements ProductModelDAOInterface {
     }
 
     public void create(ProductModel product) throws ProductModelException {
-        String sqlInstruction = "INSERT INTO product_model (barcode, label, fidelity_points_nb, kept_warm, kept_cold, expiration_date, weight, provenance) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlInstruction = "INSERT INTO product_model (barcode, label, fidelity_point_nb, kept_warm, kept_cold, expiration_date, weight, provenance) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             // Remplissage objet valeurs obligatoires
             PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
@@ -32,7 +32,8 @@ public class ProductModelDAO implements ProductModelDAOInterface {
             preparedStatement.setBoolean(5, product.isKeptCold());
             preparedStatement.setDate(6, Date.valueOf(product.getExpirationDate()));
             preparedStatement.setDouble(7, product.getWeight());
-            preparedStatement.setObject(8, product.getProvenance());
+            Lot provenance = product.getProvenance();
+            preparedStatement.setInt(8, provenance.getNumber());
             preparedStatement.executeUpdate();
 
             if(product.getStorageTemperature() != null) {
