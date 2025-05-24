@@ -146,7 +146,7 @@ public class ProductModelDAO implements ProductModelDAOInterface {
 
                 Lot provenance = new Lot(data.getInt("provenance"));
 
-                products.add(new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_points_nb"), data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), provenance));
+                products.add(new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), provenance));
             }
             return products;
         } catch (SQLException productModelException)

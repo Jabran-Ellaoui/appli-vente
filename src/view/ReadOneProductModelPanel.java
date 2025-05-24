@@ -56,57 +56,68 @@ public class ReadOneProductModelPanel extends JPanel {
         resultsPanel.removeAll();
 
         barcodeLabelInfo = new JLabel("Code-barres :");
+        barcodeLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
         barcodeInfo = new JLabel(String.valueOf(productModel.getBarcode()));
         resultsPanel.add(barcodeLabelInfo);
         resultsPanel.add(barcodeInfo);
 
         labelLabelInfo = new JLabel("Libellé :");
+        labelLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
         labelInfo = new JLabel(productModel.getLabel());
         resultsPanel.add(labelLabelInfo);
         resultsPanel.add(labelInfo);
 
         fidelityPointNbLabelInfo = new JLabel("Points de fidélité :");
+        fidelityPointNbLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
         fidelityPointNbInfo = new JLabel(String.valueOf(productModel.getFidelityPointNb()));
         resultsPanel.add(fidelityPointNbLabelInfo);
         resultsPanel.add(fidelityPointNbInfo);
 
         requiredAgeLabelInfo = new JLabel("Age requis :");
-        requiredAgeInfo = new JLabel(String.valueOf(productModel.getRequiredAge()));
+        requiredAgeLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
+        requiredAgeInfo = new JLabel(productModel.getRequiredAge() != null ? String.valueOf(productModel.getRequiredAge()) : "/");
         resultsPanel.add(requiredAgeLabelInfo);
         resultsPanel.add(requiredAgeInfo);
 
         keptWarmLabelInfo = new JLabel("Conservé au chaud :");
+        keptWarmLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
         keptWarmInfo = new JLabel(productModel.isKeptWarm() ? "Oui" : "Non");
         resultsPanel.add(keptWarmLabelInfo);
         resultsPanel.add(keptWarmInfo);
 
         keptColdLabelInfo = new JLabel("Conservé au froid :");
+        keptColdLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
         keptColdInfo = new JLabel(productModel.isKeptCold() ? "Oui" : "Non");
         resultsPanel.add(keptColdLabelInfo);
         resultsPanel.add(keptColdInfo);
 
         expirationDateLabelInfo = new JLabel("Date d'expiration :");
+        expirationDateLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
         expirationDateInfo = new JLabel(productModel.getExpirationDate().toString());
         resultsPanel.add(expirationDateLabelInfo);
         resultsPanel.add(expirationDateInfo);
 
         weightLabelInfo = new JLabel("Poids :");
+        weightLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
         weightInfo = new JLabel(String.valueOf(productModel.getWeight()) + "Kg");
         resultsPanel.add(weightLabelInfo);
         resultsPanel.add(weightInfo);
 
         storageTemperatureLabelInfo = new JLabel("Température de stockage:");
-        storageTemperatureInfo = new JLabel(String.valueOf(productModel.getStorageTemperature()));
+        storageTemperatureLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
+        storageTemperatureInfo = new JLabel(productModel.getStorageTemperature() != null ? String.valueOf(productModel.getStorageTemperature()) : "/");
         resultsPanel.add(storageTemperatureLabelInfo);
         resultsPanel.add(storageTemperatureInfo);
 
         provenanceLabelInfo = new JLabel("Provenance :");
+        provenanceLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
         provenanceInfo = new JLabel(productModel.getProvenance().toString());
         resultsPanel.add(provenanceLabelInfo);
         resultsPanel.add(provenanceInfo);
 
         ecoScoreLabelInfo = new JLabel("Eco-score :");
-        ecoScoreInfo = new JLabel(String.valueOf(productModel.getEcoScore()));
+        ecoScoreLabelInfo.setHorizontalAlignment(SwingConstants.RIGHT);
+        ecoScoreInfo = new JLabel(productModel.getEcoScore() != null ? String.valueOf(productModel.getEcoScore()) : "/");
         resultsPanel.add(ecoScoreLabelInfo);
         resultsPanel.add(ecoScoreInfo);
 

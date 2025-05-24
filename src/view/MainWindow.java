@@ -106,7 +106,8 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     ProductModelController productModelController = new ProductModelController();
-                    UpdateProductModelPanel updateProductModelPanel = new UpdateProductModelPanel();
+                    LotController lotController = new LotController();
+                    UpdateProductModelPanel updateProductModelPanel = new UpdateProductModelPanel(productModelController, lotController, MainWindow.this);
                     switchPanel(updateProductModelPanel);
                 } catch (ConnectionException exception) {
                     exception.printStackTrace();
@@ -131,7 +132,14 @@ public class MainWindow extends JFrame {
 
         readAllProductModel = new JMenuItem("Voir tous les Produits");
         readAllProductModel.addActionListener(e -> {
-
+            try {
+                ProductModelController productModelController = new ProductModelController();
+                ReadAllProductModelPanel readAllProductModelPanel = new ReadAllProductModelPanel(productModelController, MainWindow.this);
+                switchPanel(readAllProductModelPanel);
+            } catch (ConnectionException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
         });
         productModelAdministration.add(readAllProductModel);
 
