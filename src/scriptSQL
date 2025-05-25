@@ -16,7 +16,7 @@ CREATE TABLE customer (
     address VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20),
-    fidelity_point_nb INT,
+    fidelity_point_nb INT DEFAULT 0 CHECK (fidelity_point_nb >= 0),
     region_postal_code INT,
     region_locality VARCHAR(100),
     FOREIGN KEY (region_postal_code, region_locality) REFERENCES locality(postal_code, locality)
@@ -41,13 +41,13 @@ CREATE TABLE lot (
 CREATE TABLE product_model (
     barcode VARCHAR(50) PRIMARY KEY,
     label VARCHAR(100) NOT NULL,
-    eco_score VARCHAR(5),
-    fidelity_point_nb INT,
-    required_age INT,
+    eco_score VARCHAR(5) CHECK (eco_score IN ('A', 'B', 'C', 'D', 'E')),
+    fidelity_point_nb INT DEFAULT 0 CHECK (fidelity_point_nb >= 0),
+    required_age INT CHECK (required_age IS NULL OR required_age >= 0),
     kept_warm BOOLEAN NOT NULL,
     kept_cold BOOLEAN NOT NULL,
     expiration_date DATE NOT NULL,
-    weight FLOAT NOT NULL,
+    weight FLOAT NOT NULL CHECK (weight > 0),
     storage_temperature FLOAT,
     provenance INT,
     FOREIGN KEY (provenance) REFERENCES lot(number)
@@ -55,7 +55,7 @@ CREATE TABLE product_model (
 
 CREATE TABLE sales_detail (
     id INT PRIMARY KEY,
-    quantity INT NOT NULL,
+    quantity INT NOT NULL CHECK (quantity > 0),
     fidelity_points_used BOOLEAN,
     payment_method VARCHAR(50),
     comment TEXT,
@@ -68,8 +68,8 @@ CREATE TABLE sales_detail (
 
 CREATE TABLE product (
     id INT PRIMARY KEY,
-    unit_price DECIMAL(10,2) NOT NULL,
-    promotion_percentage DECIMAL(5,2),
+    unit_price DECIMAL(10,2) NOT NULL CHECK (unit_price > 0),
+    promotion_percentage DECIMAL(5,2) CHECK (promotion_percentage IS NULL OR (promotion_percentage >= 0 AND promotion_percentage <= 100)),
     model_barcode VARCHAR(50) NOT NULL,
     sale INT,
     FOREIGN KEY (model_barcode) REFERENCES product_model(barcode),

@@ -127,7 +127,7 @@ public class SearchDAO implements SearchDAOInterface {
                 JOIN product ON sales_detail.id = product.sale
                 WHERE customer.id = ?
                   AND sales_detail.date BETWEEN ? AND ?
-                GROUP BY customer.firstname, customer.lastname
+                GROUP BY customer.id, customer.firstname, customer.lastname
         """;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
