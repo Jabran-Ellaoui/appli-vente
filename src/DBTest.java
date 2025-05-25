@@ -1,19 +1,20 @@
-import java.sql.*;
+import javax.swing.*;
+import java.awt.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
+import view.*;
+import model.*;
+import controller.*;
+import businessLogic.*;
+import dataAccess.*;
+import exception.*;
+
 
 public class DBTest {
-    /*
+
     public static void main(String[] args) {
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarche_db", "root", "rootpassword1234");
-            System.out.println("Connexion réussie !");
-            String sqlInstruction = "INSERT INTO Employee (ID, lastname, firstname, phone_number) VALUES (1, 'Libart', 'Nathaniel', '0479123456')";
-                // Remplissage objet valeurs obligatoires
-                PreparedStatement preparedStatement = conn.prepareStatement(sqlInstruction);
-                preparedStatement.executeUpdate();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Hello World !");
     }
-     */
 }
