@@ -51,4 +51,23 @@ public class ProductDAO implements ProductDAOInterface
             throw new ProductException("Erreur lors de la lecture des produits", exception);
         }
     }
+
+    public void deleteAllProductsFromSales(int salesId) throws SQLException
+    {
+
+        String sqlInstruction = "DELETE FROM product WHERE sale = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sqlInstruction))
+        {
+            ps.setInt(1, salesId);
+            ps.executeUpdate();
+        }
+
+        String sqlInstruction2 = "DELETE FROM sales_detail WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sqlInstruction2))
+        {
+            ps.setInt(1, salesId);
+            ps.executeUpdate();
+        }
+    }
+
 }
