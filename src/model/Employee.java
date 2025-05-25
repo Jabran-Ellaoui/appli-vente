@@ -38,4 +38,8 @@ public class Employee
     public int getPhoneNumber() {
         return phoneNumber;
     }
+
+    public String toString() {
+        return firstname + " " + lastname;
+    }
 }

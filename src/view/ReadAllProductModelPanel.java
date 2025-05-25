@@ -153,5 +153,4 @@ public class ReadAllProductModelPanel extends JPanel {
         resultsPanel.revalidate();
         resultsPanel.repaint();
     }
-
 }

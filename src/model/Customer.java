@@ -105,4 +105,8 @@ public class Customer
     public void setLocality(Locality locality) {
         this.locality = locality;
     }
+
+    public String toString() {
+        return firstname + " " + lastname + " " + address;
+    }
 }
