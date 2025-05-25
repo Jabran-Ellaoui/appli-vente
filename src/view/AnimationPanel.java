@@ -5,20 +5,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class AnimationPanel extends JPanel implements Runnable
+public class AnimationPanel extends JPanel
 {
     private final MainWindow mainWindow;
-
     private final BufferedImage[] sprites = new BufferedImage[3];
-    private final int[] x = new int[3];
-    private final int[] delay = new int[3];  // délai avant réapparition
+    private final int[] xcoords = new int[3];
+    private final int[] delay = new int[3];
 
     private static final int BELT_HEIGHT = 200;
-    private static final int SPEED = 5;
-    private static final int DELAY = 50;
-    private static final int MAX_DELAY = 40;
 
-    private boolean running = true;
+    // déclarés ici mais initialisés dans le constructeur avant usage
+    private final AnimationRunnable animator;
+    private final Thread animationThread;
 
     public AnimationPanel(MainWindow mainWindow)
     {
@@ -26,66 +24,48 @@ public class AnimationPanel extends JPanel implements Runnable
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
+        // permet juste de charger les sprites et de setup la position initiale
         for (int i = 0; i < sprites.length; i++)
         {
-            try {
+            try
+            {
                 sprites[i] = ImageIO.read(getClass().getResourceAsStream("assets/sprite" + i + ".png"));
             }
             catch (Exception exception)
             {
                 sprites[i] = null;
             }
-            x[i] = getPreferredSize().width + i * 200;
+            xcoords[i]     = getPreferredSize().width + i * 200;
             delay[i] = 0;
         }
 
-        JButton back = new JButton("Retour");
-        back.addActionListener(e -> {running = false;mainWindow.homePage();});
-        add(back, BorderLayout.SOUTH);
+        animator = new AnimationRunnable(this, sprites, xcoords, delay);
+        animationThread = new Thread(animator, "AnimationThread");
+        animationThread.start();
 
-        new Thread(this).start();
+
+        JButton back = new JButton("Retour");
+        back.addActionListener(e -> {animator.stop();mainWindow.homePage();});
+        add(back, BorderLayout.SOUTH);
     }
 
     @Override
-    protected void paintComponent(Graphics g)
+    protected void paintComponent(Graphics draw)
     {
-        super.paintComponent(g);
+        super.paintComponent(draw);
         int w = getWidth(), h = getHeight();
 
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, h - BELT_HEIGHT, w, BELT_HEIGHT);
+        // plateau
+        draw.setColor(Color.LIGHT_GRAY);
+        draw.fillRect(0, h - BELT_HEIGHT, w, BELT_HEIGHT);
 
-        for (int i = 0; i < sprites.length; i++) {
-            if (sprites[i] != null && delay[i] == 0) {
+        // Dessin des sprites
+        for (int i = 0; i < sprites.length; i++)
+        {
+            if (sprites[i] != null && delay[i] == 0)
+            {
                 int y = h - BELT_HEIGHT + 20 - sprites[i].getHeight() / 10;
-                g.drawImage(sprites[i], x[i], y, this);
-            }
-        }
-    }
-
-    @Override
-    public void run() {
-        while (running) {
-            int w = getWidth();
-            for (int i = 0; i < sprites.length; i++) {
-                if (sprites[i] == null) continue;
-
-                if (delay[i] > 0) {
-                    delay[i]--;
-                } else {
-                    x[i] -= SPEED;
-                    if (x[i] + sprites[i].getWidth() < 0) {
-                        delay[i] = (int) (Math.random() * MAX_DELAY);
-                        x[i] = w;
-                    }
-                }
-            }
-            repaint();
-
-            try {
-                Thread.sleep(DELAY);
-            } catch (InterruptedException e) {
-                running = false;
+                draw.drawImage(sprites[i], xcoords[i], y, this);
             }
         }
     }
