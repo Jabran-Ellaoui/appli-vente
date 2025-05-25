@@ -7,7 +7,8 @@ public class Product {
     private ProductModel model;
     private SalesDetails sale;
 
-    public Product(int id, double unitPrice, Integer promotionPercentage, ProductModel model, SalesDetails sale) {
+    public Product(int id, double unitPrice, Integer promotionPercentage, ProductModel model, SalesDetails sale)
+    {
         this.id = id;
         this.unitPrice = unitPrice;
         this.promotionPercentage = promotionPercentage;
@@ -24,7 +25,8 @@ public class Product {
         this.sale = sale;
     }
 
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 }

@@ -13,11 +13,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame
+
+{
     Container frameContainer;
     private JMenuBar menuBar;
-    private JMenu file, administration, productModelAdministration, salesDetailsAdministration, search;
-    private JMenuItem exit, createProductModel, deleteProductModel, updateProductModel, readOneProductModel, readAllProductModel, createSalesDetails, deleteSalesDetails, updateSalesDetails, readOneSalesDetails, readAllSalesDetails, searchProduct, searchSalesDetails, searchCustomer, animation;
+    private JMenu file, administration, productModelAdministration, salesDetailsAdministration, search, helpMenu;
+    private JMenuItem exit, createProductModel, deleteProductModel, updateProductModel, readOneProductModel, readAllProductModel, createSalesDetails, deleteSalesDetails, updateSalesDetails, readOneSalesDetails, readAllSalesDetails, searchProduct, searchSalesDetails, searchCustomer, animation, helpItem;
 
     public MainWindow() {
         super("Le Grand Bazar");
@@ -47,6 +49,9 @@ public class MainWindow extends JFrame {
 
         search = new JMenu("Recherche");
         menuBar.add(search);
+
+        helpMenu = new JMenu("Aide");
+        menuBar.add(helpMenu);
 
         // création menuitem
         // Fichier
@@ -192,6 +197,15 @@ public class MainWindow extends JFrame {
 
         });
         search.add(searchSalesDetails);
+
+        // Aide
+
+        helpItem = new JMenuItem("Documentation");
+        helpItem.addActionListener(e -> {
+            HelpPanel helpPanel = new HelpPanel(MainWindow.this);
+            switchPanel(helpPanel);
+        });
+        helpMenu.add(helpItem);
 
 
 
