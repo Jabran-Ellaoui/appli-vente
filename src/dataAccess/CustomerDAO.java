@@ -35,13 +35,22 @@ public class CustomerDAO implements CustomerDAOInterface
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction); ResultSet data = preparedStatement.executeQuery())
         {
-
+            Integer phoneNumber;
+            Integer fidelityPointsNb;
+            Locality locality;
+            Customer customer;
             while (data.next())
             {
-                Integer phoneNumber = data.wasNull() ? null : data.getInt("phone_number");
-                Integer fidelityPointsNb = data.wasNull() ? null : data.getInt("fidelity_point_nb");
-                Locality locality = new Locality(data.getInt("region_postal_code"), data.getString("locality_name"));
-                customers.add(new Customer(data.getInt("id"), data.getString("lastname"), data.getString("firstname"), data.getString("address"), data.getString("email"),phoneNumber, fidelityPointsNb, locality));
+                locality = new Locality(data.getString("region_postal_code"), data.getString("region_locality"));
+                customer = new Customer(data.getInt("id"), data.getString("lastname"), data.getString("firstname"), data.getString("address"), data.getString("email"), locality);
+
+                phoneNumber = data.getInt("phone_number");
+                if (!data.wasNull()){customer.setPhoneNumber(phoneNumber);}
+
+                fidelityPointsNb = data.getInt("fidelity_point_nb");
+                if (!data.wasNull()){customer.setFidelityPointNb(fidelityPointsNb);}
+
+                customers.add(customer);
             }
 
             return customers;

@@ -38,11 +38,18 @@ public class ProductDAO implements ProductDAOInterface
             ResultSet data = preparedStatement.executeQuery();
             Product product;
             Integer promotionPercentage;
+            ProductModel productModel;
+            SalesDetails salesDetails;
 
             while (data.next())
             {
-                product = new Product(data.getInt("id"), data.getDouble("unitPrice"), data.getObject("model", ProductModel.class), data.getObject("sales", SalesDetails.class));
+                productModel = new ProductModel(data.getInt("model_barcode"));
+                salesDetails = new SalesDetails(data.getInt("sale"));
+                product = new Product(data.getInt("id"), data.getDouble("unit_price"), productModel, salesDetails);
 
+                promotionPercentage = data.getInt("promotion_percentage");
+                if (!data.wasNull()) {product.setPromotionPercentage(promotionPercentage);};
+                products.add(product);
             }
             return products;
         }

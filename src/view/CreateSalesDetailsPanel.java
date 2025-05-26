@@ -21,13 +21,15 @@ public class CreateSalesDetailsPanel extends JPanel {
     private final CustomerController customerController;
     private final ProductController productController;
 
-    private JPanel formPanel, buttonsPanel;
+    private JPanel formPanel, buttonsPanel, productsPanel, mainPanel;
     private JLabel idLabel, quantityLabel, paymentMethodLabel, commentLabel, dateLabel, sellerLabel, buyerLabel;
     private JTextField id, quantity, comment, paymentMethod;
     private JCheckBox fidelityPointUsed;
     private JComboBox seller, buyer;
     private JSpinner date;
-    private JButton reset, backToWelcomePanel, submit;
+    private JButton reset, backToWelcomePanel, submit, copyProduct;
+    private JList products, chosenProducts;
+
 
     public CreateSalesDetailsPanel(SalesDetailsController salesDetailsController, EmployeeController employeeController, CustomerController customerController, ProductController productController, MainWindow mainWindow) {
         this.salesDetailsController = salesDetailsController;
@@ -35,6 +37,8 @@ public class CreateSalesDetailsPanel extends JPanel {
         this.customerController = customerController;
         this.productController = productController;
 
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
         // form panel
         formPanel = new JPanel();
         buttonsPanel = new JPanel();

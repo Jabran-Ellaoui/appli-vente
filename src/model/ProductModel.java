@@ -31,7 +31,8 @@ public class ProductModel {
         this.ecoScore = ecoScore;
     }
 
-    public ProductModel(int barcode, String label, int fidelityPointNb, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, Lot provenance) {
+    public ProductModel(int barcode, String label, int fidelityPointNb, boolean keptWarm, boolean keptCold, LocalDate expirationDate, double weight, Lot provenance)
+    {
         this.barcode = barcode;
         this.label = label;
         this.fidelityPointNb = fidelityPointNb;
@@ -45,6 +46,10 @@ public class ProductModel {
         this.ecoScore = null;
     }
 
+    public ProductModel(int barcode)
+    {
+        this.barcode = barcode;
+    }
 
     public int getBarcode() {
         return barcode;

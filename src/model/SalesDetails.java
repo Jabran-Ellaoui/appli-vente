@@ -26,6 +26,22 @@ public class SalesDetails
         this.seller = seller;
     }
 
+    public SalesDetails(int id, int quantity, boolean fidelityPointUsed, LocalDate date, Employee seller)
+    {
+        this.id = id;
+        this.quantity = quantity;
+        this.fidelityPointUsed = fidelityPointUsed;
+        this.paymentMethod = null;
+        this.comment = null;
+        this.date = date;
+        this.buyer = null;
+        this.seller = seller;
+    }
+
+    public SalesDetails(int id)
+    {
+        this.id = id;
+    }
 
     public int getQuantity() {
         return quantity;
@@ -57,5 +73,37 @@ public class SalesDetails
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setFidelityPointUsed(boolean fidelityPointUsed) {
+        this.fidelityPointUsed = fidelityPointUsed;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setSeller(Employee seller) {
+        this.seller = seller;
+    }
+
+    public void setBuyer(Customer buyer) {
+        this.buyer = buyer;
     }
 }

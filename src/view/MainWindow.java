@@ -153,6 +153,17 @@ public class MainWindow extends JFrame
         // Sales Details
         createSalesDetails = new JMenuItem("Créer Vente");
         createSalesDetails.addActionListener(e -> {
+            try {
+                SalesDetailsController salesDetailsController = new SalesDetailsController();
+                EmployeeController employeeController = new EmployeeController();
+                CustomerController customerController = new CustomerController();
+                ProductController productController = new ProductController();
+                CreateSalesDetailsPanel createSalesDetailsPanel = new CreateSalesDetailsPanel(salesDetailsController, employeeController, customerController, productController, MainWindow.this);
+                switchPanel(createSalesDetailsPanel);
+            } catch (ConnectionException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
 
         });
         salesDetailsAdministration.add(createSalesDetails);
@@ -200,6 +211,15 @@ public class MainWindow extends JFrame
 
         searchProduct = new JMenuItem("Recherche Produit");
         searchProduct.addActionListener(e -> {
+            try{
+                SearchController searchController = new SearchController();
+                SearchProductPanel searchProductPanel = new SearchProductPanel(searchController, MainWindow.this);
+                switchPanel(searchProductPanel);
+            } catch (SearchException exception)
+            {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
 
         });
         search.add(searchProduct);

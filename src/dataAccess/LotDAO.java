@@ -24,7 +24,8 @@ public class LotDAO implements LotDAOInterface
         }
     }
 
-    public ArrayList<Lot> readAll() throws LotException {
+    public ArrayList<Lot> readAll() throws LotException
+    {
         ArrayList<Lot> lots = new ArrayList<>();
         String sqlInstruction = "SELECT * FROM lot";
 
