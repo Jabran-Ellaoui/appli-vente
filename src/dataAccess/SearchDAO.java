@@ -61,51 +61,66 @@ public class SearchDAO implements SearchDAOInterface {
         ArrayList<Object[]> results = new ArrayList<>();
 
         String sql = """
-            SELECT
-                product.unit_price,
-                product.promotion_percentage,
-                product_model.label,
-                sales_detail.quantity,
-                sales_detail.fidelity_points_used,
-                customer.firstname AS customer_firstname,
-                customer.lastname AS customer_lastname,
-                customer.id AS customer_id,
-                employee.firstname AS employee_firstname,
-                employee.lastname AS employee_lastname,
-                employee.id AS employee_id
-            FROM product
-            JOIN product_model ON product.model_barcode = product_model.barcode
-            JOIN sales_detail ON product.sale = sales_detail.id
-            JOIN customer ON sales_detail.buyer_id = customer.id
-            JOIN employee ON sales_detail.seller_id = employee.id
-            WHERE customer.id = ?
-              AND employee.id = ?
-              AND sales_detail.date = ?
-        """;
+    SELECT
+        product.id AS product_id,
+        product.unit_price,
+        product.promotion_percentage,
 
+        product_model.label,
 
-        try (PreparedStatement statement = connection.prepareStatement(sql))
-        {
+        sales_detail.id AS sale_id,
+        sales_detail.quantity,
+        sales_detail.fidelity_points_used,
+        sales_detail.payment_method,
+        sales_detail.comment,
+        sales_detail.date,
+
+        customer.firstname AS customer_firstname,
+        customer.lastname AS customer_lastname,
+        customer.id AS customer_id,
+
+        employee.firstname AS employee_firstname,
+        employee.lastname AS employee_lastname,
+        employee.id AS employee_id
+
+    FROM product
+    JOIN product_model ON product.model_barcode = product_model.barcode
+    JOIN sales_detail ON product.sale = sales_detail.id
+    JOIN customer ON sales_detail.buyer_id = customer.id
+    JOIN employee ON sales_detail.seller_id = employee.id
+    WHERE customer.id = ?
+      AND employee.id = ?
+      AND sales_detail.date = ?
+""";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, clientId);
             statement.setInt(2, employeeId);
             statement.setDate(3, saleDate);
 
             ResultSet rs = statement.executeQuery();
 
-            while (rs.next())
-            {
-                Object[] row = new Object[11];
-                row[0] = rs.getDouble("unit_price");
-                row[1] = rs.getDouble("promotion_percentage");
-                row[2] = rs.getString("label");
-                row[3] = rs.getInt("quantity");
-                row[4] = rs.getBoolean("fidelity_points_used");
-                row[5] = rs.getString("customer_firstname");
-                row[6] = rs.getString("customer_lastname");
-                row[7] = rs.getInt("customer_id");
-                row[8] = rs.getString("employee_firstname");
-                row[9] = rs.getString("employee_lastname");
-                row[10] = rs.getInt("employee_id");
+            while (rs.next()) {
+                Object[] row = new Object[16];
+                row[0] = rs.getInt("product_id");
+                row[1] = rs.getDouble("unit_price");
+                row[2] = rs.getDouble("promotion_percentage");
+                row[3] = rs.getString("label");
+
+                row[4] = rs.getInt("sale_id");
+                row[5] = rs.getInt("quantity");
+                row[6] = rs.getBoolean("fidelity_points_used");
+                row[7] = rs.getString("payment_method");
+                row[8] = rs.getString("comment");
+                row[9] = rs.getDate("date");
+
+                row[10] = rs.getString("customer_firstname");
+                row[11] = rs.getString("customer_lastname");
+                row[12] = rs.getInt("customer_id");
+
+                row[13] = rs.getString("employee_firstname");
+                row[14] = rs.getString("employee_lastname");
+                row[15] = rs.getInt("employee_id");
 
                 results.add(row);
             }
