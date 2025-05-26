@@ -255,7 +255,7 @@ INSERT INTO sales_detail (id, quantity, fidelity_points_used, date, seller_id, b
 (20, 1, false, '2025-05-24', 2, 7, 'Card', NULL);
 
 -- Mise à jour des produits pour lier la vente
-UPDATE Product SET sale = 1 WHERE ID = 1;
+UPDATE Product SET sale = 2 WHERE ID = 1;
 UPDATE Product SET sale = 2 WHERE ID = 2;
 UPDATE Product SET sale = 3 WHERE ID = 3;
 UPDATE Product SET sale = 4 WHERE ID = 4;

@@ -1,7 +1,6 @@
 package view;
 
 import controller.SearchController;
-import exception.SearchException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,9 +15,14 @@ public class SearchCustomerPanel extends JPanel {
     private final JTextField dateField = new JTextField(10);
     private final JTable table = new JTable();
 
-    public SearchCustomerPanel(SearchController searchController, MainWindow mainWindow) {
+    private final JLabel clientInfoLabel = new JLabel("Client : ");
+    private final JLabel employeeInfoLabel = new JLabel("Employé : ");
+
+    public SearchCustomerPanel(SearchController searchController, MainWindow mainWindow)
+    {
         setLayout(new BorderLayout());
 
+        // formulaire recherche
         JPanel topPanel = new JPanel();
         topPanel.add(new JLabel("Client ID:"));
         topPanel.add(clientField);
@@ -29,12 +33,22 @@ public class SearchCustomerPanel extends JPanel {
 
         JButton searchButton = new JButton("Rechercher");
         topPanel.add(searchButton);
-
         add(topPanel, BorderLayout.NORTH);
-        add(new JScrollPane(table), BorderLayout.CENTER);
 
-        searchButton.addActionListener(e ->
-        {
+        // infos client/employé + tableau
+        JPanel centerPanel = new JPanel(new BorderLayout());
+
+        JPanel infoPanel = new JPanel(new GridLayout(2, 1)); // 2 lignes : client + employé
+        infoPanel.add(clientInfoLabel);
+        infoPanel.add(employeeInfoLabel);
+
+        centerPanel.add(infoPanel, BorderLayout.NORTH);
+        centerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
+
+        add(centerPanel, BorderLayout.CENTER);
+
+        // Action du bouton de recherche
+        searchButton.addActionListener(e -> {
             try {
                 int clientId = Integer.parseInt(clientField.getText());
                 int employeeId = Integer.parseInt(employeeField.getText());
@@ -42,14 +56,28 @@ public class SearchCustomerPanel extends JPanel {
 
                 ArrayList<Object[]> results = searchController.getSoldProducts(clientId, employeeId, date);
 
-                DefaultTableModel model = new DefaultTableModel(new String[]{"Prix", "Quantité", "Produit", "Quantité", "Points de fidélité utilisé"}, 0);
+                if (!results.isEmpty())
+                {
+                    Object[] firstRow = results.get(0);
+                    clientInfoLabel.setText("Client : " + firstRow[5] + " " + firstRow[6] + " (ID : " + firstRow[7] + ")");
+                    employeeInfoLabel.setText("Employé : " + firstRow[8] + " " + firstRow[9] + " (ID : " + firstRow[10] + ")");
+                }
+                else
+                {
+                    clientInfoLabel.setText("Client : Aucun résultat");
+                    employeeInfoLabel.setText("Employé : Aucun résultat");
+                }
+
+                DefaultTableModel model = new DefaultTableModel(new String[]{"Produit", "Prix", "Promotion appliquée", "Points de fidélité utilisés" }, 0);
                 for (Object[] row : results)
                 {
-                    model.addRow(row);
+                    model.addRow(new Object[]{row[2], row[0], row[1], row[4]});
                 }
                 table.setModel(model);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erreur : " + ex.getMessage());
+
+            } catch (Exception exception)
+            {
+                JOptionPane.showMessageDialog(this, "Erreur : " + exception.getMessage());
             }
         });
     }
