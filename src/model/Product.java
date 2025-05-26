@@ -29,4 +29,9 @@ public class Product {
     {
         return id;
     }
+
+
+    public void setPromotionPercentage(Integer promotionPercentage) {
+        this.promotionPercentage = promotionPercentage;
+    }
 }

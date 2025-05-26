@@ -104,6 +104,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
     {
 
         String sqlInstruction = "SELECT id, quantity, fidelity_points_used, sale_date, payment_method, comment, buyer_id, seller_id FROM sales_detail WHERE id = ?";
+        SalesDetails salesDetails;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
         {
@@ -114,13 +115,23 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
                 {
                     throw new SalesDetailsException("Aucune vente trouvée pour l'ID" + id, new SQLException("Data non trouvée"));
                 }
+                Customer buyer;
+                String paymentMethod;
+                String comment;
 
                 Employee seller = new Employee(data.getInt("seller_id"));
-                String payment = data.wasNull() ? null : data.getString("payment_method");
-                String comment = data.wasNull() ? null : data.getString("comment");
-                Customer buyer = data.wasNull() ? null : new Customer(data.getInt("buyer_id"));
+                salesDetails = new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), data.getDate("sale_date").toLocalDate(), seller);
 
-                return new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), payment, comment, data.getDate("saleDate").toLocalDate(), buyer, seller);
+                paymentMethod = data.getString("payment_method");
+                if (!data.wasNull()) {salesDetails.setPaymentMethod(paymentMethod);}
+
+                comment = data.getString("comment");
+                if (!data.wasNull()) {salesDetails.setComment(comment);}
+
+                buyer = new Customer(data.getInt("buyer_id"));
+                if (!data.wasNull()) {salesDetails.setBuyer(buyer);}
+
+                return salesDetails;
             }
         }
         catch (SQLException exception)
@@ -160,16 +171,26 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction); ResultSet data = preparedStatement.executeQuery())
         {
+            Customer buyer;
+            String paymentMethod;
+            String comment;
+            SalesDetails salesDetails;
             while (data.next())
             {
 
                 Employee seller = new Employee(data.getInt("seller_id"));
+                salesDetails = new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), data.getDate("sale_date").toLocalDate(), seller);
 
-                String payment    = data.wasNull() ? null : data.getString("payment_method");
-                String comment    = data.wasNull() ? null : data.getString("comment");
-                Customer buyer = data.wasNull() ? null : new Customer(data.getInt("buyer_id"));
+                paymentMethod = data.getString("payment_method");
+                if (!data.wasNull()) {salesDetails.setPaymentMethod(paymentMethod);}
 
-                detailsList.add(new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), payment, comment, data.getDate("sale_date").toLocalDate(), buyer, seller));
+                comment = data.getString("comment");
+                if (!data.wasNull()) {salesDetails.setComment(comment);}
+
+                buyer = new Customer(data.getInt("buyer_id"));
+                if (!data.wasNull()) {salesDetails.setBuyer(buyer);}
+
+                detailsList.add(salesDetails);
             }
             return detailsList;
         }

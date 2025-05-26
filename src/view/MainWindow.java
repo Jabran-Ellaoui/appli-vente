@@ -211,6 +211,15 @@ public class MainWindow extends JFrame
 
         searchProduct = new JMenuItem("Recherche Produit");
         searchProduct.addActionListener(e -> {
+            try{
+                SearchController searchController = new SearchController();
+                SearchProductPanel searchProductPanel = new SearchProductPanel(searchController, MainWindow.this);
+                switchPanel(searchProductPanel);
+            } catch (SearchException exception)
+            {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
 
         });
         search.add(searchProduct);

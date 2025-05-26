@@ -37,6 +37,8 @@ public class Customer
         this.locality = locality;
     }
 
+
+
     public Customer(int id)
     {
         this.id = id;

@@ -18,6 +18,11 @@ public class SearchCustomerPanel extends JPanel {
     private final JLabel clientInfoLabel = new JLabel("Client : ");
     private final JLabel employeeInfoLabel = new JLabel("Employé : ");
 
+    private final JLabel salesDetailsIDLabel = new JLabel("ID de la vente :");
+    private final JLabel salesDetailsPaymentLabel = new JLabel("Moyen de paiement :");
+    private final JLabel salesDetailsDateLabel = new JLabel("Date de la vente :");
+    private final JLabel salesDetailsCommentLabel = new JLabel("Commentaire :");
+
     public SearchCustomerPanel(SearchController searchController, MainWindow mainWindow)
     {
         setLayout(new BorderLayout());
@@ -38,9 +43,13 @@ public class SearchCustomerPanel extends JPanel {
         // infos client/employé + tableau
         JPanel centerPanel = new JPanel(new BorderLayout());
 
-        JPanel infoPanel = new JPanel(new GridLayout(2, 1)); // 2 lignes : client + employé
+        JPanel infoPanel = new JPanel(new GridLayout(6, 1)); // 2 lignes : client + employé
         infoPanel.add(clientInfoLabel);
         infoPanel.add(employeeInfoLabel);
+        infoPanel.add(salesDetailsIDLabel);
+        infoPanel.add(salesDetailsDateLabel);
+        infoPanel.add(salesDetailsPaymentLabel);
+        infoPanel.add(salesDetailsCommentLabel);
 
         centerPanel.add(infoPanel, BorderLayout.NORTH);
         centerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
@@ -48,7 +57,8 @@ public class SearchCustomerPanel extends JPanel {
         add(centerPanel, BorderLayout.CENTER);
 
         // Action du bouton de recherche
-        searchButton.addActionListener(e -> {
+        searchButton.addActionListener(e ->
+        {
             try {
                 int clientId = Integer.parseInt(clientField.getText());
                 int employeeId = Integer.parseInt(employeeField.getText());
@@ -59,8 +69,12 @@ public class SearchCustomerPanel extends JPanel {
                 if (!results.isEmpty())
                 {
                     Object[] firstRow = results.get(0);
-                    clientInfoLabel.setText("Client : " + firstRow[5] + " " + firstRow[6] + " (ID : " + firstRow[7] + ")");
-                    employeeInfoLabel.setText("Employé : " + firstRow[8] + " " + firstRow[9] + " (ID : " + firstRow[10] + ")");
+                    clientInfoLabel.setText("Client : " + firstRow[10] + " " + firstRow[11] + " (ID : " + firstRow[12] + ")");
+                    employeeInfoLabel.setText("Employé : " + firstRow[13] + " " + firstRow[14] + " (ID : " + firstRow[15] + ")");
+                    salesDetailsIDLabel.setText("ID de la vente : " + firstRow[4]);
+                    salesDetailsDateLabel.setText("Date de la vente :" + firstRow[9]);
+                    salesDetailsPaymentLabel.setText("Moyen de payement : " + firstRow[7]);
+                    salesDetailsCommentLabel.setText("Commentaire : " + firstRow[8]);
                 }
                 else
                 {

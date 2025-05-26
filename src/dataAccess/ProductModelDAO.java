@@ -67,7 +67,7 @@ public class ProductModelDAO implements ProductModelDAOInterface {
     public ProductModel read(int id) throws ProductModelException
     {
         String sqlInstruction = "SELECT barcode, label, fidelity_point_nb, kept_warm, kept_cold, expiration_date, weight, provenance, required_age, storage_temperature, eco_score FROM product_model WHERE barcode = ?";
-
+        ProductModel productModel;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
         {
             preparedStatement.setInt(1, id);
@@ -78,12 +78,23 @@ public class ProductModelDAO implements ProductModelDAOInterface {
                     throw new ProductModelException("Le produit n'existe pas :" + id);
                 }
 
-                Integer requiredAge = data.wasNull() ? null : data.getInt("required_age");
-                Integer storageTemperature = data.wasNull() ? null : data.getInt("storage_temperature");
-                String ecoScore = data.wasNull() ? null : data.getString("eco_score");
+                Integer requiredAge;
+                Integer storageTemperature;
+                String ecoScore;
                 Lot provenance = new Lot(data.getInt("provenance"));
 
-                return new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), requiredAge, data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), storageTemperature, provenance, ecoScore);
+                productModel = new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), provenance);
+
+                requiredAge = data.getInt("required_age");
+                if(!data.wasNull()) {productModel.setRequiredAge((Integer) requiredAge);}
+
+                storageTemperature = data.getInt("storage_temperature");
+                if(!data.wasNull()) {productModel.setStorageTemperature((Integer) storageTemperature);}
+
+                ecoScore = data.getString("eco_score");
+                if(!data.wasNull()) {productModel.setEcoScore(ecoScore);}
+
+                return productModel;
             }
         }
         catch (SQLException productModelException)
@@ -140,15 +151,25 @@ public class ProductModelDAO implements ProductModelDAOInterface {
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction); ResultSet data = preparedStatement.executeQuery())
         {
+            Integer requiredAge;
+            Integer storageTemperature;
+            String ecoScore;
+            ProductModel productModel;
+            Lot provenance;
             while (data.next())
             {
-                Integer requiredAge = data.wasNull() ? null : data.getInt("required_age");
-                Integer storageTemperature = data.wasNull() ? null : data.getInt("storage_temperature");
-                String ecoScore = data.wasNull() ? null : data.getString("eco_score");
+                provenance = new Lot(data.getInt("provenance"));
+                productModel = new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), provenance);
+                requiredAge = data.getInt("required_age");
+                if(!data.wasNull()) {productModel.setRequiredAge((Integer) requiredAge);}
 
-                Lot provenance = new Lot(data.getInt("provenance"));
+                storageTemperature = data.getInt("storage_temperature");
+                if(!data.wasNull()) {productModel.setStorageTemperature((Integer) storageTemperature);}
 
-                products.add(new ProductModel(data.getInt("barcode"), data.getString("label"), data.getInt("fidelity_point_nb"), requiredAge, data.getBoolean("kept_warm"), data.getBoolean("kept_cold"), data.getDate("expiration_date").toLocalDate(), data.getDouble("weight"), storageTemperature, provenance, ecoScore));
+                ecoScore = data.getString("eco_score");
+                if(!data.wasNull()) {productModel.setEcoScore(ecoScore);}
+
+                products.add(productModel);
             }
             return products;
         } catch (SQLException productModelException)
