@@ -213,12 +213,15 @@ public class MainWindow extends JFrame
         searchProduct.addActionListener(e -> {
             try{
                 SearchController searchController = new SearchController();
-                SearchProductPanel searchProductPanel = new SearchProductPanel(searchController, MainWindow.this);
+                LotController lotController = new LotController();
+                SearchProductPanel searchProductPanel = new SearchProductPanel(searchController, lotController,MainWindow.this);
                 switchPanel(searchProductPanel);
             } catch (SearchException exception)
             {
                 exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            } catch (ConnectionException ex) {
+                throw new RuntimeException(ex);
             }
 
         });

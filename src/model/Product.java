@@ -31,7 +31,8 @@ public class Product {
     }
 
 
-    public void setPromotionPercentage(Integer promotionPercentage) {
+    public void setPromotionPercentage(Integer promotionPercentage)
+    {
         this.promotionPercentage = promotionPercentage;
     }
 }

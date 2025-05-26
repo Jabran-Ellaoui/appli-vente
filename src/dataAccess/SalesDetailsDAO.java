@@ -103,7 +103,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
     public SalesDetails read(int id) throws SalesDetailsException
     {
 
-        String sqlInstruction = "SELECT id, quantity, fidelity_points_used, sale_date, payment_method, comment, buyer_id, seller_id FROM sales_detail WHERE id = ?";
+        String sqlInstruction = "SELECT id, quantity, fidelity_points_used, date, payment_method, comment, buyer_id, seller_id FROM sales_detail WHERE id = ?";
         SalesDetails salesDetails;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
@@ -120,7 +120,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
                 String comment;
 
                 Employee seller = new Employee(data.getInt("seller_id"));
-                salesDetails = new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), data.getDate("sale_date").toLocalDate(), seller);
+                salesDetails = new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), data.getDate("date").toLocalDate(), seller);
 
                 paymentMethod = data.getString("payment_method");
                 if (!data.wasNull()) {salesDetails.setPaymentMethod(paymentMethod);}
@@ -167,7 +167,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
     public ArrayList<SalesDetails> readAll() throws SalesDetailsException
     {
         ArrayList<SalesDetails> detailsList = new ArrayList<>();
-        String sqlInstruction = "SELECT id, quantity, fidelity_points_used, sale_date, payment_method, comment, buyer_id, seller_id FROM sales_detail";
+        String sqlInstruction = "SELECT id, quantity, fidelity_points_used, date, payment_method, comment, buyer_id, seller_id FROM sales_detail";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction); ResultSet data = preparedStatement.executeQuery())
         {
@@ -179,7 +179,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             {
 
                 Employee seller = new Employee(data.getInt("seller_id"));
-                salesDetails = new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), data.getDate("sale_date").toLocalDate(), seller);
+                salesDetails = new SalesDetails(data.getInt("id"), data.getInt("quantity"), data.getBoolean("fidelity_points_used"), data.getDate("date").toLocalDate(), seller);
 
                 paymentMethod = data.getString("payment_method");
                 if (!data.wasNull()) {salesDetails.setPaymentMethod(paymentMethod);}

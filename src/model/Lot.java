@@ -25,6 +25,18 @@ public class Lot {
         return number;
     }
 
+    public String getProvenance() {
+        return provenance;
+    }
+
+    public LocalDate getReceptionDate() {
+        return receptionDate;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
     @Override
     public String toString() {
         return "Lot n° " + number;

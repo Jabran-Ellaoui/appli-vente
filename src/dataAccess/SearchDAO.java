@@ -28,8 +28,8 @@ public class SearchDAO implements SearchDAOInterface {
             FROM product
             JOIN product_model ON product.model_barcode = product_model.barcode
             JOIN lot ON product_model.provenance = lot.number
-            WHERE product_model.label = ?
-              AND lot.provenance = ?
+            WHERE product_model.label LIKE ?
+              AND lot.provenance LIKE ?
               AND lot.reception_date >= ?
         """;
 
