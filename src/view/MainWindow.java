@@ -2,6 +2,7 @@ package view;
 
 import exception.ConnectionException;
 import exception.ProductModelException;
+import exception.SearchException;
 import model.*;
 import controller.*;
 
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+
 
 public class MainWindow extends JFrame
 
@@ -182,6 +184,16 @@ public class MainWindow extends JFrame
         // Recherches
         searchCustomer = new JMenuItem("Recherche Client");
         searchCustomer.addActionListener(e -> {
+            try
+            {
+                SearchController searchController = new SearchController();
+                SearchCustomerPanel searchCustomerPanel = new SearchCustomerPanel(searchController, MainWindow.this);
+                switchPanel(searchCustomerPanel);
+            } catch (SearchException exception)
+            {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
 
         });
         search.add(searchCustomer);

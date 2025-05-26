@@ -84,14 +84,16 @@ public class SearchDAO implements SearchDAOInterface {
         """;
 
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql))
+        {
             statement.setInt(1, clientId);
             statement.setInt(2, employeeId);
             statement.setDate(3, saleDate);
 
             ResultSet rs = statement.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Object[] row = new Object[11];
                 row[0] = rs.getDouble("unit_price");
                 row[1] = rs.getDouble("promotion_percentage");
@@ -113,7 +115,8 @@ public class SearchDAO implements SearchDAOInterface {
 
     //Recherche 3
     @Override
-    public ArrayList<Object[]> getSalesSummary(int clientId, Date startDate, Date endDate) throws SQLException {
+    public ArrayList<Object[]> getSalesSummary(int clientId, Date startDate, Date endDate) throws SQLException
+    {
         ArrayList<Object[]> results = new ArrayList<>();
 
         String sql = """
