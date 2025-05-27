@@ -82,7 +82,7 @@ public class FidelityService {
 
     public Map<String, Object> getRecentPurchasesWithPoints(int customerId, int limit) throws CustomerException, SalesDetailsException, ProductModelException {
         Map<String, Object> result = new HashMap<>();
-        
+
         Customer client = getCustomerById(customerId);
         
         if (client == null) {

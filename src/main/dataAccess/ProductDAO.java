@@ -1,5 +1,6 @@
 package main.dataAccess;
 
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import main.exception.ConnectionException;
 import main.exception.ProductException;
 import main.model.Product;
@@ -105,6 +106,22 @@ public class ProductDAO implements ProductDAOInterface
         } catch (SQLException exception) {
             throw new ProductException("Erreur lors de la lecture des produits pour le saleId = " + saleId, exception);
         }
+    }
+
+    public void updateProduct(int productId, int salesId) throws ProductException
+    {
+        String sqlInstruction = "UPDATE product SET sale = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
+        {
+            preparedStatement.setInt(1, salesId);
+            preparedStatement.setInt(2, productId);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException exception)
+        {
+            throw new ProductException("Erreur lors de la liaison entre le produit et son salesur le saleId = " + salesId, exception);
+        }
+
     }
 
 }

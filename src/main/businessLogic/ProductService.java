@@ -25,4 +25,9 @@ public class ProductService
     public ArrayList<Product> getAllProductsBySalesID(int salesID) throws ProductException {
         return (ArrayList<Product>)productDAO.readProductsBySalesID(salesID);
     }
+
+    public void updateProduct(int productID, int salesID)
+    {
+        productDAO.updateProduct(productID, salesID);
+    }
 }

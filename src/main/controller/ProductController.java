@@ -17,7 +17,9 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    public ArrayList<Product> getAllProductsBySalesID(int saleID) {
+    public ArrayList<Product> getAllProductsBySalesID(int saleID)
+    {
         return productService.getAllProductsBySalesID(saleID);
     }
+
 }
