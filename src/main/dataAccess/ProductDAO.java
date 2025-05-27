@@ -155,4 +155,18 @@ public class ProductDAO implements ProductDAOInterface
         }
     }
 
+    public void releaseProduct(int saleId)
+    {
+        String sqlInstruction = "UPDATE product SET sale = NULL WHERE sale = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
+        {
+            preparedStatement.setInt(1, saleId);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException exception)
+        {
+            throw new ProductException("Erreur lors de la suppression du produit dans le sales" + saleId, exception);
+        }
+    }
+
 }

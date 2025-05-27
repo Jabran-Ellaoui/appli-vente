@@ -13,4 +13,5 @@ public interface ProductDAOInterface
     ArrayList<Product> readProductsBySalesID(int salesID);
     void updateProduct(int productID, int salesID);
     ArrayList<Product> readAllUnsoldProduct();
+    public void releaseProduct(int saleId);
 }

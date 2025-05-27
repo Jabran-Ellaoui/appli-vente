@@ -32,4 +32,9 @@ public class ProductController {
         return productService.readAllUnsoldProduct();
     }
 
+    public void releaseProduct(int saleId)
+    {
+        productService.releaseProduct(saleId);
+    }
+
 }

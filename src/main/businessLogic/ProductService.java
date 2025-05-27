@@ -35,4 +35,9 @@ public class ProductService
     {
         productDAO.updateProduct(productID, salesID);
     }
+
+    public void releaseProduct(int saleId)
+    {
+        productDAO.releaseProduct(saleId);
+    }
 }
