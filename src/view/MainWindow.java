@@ -176,19 +176,45 @@ public class MainWindow extends JFrame
 
         updateSalesDetails = new JMenuItem("Mettre à jour Vente");
         updateSalesDetails.addActionListener(e -> {
-
+            try {
+                SalesDetailsController salesDetailsController = new SalesDetailsController();
+                EmployeeController employeeController = new EmployeeController();
+                CustomerController customerController = new CustomerController();
+                ProductController productController = new ProductController();
+                UpdateSalesDetailsPanel updateSalesDetailsPanel = new UpdateSalesDetailsPanel(salesDetailsController, employeeController, customerController, productController, MainWindow.this);
+                switchPanel(updateSalesDetailsPanel);
+            } catch (ConnectionException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
         });
         salesDetailsAdministration.add(updateSalesDetails);
 
         readOneSalesDetails = new JMenuItem("Voir une Vente");
         readOneSalesDetails.addActionListener(e -> {
-
+            try {
+                SalesDetailsController salesDetailsController = new SalesDetailsController();
+                ProductController productController = new ProductController();
+                ReadOneSalesDetailsPanel readOneSalesDetailsPanel = new ReadOneSalesDetailsPanel(salesDetailsController, productController, MainWindow.this);
+                switchPanel(readOneSalesDetailsPanel);
+            } catch (ConnectionException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
         });
         salesDetailsAdministration.add(readOneSalesDetails);
 
         readAllSalesDetails = new JMenuItem("Voir toutes les Ventes");
         readAllSalesDetails.addActionListener(e-> {
-
+            try {
+                SalesDetailsController salesDetailsController = new SalesDetailsController();
+                ProductController productController = new ProductController();
+                ReadAllSalesDetailsPanel readAllSalesDetailsPanel = new ReadAllSalesDetailsPanel(salesDetailsController, productController, MainWindow.this);
+                switchPanel(readAllSalesDetailsPanel);
+            } catch (ConnectionException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
         });
         salesDetailsAdministration.add(readAllSalesDetails);
 

@@ -7,18 +7,18 @@ import model.Product;
 
 import java.util.ArrayList;
 
-public class ProductController
-{
+public class ProductController {
     private final ProductService productService;
 
-    public ProductController() throws ConnectionException
-    {
+    public ProductController() throws ConnectionException {
         this.productService = new ProductService();
     }
 
-    public ArrayList<Product> getAllProducts()
-    {
+    public ArrayList<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
 
-            return productService.getAllProducts();
+    public ArrayList<Product> getAllProductsBySalesID(int saleID) {
+        return productService.getAllProductsBySalesID(saleID);
     }
 }

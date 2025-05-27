@@ -35,4 +35,8 @@ public class Product {
     {
         this.promotionPercentage = promotionPercentage;
     }
+
+    public String toString() {
+        return "Product : " + id;
+    }
 }

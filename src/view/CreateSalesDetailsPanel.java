@@ -28,7 +28,7 @@ public class CreateSalesDetailsPanel extends JPanel {
     private JComboBox seller, buyer;
     private JSpinner date;
     private JButton reset, backToWelcomePanel, submit, copyProduct;
-    private JList products, chosenProducts;
+    private JList<Product> products, chosenProducts;
 
 
     public CreateSalesDetailsPanel(SalesDetailsController salesDetailsController, EmployeeController employeeController, CustomerController customerController, ProductController productController, MainWindow mainWindow) {
@@ -98,7 +98,29 @@ public class CreateSalesDetailsPanel extends JPanel {
         formPanel.add(comment);
 
         fidelityPointUsed = new JCheckBox("A Utilisé des points de fidélité ?");
+        fidelityPointUsed.setHorizontalAlignment(SwingConstants.RIGHT);
         formPanel.add(fidelityPointUsed);
+        mainPanel.add(formPanel, BorderLayout.NORTH);
+
+        // product panel
+        productsPanel = new JPanel();
+        productsPanel.setLayout(new GridLayout(1, 3));
+        ArrayList<Product> productsList = new ArrayList<>();
+        productsList = productController.getAllProducts();
+        products = new JList<>(productsList.toArray(new Product[0]));
+        products.setVisibleRowCount(5);
+        products.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        chosenProducts = new JList<>();
+        chosenProducts.setVisibleRowCount(5);
+        chosenProducts.setFixedCellWidth(60);
+        chosenProducts.setFixedCellHeight(15);
+        chosenProducts.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        copyProduct = new JButton("COPIER>>>");
+        CopyButtonListener copyButtonListenerlistener = new CopyButtonListener();
+        copyProduct.addActionListener(copyButtonListenerlistener);
+        productsPanel.add(new JScrollPane(products));
+        productsPanel.add(copyProduct);
+        productsPanel.add(new JScrollPane(chosenProducts));
 
         // button panel
         backToWelcomePanel = new JButton("Retour");
@@ -120,6 +142,12 @@ public class CreateSalesDetailsPanel extends JPanel {
                     Date selected = (Date) date.getValue();
                     LocalDate dateFormat = selected.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     salesDetails = new SalesDetails(Integer.parseInt(id.getText()), Integer.parseInt(quantity.getText()), fidelityPointUsed.isSelected(), (!paymentMethod.getText().equals("") ? paymentMethod.getText() : null), (!comment.getText().equals("") ? comment.getText() : null), dateFormat, (Customer) buyer.getSelectedItem(), (Employee) seller.getSelectedItem());
+                    ListModel<Product> model = chosenProducts.getModel();
+                    int modelListSize = model.getSize();
+                    for (int i = 0; i < model.getSize(); i++) {
+                        Product product = model.getElementAt(i);
+                        //salesDetailsController.updateSale(product.getId(), salesDetails.getId());
+                    }
                     JOptionPane.showMessageDialog(null, salesDetails,"Fiche Produit", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -149,7 +177,9 @@ public class CreateSalesDetailsPanel extends JPanel {
         buttonsPanel.add(reset);
 
         this.setLayout(new BorderLayout());
-        this.add(formPanel, BorderLayout.CENTER);
+        mainPanel.add(formPanel, BorderLayout.CENTER);
+        mainPanel.add(productsPanel, BorderLayout.SOUTH);
+        this.add(mainPanel);
         this.add(buttonsPanel, BorderLayout.SOUTH);
     }
     public boolean validateCreateSalesDetailsForm() {
@@ -189,5 +219,26 @@ public class CreateSalesDetailsPanel extends JPanel {
         }
 
         return true;
+    }
+
+    private class CopyButtonListener implements ActionListener {
+        public void actionPerformed( ActionEvent event) {
+            ListModel<Product> currentModel = chosenProducts.getModel();
+            DefaultListModel<Product> newModel;
+
+            if (currentModel instanceof DefaultListModel) {
+                newModel = (DefaultListModel<Product>) currentModel;
+            } else {
+                newModel = new DefaultListModel<>();
+            }
+            for (Product p : products.getSelectedValuesList()) {
+                if (!newModel.contains(p)) {
+                    newModel.addElement(p); // évite les doublons
+                }
+            }
+            chosenProducts.setModel(newModel);
+            productsPanel.revalidate();
+            productsPanel.repaint();
+            }
     }
 }
