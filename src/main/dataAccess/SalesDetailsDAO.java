@@ -21,72 +21,44 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
         }
     }
 
-    public void create(SalesDetails salesDetails) throws SalesDetailsException
-    {
+    public void create(SalesDetails salesDetails) throws SalesDetailsException {
+        String sql = "INSERT INTO sales_detail (id, quantity, fidelity_points_used, payment_method, comment, date, buyer_id, seller_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        String sqlInstruction = "INSERT INTO sales_detail (id, quantity, fidelity_points_used, payment_method, comment, date, buyer_id, seller_id) " + "VALUES (?, ?, ?, ?, ?,?,?,?)";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
-        {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, salesDetails.getId());
             preparedStatement.setInt(2, salesDetails.getQuantity());
             preparedStatement.setBoolean(3, salesDetails.isFidelityPointsUsed());
-            preparedStatement.setString(4, salesDetails.getPaymentMethod());
-            preparedStatement.setString(5, salesDetails.getComment());
+
+            // Champs facultatifs
+            if (salesDetails.getPaymentMethod() != null)
+                preparedStatement.setString(4, salesDetails.getPaymentMethod());
+            else
+                preparedStatement.setNull(4, Types.VARCHAR);
+
+            if (salesDetails.getComment() != null)
+                preparedStatement.setString(5, salesDetails.getComment());
+            else
+                preparedStatement.setNull(5, Types.VARCHAR);
+
             preparedStatement.setDate(6, Date.valueOf(salesDetails.getDate()));
-            preparedStatement.setObject(7, salesDetails.getBuyer().getId());
-            preparedStatement.setInt(8, salesDetails.getSeller().getId());
+
+            if (salesDetails.getBuyer() != null)
+                preparedStatement.setInt(7, salesDetails.getBuyer().getId());
+            else
+                preparedStatement.setNull(7, Types.INTEGER);
+
+            if (salesDetails.getSeller() != null)
+                preparedStatement.setInt(8, salesDetails.getSeller().getId());
+            else
+                preparedStatement.setNull(8, Types.INTEGER);
+
             preparedStatement.executeUpdate();
-        } catch (SQLException exception)
-        {
-            throw new SalesDetailsException("Erreur lors de la création du détail de vente");
-        }
-
-        if (salesDetails.getBuyer() != null)
-        {
-            String sqlInstruction2 = "UPDATE sales_detail SET buyer_id = ? WHERE id = ?";
-            try (PreparedStatement preparedStatement2 = connection.prepareStatement(sqlInstruction2))
-            {
-                preparedStatement2.setInt(1, salesDetails.getBuyer().getId());
-                preparedStatement2.setInt(2, salesDetails.getId());
-                preparedStatement2.executeUpdate();
-            }
-            catch (SQLException exception)
-            {
-                throw new SalesDetailsException("Erreur lors de l'insertion de l'acheteur");
-            }
-        }
-
-        if (salesDetails.getPaymentMethod() != null)
-        {
-            String sqlInstruction3 = "UPDATE sales_detail SET payment_method = ? WHERE id = ?";
-            try (PreparedStatement preparedStatement3 = connection.prepareStatement(sqlInstruction3))
-            {
-                preparedStatement3.setString(1, salesDetails.getPaymentMethod());
-                preparedStatement3.setInt(2, salesDetails.getId());
-                preparedStatement3.executeUpdate();
-            }
-            catch (SQLException exception)
-            {
-                throw new SalesDetailsException("Erreur lors de l'insertion du moyen de paiement");
-            }
-        }
-
-        if (salesDetails.getComment() != null)
-        {
-            String sqlInstruction4 = "UPDATE sales_detail SET comment = ? WHERE id = ?";
-            try (PreparedStatement preparedStatement4 = connection.prepareStatement(sqlInstruction4))
-            {
-                preparedStatement4.setString(1, salesDetails.getComment());
-                preparedStatement4.setInt(2, salesDetails.getId());
-                preparedStatement4.executeUpdate();
-            }
-            catch (SQLException exception)
-            {
-                throw new SalesDetailsException("Erreur lors de l'insertion du commentaire");
-            }
+        } catch (SQLException e) {
+            throw new SalesDetailsException("Erreur lors de la création du détail de vente : ");
         }
     }
+
 
     @Override
     public void delete(int id) throws SalesDetailsException
