@@ -3,9 +3,6 @@ package main.view;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Panneau d'aide / documentation (wiki) pour l'application de caisse.
- */
 public class HelpPanel extends JPanel {
     private final MainWindow mainWindow;
 

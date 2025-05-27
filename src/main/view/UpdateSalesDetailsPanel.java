@@ -1,10 +1,10 @@
-package view;
+package main.view;
 
-import controller.CustomerController;
-import controller.EmployeeController;
-import controller.ProductController;
-import controller.SalesDetailsController;
-import model.*;
+import main.controller.CustomerController;
+import main.controller.EmployeeController;
+import main.controller.ProductController;
+import main.controller.SalesDetailsController;
+import main.model.*;
 
 import javax.swing.*;
 import java.awt.*;

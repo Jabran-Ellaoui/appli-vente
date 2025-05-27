@@ -1,10 +1,10 @@
 package main.view;
 
-import controller.ProductController;
-import controller.SalesDetailsController;
-import exception.SalesDetailsException;
-import model.Product;
-import model.SalesDetails;
+import main.controller.ProductController;
+import main.controller.SalesDetailsController;
+import main.exception.SalesDetailsException;
+import main.model.Product;
+import main.model.SalesDetails;
 
 import javax.swing.*;
 import java.awt.*;

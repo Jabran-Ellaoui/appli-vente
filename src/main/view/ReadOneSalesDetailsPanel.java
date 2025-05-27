@@ -1,9 +1,9 @@
 package main.view;
 
-import controller.ProductController;
-import controller.SalesDetailsController;
-import model.Product;
-import model.SalesDetails;
+import main.controller.ProductController;
+import main.controller.SalesDetailsController;
+import main.model.Product;
+import main.model.SalesDetails;
 
 import javax.swing.*;
 import java.awt.*;
