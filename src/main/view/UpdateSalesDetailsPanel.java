@@ -206,6 +206,9 @@ public class UpdateSalesDetailsPanel extends JPanel {
             try {
                 int id = Integer.parseInt(idSearchField.getText());
                 SalesDetails salesDetails = searchSalesDetails(id);
+                if(salesDetails == null) {
+                    return;
+                }
                 createResultsPanel(salesDetails);
                 addButtonAfterSearch();
             } catch (NumberFormatException exception) {

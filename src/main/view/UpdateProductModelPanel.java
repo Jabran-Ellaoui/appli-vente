@@ -149,7 +149,7 @@ public class UpdateProductModelPanel extends JPanel {
         ecoScoreLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         resultsPanel.add(ecoScoreLabel);
         ecoScore = new JTextField(1);
-        ecoScore.setText(productModel.getEcoScore() != null ? String.valueOf(productModel.getEcoScore()) : "/");
+        ecoScore.setText(productModel.getEcoScore() != null ? String.valueOf(productModel.getEcoScore()) : "");
         resultsPanel.add(ecoScore);
 
         resultsPanel.revalidate();

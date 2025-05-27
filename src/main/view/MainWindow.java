@@ -2,6 +2,7 @@ package main.view;
 
 import main.controller.*;
 import main.exception.ConnectionException;
+import main.exception.ProductModelException;
 import main.exception.SearchException;
 import main.model.*;
 import main.controller.*;
@@ -143,11 +144,17 @@ public class MainWindow extends JFrame
         readAllProductModel.addActionListener(e -> {
             try {
                 ProductModelController productModelController = new ProductModelController();
+                if(productModelController.getAllProductModels().isEmpty()) {
+                    JOptionPane.showMessageDialog (null, "Pas de produit à afficher", "Avertissement", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 ReadAllProductModelPanel readAllProductModelPanel = new ReadAllProductModelPanel(productModelController, MainWindow.this);
                 switchPanel(readAllProductModelPanel);
             } catch (ConnectionException exception) {
                 exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            } catch (ProductModelException exception) {
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de lecture des produits", JOptionPane.ERROR_MESSAGE);
             }
         });
         productModelAdministration.add(readAllProductModel);
@@ -219,6 +226,10 @@ public class MainWindow extends JFrame
             try {
                 SalesDetailsController salesDetailsController = new SalesDetailsController();
                 ProductController productController = new ProductController();
+                if(salesDetailsController.getAllSalesDetails().isEmpty()) {
+                    JOptionPane.showMessageDialog (null, "Pas de vente à afficher", "Avertissement", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 ReadAllSalesDetailsPanel readAllSalesDetailsPanel = new ReadAllSalesDetailsPanel(salesDetailsController, productController, MainWindow.this);
                 switchPanel(readAllSalesDetailsPanel);
             } catch (ConnectionException exception) {
@@ -252,8 +263,7 @@ public class MainWindow extends JFrame
                 LotController lotController = new LotController();
                 SearchProductPanel searchProductPanel = new SearchProductPanel(searchController, lotController,MainWindow.this);
                 switchPanel(searchProductPanel);
-            } catch (SearchException exception)
-            {
+            } catch (SearchException exception) {
                 exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             } catch (ConnectionException ex) {
@@ -307,11 +317,6 @@ public class MainWindow extends JFrame
         setVisible(true);
     }
 
-    private class ExitListener implements ActionListener {
-        public void actionPerformed (ActionEvent event) {
-            System.exit(0);
-        }
-    }
     public static void main(String[] args) {
         MainWindow mainWindow = new MainWindow();
     }
