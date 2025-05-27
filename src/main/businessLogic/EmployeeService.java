@@ -12,15 +12,18 @@ public class EmployeeService
 {
     private final EmployeeDAOInterface employeeDAO;
 
-    public EmployeeService() throws ConnectionException {
+    public EmployeeService() throws ConnectionException
+    {
         this.employeeDAO = new EmployeeDAO();
     }
 
-    public ArrayList<Employee> getAllEmployee() throws EmployeeException {
+    public ArrayList<Employee> getAllEmployee() throws EmployeeException
+    {
         return (ArrayList<Employee>)employeeDAO.readAll();
     }
 
-    public Employee getEmployeeById(int id) throws EmployeeException {
+    public Employee getEmployeeById(int id) throws EmployeeException
+    {
         return employeeDAO.getEmployeeById(id);
     }
 }

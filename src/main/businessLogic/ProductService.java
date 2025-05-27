@@ -8,14 +8,17 @@ import main.model.Product;
 
 import java.util.ArrayList;
 
-public class ProductService {
+public class ProductService
+{
     private final ProductDAOInterface productDAO;
 
-    public ProductService() throws ConnectionException {
+    public ProductService() throws ConnectionException
+    {
         this.productDAO = new ProductDAO();
     }
 
-    public ArrayList<Product> getAllProducts() throws ProductException {
+    public ArrayList<Product> getAllProducts() throws ProductException
+    {
         return (ArrayList<Product>)productDAO.readAll();
     }
 
@@ -23,15 +26,18 @@ public class ProductService {
         return (ArrayList<Product>)productDAO.readProductsBySalesID(salesID);
     }
 
-    public ArrayList<Product> readAllUnsoldProduct() throws ProductException {
+    public ArrayList<Product> readAllUnsoldProduct() throws ProductException
+    {
         return (ArrayList<Product>)productDAO.readAllUnsoldProduct();
     }
 
-    public void updateProduct(int productID, int salesID) throws ProductException {
+    public void updateProduct(int productID, int salesID) throws ProductException
+    {
         productDAO.updateProduct(productID, salesID);
     }
 
-    public void releaseProduct(int saleId) throws ProductException {
+    public void releaseProduct(int saleId) throws ProductException
+    {
         productDAO.releaseProduct(saleId);
     }
 }

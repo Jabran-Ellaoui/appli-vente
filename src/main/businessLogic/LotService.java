@@ -8,7 +8,8 @@ import main.model.Lot;
 
 import java.util.ArrayList;
 
-public class LotService {
+public class LotService
+{
     private final LotDAOInterface lotDAO;
 
     public LotService() throws ConnectionException {
