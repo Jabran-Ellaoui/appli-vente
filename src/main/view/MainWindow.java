@@ -172,7 +172,15 @@ public class MainWindow extends JFrame
 
         deleteSalesDetails = new JMenuItem("Supprimer Vente");
         deleteSalesDetails.addActionListener(e -> {
-
+            try {
+                SalesDetailsController salesDetailsController = new SalesDetailsController();
+                ProductController productController = new ProductController();
+                DeleteSalesDetailsPanel deleteSalesDetailsPanel = new DeleteSalesDetailsPanel(salesDetailsController, productController, MainWindow.this);
+                switchPanel(deleteSalesDetailsPanel);
+            } catch (ConnectionException exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
         });
         salesDetailsAdministration.add(deleteSalesDetails);
 

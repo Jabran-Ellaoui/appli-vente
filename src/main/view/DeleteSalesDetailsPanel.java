@@ -1,5 +1,6 @@
 package main.view;
 
+import main.controller.ProductController;
 import main.controller.SalesDetailsController;
 
 import javax.swing.*;
@@ -7,14 +8,16 @@ import java.awt.*;
 
 public class DeleteSalesDetailsPanel extends JPanel {
     private final SalesDetailsController salesDetailsController;
+    private final ProductController productController;
     private JPanel formPanel;
     private JPanel buttonsPanel;
     private JLabel idLabel;
     private JTextField id;
     private JButton backToWelcomePanel, submit;
 
-    public DeleteSalesDetailsPanel(SalesDetailsController salesDetailsController, MainWindow mainWindow) {
+    public DeleteSalesDetailsPanel(SalesDetailsController salesDetailsController, ProductController productController, MainWindow mainWindow) {
         this.salesDetailsController = salesDetailsController;
+        this.productController = productController;
         formPanel = new JPanel();
         formPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
         idLabel = new JLabel("ID :");
@@ -37,7 +40,9 @@ public class DeleteSalesDetailsPanel extends JPanel {
                 return;
             }
             try {
-                salesDetailsController.deleteSalesDetails(Integer.parseInt(id.getText()));
+                int salesId = Integer.parseInt(id.getText());
+                salesDetailsController.deleteSalesDetails(salesId);
+                productController.releaseProduct(salesId);
                 String[] options = {"Oui", "Non"};
                 int response = JOptionPane.showOptionDialog(this, "Vente supprimée.\nVoulez-vous en supprimer une autre ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (response == JOptionPane.YES_OPTION) {
@@ -56,7 +61,6 @@ public class DeleteSalesDetailsPanel extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(formPanel, BorderLayout.CENTER);
         this.add(buttonsPanel, BorderLayout.SOUTH);
-
     }
     public boolean validateDeleteSalesDetailsForm() {
         String errorMessages = "";

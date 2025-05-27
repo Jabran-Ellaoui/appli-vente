@@ -107,13 +107,13 @@ public class ReadAllSalesDetailsPanel extends JPanel {
 
         JLabel sellerLabel = new JLabel("Vendeur :");
         sellerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        sellerInfo = new JLabel(salesDetails.getSeller() != null ? salesDetails.getSeller().toString() : "/");
+        sellerInfo = new JLabel(salesDetails.getSeller() != null ? String.valueOf(salesDetails.getSeller().getId()) : "/");
         salesDetailsPanel.add(sellerLabel);
         salesDetailsPanel.add(sellerInfo);
 
         JLabel buyerLabel = new JLabel("Acheteur :");
         buyerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        buyerInfo = new JLabel(salesDetails.getBuyer() != null ? salesDetails.getBuyer().toString() : "/");
+        buyerInfo = new JLabel(salesDetails.getBuyer() != null ? String.valueOf(salesDetails.getBuyer().getId()) : "/");
         salesDetailsPanel.add(buyerLabel);
         salesDetailsPanel.add(buyerInfo);
 

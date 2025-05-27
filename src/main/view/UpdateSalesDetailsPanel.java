@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
 
 public class UpdateSalesDetailsPanel extends JPanel {
     private final SalesDetailsController salesDetailsController;
@@ -129,7 +128,7 @@ public class UpdateSalesDetailsPanel extends JPanel {
         productsPanel = new JPanel();
         productsPanel.setLayout(new GridLayout(1, 3));
         ArrayList<Product> productsList = new ArrayList<>();
-        productsList = productController.getAllProducts();
+        productsList = productController.getAllUnsoldProduct();
         products = new JList<>(productsList.toArray(new Product[0]));
         products.setVisibleRowCount(5);
         products.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -226,6 +225,12 @@ public class UpdateSalesDetailsPanel extends JPanel {
                 LocalDate saleDate = ((Date) date.getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 SalesDetails salesDetails = new SalesDetails(Integer.parseInt(id.getText()), Integer.parseInt(quantity.getText()), fidelityPointUsed.isSelected(), paymentMethod.getText().isBlank() ? null : paymentMethod.getText(), comment.getText().isBlank() ? null : comment.getText(), saleDate, (Customer) buyer.getSelectedItem(), (Employee) seller.getSelectedItem());
                 salesDetailsController.updateSalesDetails(salesDetails);
+                ListModel<Product> model = chosenProducts.getModel();
+                int modelListSize = model.getSize();
+                for (int i = 0; i < model.getSize(); i++) {
+                    Product product = model.getElementAt(i);
+                    productController.updateProduct(product.getId(), salesDetails.getId());
+                }
                 JOptionPane.showMessageDialog(null, salesDetails,"Fiche Produit", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -252,8 +257,5 @@ public class UpdateSalesDetailsPanel extends JPanel {
             }
         });
         buttonsPanel.add(clear);
-
-
     }
-
 }

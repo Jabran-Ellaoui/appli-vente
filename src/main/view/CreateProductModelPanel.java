@@ -129,6 +129,7 @@ public class CreateProductModelPanel extends JPanel {
                 productModel = new ProductModel(Integer.parseInt(barcode.getText()), label.getText(), Integer.parseInt(fidelityPointNb.getText()), (!requiredAge.getText().equals("") ? Integer.valueOf(requiredAge.getText()) : null), keptWarm.isSelected(), keptCold.isSelected(), expirationDateFormat, Double.valueOf(weight.getText()), (!storageTemperature.getText().equals("") ? Integer.valueOf(storageTemperature.getText()) : null), (Lot) provenance.getSelectedItem(), (!ecoScore.getText().equals("") ? ecoScore.getText() : null));
                 productModelController.createProductModel(productModel);
                 JOptionPane.showMessageDialog(null, productModel,"Fiche Produit", JOptionPane.INFORMATION_MESSAGE);
+                resetForm();
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Erreur de validation : \n" + exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -140,18 +141,7 @@ public class CreateProductModelPanel extends JPanel {
         reset = new JButton("Reset");
         reset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                barcode.setText("");
-                label.setText("");
-                fidelityPointNb.setText("");
-                requiredAge.setText("");
-                weight.setText("");
-                storageTemperature.setText("");
-                ecoScore.setText("");
-                if (provenance.getItemCount() > 0) {
-                    provenance.setSelectedIndex(0);
-                }
-                keptGroup.clearSelection();
-                expirationDate.setValue(new Date());
+                resetForm();
             }
         });
         buttonsPanel.add(reset);
@@ -160,6 +150,21 @@ public class CreateProductModelPanel extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(formPanel, BorderLayout.CENTER);
         this.add(buttonsPanel, BorderLayout.SOUTH);
+    }
+
+    private void resetForm() {
+        barcode.setText("");
+        label.setText("");
+        fidelityPointNb.setText("");
+        requiredAge.setText("");
+        weight.setText("");
+        storageTemperature.setText("");
+        ecoScore.setText("");
+        if (provenance.getItemCount() > 0) {
+            provenance.setSelectedIndex(0);
+        }
+        keptGroup.clearSelection();
+        expirationDate.setValue(new Date());
     }
     private boolean validateCreateProductModelForm() {
         String errorMessages = "";

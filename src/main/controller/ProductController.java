@@ -27,7 +27,7 @@ public class ProductController {
         productService.updateProduct(productID, salesID);
     }
 
-    public ArrayList<Product> readAllUnsoldProduct()
+    public ArrayList<Product> getAllUnsoldProduct()
     {
         return productService.readAllUnsoldProduct();
     }

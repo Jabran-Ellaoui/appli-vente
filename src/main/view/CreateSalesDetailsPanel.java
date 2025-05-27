@@ -109,7 +109,7 @@ public class CreateSalesDetailsPanel extends JPanel {
         productsPanel = new JPanel();
         productsPanel.setLayout(new GridLayout(1, 3));
         ArrayList<Product> productsList = new ArrayList<>();
-        productsList = productController.getAllProducts();
+        productsList = productController.getAllUnsoldProduct();
         products = new JList<>(productsList.toArray(new Product[0]));
         products.setVisibleRowCount(5);
         products.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -149,7 +149,7 @@ public class CreateSalesDetailsPanel extends JPanel {
                     int modelListSize = model.getSize();
                     for (int i = 0; i < model.getSize(); i++) {
                         Product product = model.getElementAt(i);
-                        //salesDetailsController.updateSale(product.getId(), salesDetails.getId());
+                        productController.updateProduct(product.getId(), salesDetails.getId());
                     }
                     JOptionPane.showMessageDialog(null, salesDetails,"Fiche Produit", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception exception) {

@@ -119,4 +119,15 @@ public class SalesDetails
     public int hashCode() {
         return Objects.hash(id, quantity, fidelityPointUsed, paymentMethod, comment, date, seller, buyer);
     }
+
+    public String toString() {
+        return "ID de la vente : " + id + "\n" +
+                "Quantité : " + quantity + "\n" +
+                "Points fidélité utilisés : " + (fidelityPointUsed ? "Oui" : "Non") + "\n" +
+                "Méthode de paiement : " + (paymentMethod != null ? paymentMethod : "Non spécifiée") + "\n" +
+                "Commentaire : " + (comment != null ? comment : "Aucun") + "\n" +
+                "Date : " + (date != null ? date.toString() : "Non spécifiée") + "\n" +
+                "Acheteur : " + (buyer != null ? buyer.toString() : "Non spécifié") + "\n" +
+                "Vendeur : " + (seller != null ? seller.toString() : "Non spécifié");
+    }
 }
