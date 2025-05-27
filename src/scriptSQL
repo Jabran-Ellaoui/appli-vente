@@ -39,9 +39,9 @@ CREATE TABLE lot (
 );
 
 CREATE TABLE product_model (
-    barcode VARCHAR(50) PRIMARY KEY,
-    label VARCHAR(100) NOT NULL,
-    eco_score VARCHAR(5) CHECK (eco_score IN ('A', 'B', 'C', 'D', 'E')),
+    barcode VARCHAR(9) PRIMARY KEY,
+    label VARCHAR(30) NOT NULL,
+    eco_score VARCHAR(1) CHECK (eco_score IN ('A', 'B', 'C', 'D', 'E')),
     fidelity_point_nb INT DEFAULT 0 CHECK (fidelity_point_nb >= 0),
     required_age INT CHECK (required_age IS NULL OR required_age >= 0),
     kept_warm BOOLEAN NOT NULL,
