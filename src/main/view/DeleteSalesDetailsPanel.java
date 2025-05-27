@@ -34,7 +34,7 @@ public class DeleteSalesDetailsPanel extends JPanel {
         });
         buttonsPanel.add(backToWelcomePanel);
 
-        submit = new JButton("Supprimer un produit");
+        submit = new JButton("Supprimer une vente");
         submit.addActionListener(e -> {
             if(!validateDeleteSalesDetailsForm()) {
                 return;

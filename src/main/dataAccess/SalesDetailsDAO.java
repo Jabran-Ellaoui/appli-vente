@@ -125,8 +125,8 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             preparedStatement.setString(3, salesDetails.getPaymentMethod());
             preparedStatement.setString(4, salesDetails.getComment());
             preparedStatement.setDate(5, Date.valueOf(salesDetails.getDate()));
-            preparedStatement.setObject(6, salesDetails.getBuyer());
-            preparedStatement.setObject(7, salesDetails.getSeller());
+            preparedStatement.setObject(6, salesDetails.getBuyer().getId());
+            preparedStatement.setInt(7, salesDetails.getSeller().getId());
             preparedStatement.setInt(8, salesDetails.getId());
 
             preparedStatement.executeUpdate();

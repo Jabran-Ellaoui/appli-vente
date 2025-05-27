@@ -70,6 +70,8 @@ public class UpdateSalesDetailsPanel extends JPanel {
         this.add(buttonsPanel, BorderLayout.SOUTH);
     }
     private void createResultsPanel(SalesDetails salesDetails) throws CustomerException {
+        formPanel.removeAll();
+        productsPanel.removeAll();
         mainPanel.removeAll();
 
         id = new JTextField(String.valueOf(salesDetails.getId()));
@@ -220,6 +222,8 @@ public class UpdateSalesDetailsPanel extends JPanel {
         }
     }
     private void addButtonAfterSearch() {
+        buttonsPanel.removeAll();
+        buttonsPanel.add(backButton);
         submit = new JButton("Mettre à jour");
         submit.addActionListener(e -> {
             if (!validateForm()) {
@@ -261,5 +265,21 @@ public class UpdateSalesDetailsPanel extends JPanel {
             }
         });
         buttonsPanel.add(clear);
+
+        reset = new JButton("Reset");
+        reset.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int id = Integer.parseInt(idSearchField.getText());
+                    SalesDetails salesDetails = searchSalesDetails(id);
+                    createResultsPanel(salesDetails);
+                } catch (NumberFormatException exception) {
+                    JOptionPane.showMessageDialog(null, "L'id doit être un entier.");
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "Erreur lors de la recherche : " + exception.getMessage());
+                }
+            }
+        });
+        buttonsPanel.add(reset);
     }
 }

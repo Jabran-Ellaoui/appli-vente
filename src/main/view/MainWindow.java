@@ -1,13 +1,10 @@
 package main.view;
 
-import com.sun.tools.javac.Main;
 import main.controller.*;
 import main.exception.ConnectionException;
 import main.exception.CustomerException;
 import main.exception.ProductModelException;
 import main.exception.SearchException;
-import main.model.*;
-import main.controller.*;
 
 import javax.swing.*;
 import java.awt.*;
