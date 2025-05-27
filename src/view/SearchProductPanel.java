@@ -17,8 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class SearchProductPanel extends JPanel {
-    private final JComboBox<String> modelCombo = new JComboBox<>();
-    private final JComboBox<String> provCombo  = new JComboBox<>();
+    private final JComboBox<String> modelList = new JComboBox<>();
+    private final JComboBox<String> provenanceList  = new JComboBox<>();
     private final JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
     private final JTable table;
 
@@ -32,13 +32,13 @@ public class SearchProductPanel extends JPanel {
 
         // Filtres
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
-        modelCombo.addItem("Tous");
-        provCombo .addItem("Tous");
+        modelList.addItem("Tous");
+        provenanceList .addItem("Tous");
         dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd"));
         JButton btn = new JButton("Rechercher");
 
-        top.add(new JLabel("Modèle:"));   top.add(modelCombo);
-        top.add(new JLabel("Provenance:")); top.add(provCombo);
+        top.add(new JLabel("Modèle:"));   top.add(modelList);
+        top.add(new JLabel("Provenance:")); top.add(provenanceList);
         top.add(new JLabel("Date min:")); top.add(dateSpinner);
         top.add(btn);
         add(top, BorderLayout.NORTH);
@@ -56,7 +56,7 @@ public class SearchProductPanel extends JPanel {
         try {
 
             for (ProductModel models : new ProductModelController().getAllProductModels()) {
-                modelCombo.addItem(models.getLabel());
+                modelList.addItem(models.getLabel());
             }
 
             // On get la provenance de chaque lot pour les ajouter dans le tableau que si elles n'existent pas déjà
@@ -65,7 +65,7 @@ public class SearchProductPanel extends JPanel {
                 String provenance = lot.getProvenance();
                 if (!addedProvenances.contains(provenance)) {
                     addedProvenances.add(provenance);
-                    provCombo.addItem(provenance);
+                    provenanceList.addItem(provenance);
                 }
             }
         } catch (ConnectionException | ProductModelException ex) {
@@ -74,9 +74,9 @@ public class SearchProductPanel extends JPanel {
     }
 
     private void search() {
-        String selectedItem = modelCombo.getSelectedItem().toString();
+        String selectedItem = modelList.getSelectedItem().toString();
         String modelInstruction = "Tous".equals(selectedItem) ? "%" : selectedItem;
-        String selectedProvenance   = provCombo.getSelectedItem().toString();
+        String selectedProvenance   = provenanceList.getSelectedItem().toString();
         String provenanceInstruction = "Tous".equals(selectedProvenance) ? "%" : selectedProvenance;
         Date dateInstruction = new Date(((java.util.Date) dateSpinner.getValue()).getTime());
 

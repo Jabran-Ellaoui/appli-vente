@@ -229,6 +229,14 @@ public class MainWindow extends JFrame
 
         searchSalesDetails = new JMenuItem("Recherche Vente");
         searchSalesDetails.addActionListener(e -> {
+            try {
+                SearchController searchController = new SearchController();
+                CustomerController customerController = new CustomerController();
+                SearchSalesPanel searchSalesPanel = new SearchSalesPanel(searchController, customerController, MainWindow.this);
+                switchPanel(searchSalesPanel);
+            } catch (SearchException | ConnectionException ex) {
+                throw new RuntimeException(ex);
+            }
 
         });
         search.add(searchSalesDetails);
