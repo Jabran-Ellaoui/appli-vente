@@ -124,4 +124,35 @@ public class ProductDAO implements ProductDAOInterface
 
     }
 
+    public ArrayList<Product> readAllUnsoldProduct() throws ProductException
+    {
+        ArrayList<Product> products = new ArrayList<>();
+        String sqlInstruction = "SELECT * FROM product WHERE sale IS NULL";
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
+        {
+            ResultSet data = preparedStatement.executeQuery();
+            Product product;
+            Integer promotionPercentage;
+            ProductModel productModel;
+            SalesDetails salesDetails;
+
+            while (data.next())
+            {
+                productModel = new ProductModel(data.getInt("model_barcode"));
+                salesDetails = new SalesDetails(data.getInt("sale"));
+                product = new Product(data.getInt("id"), data.getDouble("unit_price"), productModel, salesDetails);
+
+                promotionPercentage = data.getInt("promotion_percentage");
+                if (!data.wasNull()) {product.setPromotionPercentage(promotionPercentage);};
+                products.add(product);
+            }
+            return products;
+        }
+        catch (SQLException exception)
+        {
+            throw new ProductException("Erreur lors de la lecture des produits", exception);
+        }
+    }
+
 }

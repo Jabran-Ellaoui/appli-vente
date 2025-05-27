@@ -26,6 +26,11 @@ public class ProductService
         return (ArrayList<Product>)productDAO.readProductsBySalesID(salesID);
     }
 
+    public ArrayList<Product> readAllUnsoldProduct()
+    {
+        return (ArrayList<Product>)productDAO.readAllUnsoldProduct();
+    }
+
     public void updateProduct(int productID, int salesID)
     {
         productDAO.updateProduct(productID, salesID);
