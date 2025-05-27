@@ -21,4 +21,9 @@ public class EmployeeService
     {
         return (ArrayList<Employee>)employeeDAO.readAll();
     }
+
+    public Employee getEmployeeById(int id) throws EmployeeException
+    {
+        return employeeDAO.getEmployeeById(id);
+    }
 }

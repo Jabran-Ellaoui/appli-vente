@@ -1,10 +1,8 @@
 package main.exception;
 
-import java.sql.SQLException;
-
 public class EmployeeException extends RuntimeException
 {
-  public EmployeeException(String message, SQLException exception) {
+  public EmployeeException(String message) {
     super(message);
   }
 }

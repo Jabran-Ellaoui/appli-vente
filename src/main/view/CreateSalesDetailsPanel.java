@@ -4,6 +4,7 @@ import main.controller.CustomerController;
 import main.controller.EmployeeController;
 import main.controller.ProductController;
 import main.controller.SalesDetailsController;
+import main.exception.CustomerException;
 import main.model.Customer;
 import main.model.Employee;
 import main.model.SalesDetails;
@@ -34,7 +35,7 @@ public class CreateSalesDetailsPanel extends JPanel {
     private JList<Product> products, chosenProducts;
 
 
-    public CreateSalesDetailsPanel(SalesDetailsController salesDetailsController, EmployeeController employeeController, CustomerController customerController, ProductController productController, MainWindow mainWindow) {
+    public CreateSalesDetailsPanel(SalesDetailsController salesDetailsController, EmployeeController employeeController, CustomerController customerController, ProductController productController, MainWindow mainWindow) throws CustomerException {
         this.salesDetailsController = salesDetailsController;
         this.employeeController = employeeController;
         this.customerController = customerController;

@@ -21,4 +21,9 @@ public class CustomerService
     {
         return (ArrayList<Customer>)customerDAO.readAll();
     }
+
+    public Customer getCustomerById(int id) throws CustomerException
+    {
+        return customerDAO.getCustomerById(id);
+    }
 }

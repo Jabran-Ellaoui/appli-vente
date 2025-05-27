@@ -8,4 +8,5 @@ import java.util.ArrayList;
 public interface CustomerDAOInterface
 {
     ArrayList<Customer> readAll() throws CustomerException;
+    Customer getCustomerById(int id) throws CustomerException;
 }

@@ -26,17 +26,17 @@ public class ProductService
         return (ArrayList<Product>)productDAO.readProductsBySalesID(salesID);
     }
 
-    public ArrayList<Product> readAllUnsoldProduct()
+    public ArrayList<Product> readAllUnsoldProduct() throws ProductException
     {
         return (ArrayList<Product>)productDAO.readAllUnsoldProduct();
     }
 
-    public void updateProduct(int productID, int salesID)
+    public void updateProduct(int productID, int salesID) throws ProductException
     {
         productDAO.updateProduct(productID, salesID);
     }
 
-    public void releaseProduct(int saleId)
+    public void releaseProduct(int saleId) throws ProductException
     {
         productDAO.releaseProduct(saleId);
     }

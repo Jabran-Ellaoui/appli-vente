@@ -1,10 +1,8 @@
 package main.exception;
 
-import java.sql.SQLException;
-
-public class CustomerException extends RuntimeException
+public class CustomerException extends Exception
 {
-    public CustomerException(String message, SQLException exception) {
+    public CustomerException(String message) {
         super(message);
     }
 }

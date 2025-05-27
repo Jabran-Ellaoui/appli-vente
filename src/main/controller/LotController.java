@@ -1,6 +1,7 @@
 package main.controller;
 
 import main.exception.ConnectionException;
+import main.exception.LotException;
 import main.model.Lot;
 import main.businessLogic.LotService;
 
@@ -14,7 +15,7 @@ public class LotController
         this.lotService = new LotService();
     }
 
-    public ArrayList<Lot> getAllLot()
+    public ArrayList<Lot> getAllLot() throws LotException
     {
 
             return lotService.getAllLot();

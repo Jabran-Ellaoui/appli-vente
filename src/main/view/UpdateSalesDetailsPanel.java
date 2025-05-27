@@ -4,6 +4,7 @@ import main.controller.CustomerController;
 import main.controller.EmployeeController;
 import main.controller.ProductController;
 import main.controller.SalesDetailsController;
+import main.exception.CustomerException;
 import main.model.*;
 
 import javax.swing.*;
@@ -68,7 +69,7 @@ public class UpdateSalesDetailsPanel extends JPanel {
         buttonsPanel.add(backButton);
         this.add(buttonsPanel, BorderLayout.SOUTH);
     }
-    private void createResultsPanel(SalesDetails salesDetails) {
+    private void createResultsPanel(SalesDetails salesDetails) throws CustomerException {
         mainPanel.removeAll();
 
         id = new JTextField(String.valueOf(salesDetails.getId()));

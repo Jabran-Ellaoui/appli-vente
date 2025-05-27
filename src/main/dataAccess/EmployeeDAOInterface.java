@@ -8,5 +8,6 @@ import java.util.ArrayList;
 public interface EmployeeDAOInterface
 {
     ArrayList<Employee> readAll() throws EmployeeException;
+    public Employee getEmployeeById(int id) throws EmployeeException;
 }
 
