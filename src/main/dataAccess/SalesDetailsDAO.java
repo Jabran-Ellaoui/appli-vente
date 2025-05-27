@@ -25,15 +25,18 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
     public void create(SalesDetails salesDetails) throws SalesDetailsException
     {
 
-        String sqlInstruction = "INSERT INTO sales_detail (id, quantity, fidelity_points_used, sale_date, seller_id) " + "VALUES (?, ?, ?, ?, ?)";
+        String sqlInstruction = "INSERT INTO sales_detail (id, quantity, fidelity_points_used, payment_method, comment, date, buyer_id, seller_id) " + "VALUES (?, ?, ?, ?, ?,?,?,?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
         {
             preparedStatement.setInt(1, salesDetails.getId());
             preparedStatement.setInt(2, salesDetails.getQuantity());
             preparedStatement.setBoolean(3, salesDetails.isFidelityPointsUsed());
-            preparedStatement.setDate(4, Date.valueOf(salesDetails.getDate()));
-            preparedStatement.setInt(5, salesDetails.getSeller().getId());
+            preparedStatement.setString(4, salesDetails.getPaymentMethod());
+            preparedStatement.setString(5, salesDetails.getComment());
+            preparedStatement.setDate(6, Date.valueOf(salesDetails.getDate()));
+            preparedStatement.setObject(7, salesDetails.getBuyer().getId());
+            preparedStatement.setInt(8, salesDetails.getSeller().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException exception)
         {

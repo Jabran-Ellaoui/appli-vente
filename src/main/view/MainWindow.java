@@ -2,6 +2,7 @@ package main.view;
 
 import main.controller.*;
 import main.exception.ConnectionException;
+import main.exception.CustomerException;
 import main.exception.ProductModelException;
 import main.exception.SearchException;
 import main.model.*;
@@ -172,6 +173,8 @@ public class MainWindow extends JFrame
             } catch (ConnectionException exception) {
                 exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            } catch (CustomerException ex) {
+                throw new RuntimeException(ex);
             }
 
         });

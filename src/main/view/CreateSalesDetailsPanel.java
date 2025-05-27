@@ -146,6 +146,7 @@ public class CreateSalesDetailsPanel extends JPanel {
                     Date selected = (Date) date.getValue();
                     LocalDate dateFormat = selected.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     salesDetails = new SalesDetails(Integer.parseInt(id.getText()), Integer.parseInt(quantity.getText()), fidelityPointUsed.isSelected(), (!paymentMethod.getText().equals("") ? paymentMethod.getText() : null), (!comment.getText().equals("") ? comment.getText() : null), dateFormat, (Customer) buyer.getSelectedItem(), (Employee) seller.getSelectedItem());
+                    salesDetailsController.addNewSalesDetails(salesDetails);
                     ListModel<Product> model = chosenProducts.getModel();
                     int modelListSize = model.getSize();
                     for (int i = 0; i < model.getSize(); i++) {
