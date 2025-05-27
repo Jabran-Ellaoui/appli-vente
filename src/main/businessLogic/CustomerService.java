@@ -8,22 +8,18 @@ import main.model.Customer;
 
 import java.util.ArrayList;
 
-public class CustomerService
-{
+public class CustomerService {
     private final CustomerDAOInterface customerDAO;
 
-    public CustomerService() throws ConnectionException
-    {
+    public CustomerService() throws ConnectionException {
         this.customerDAO = new CustomerDAO();
     }
 
-    public ArrayList<Customer> getAllCustomer() throws CustomerException
-    {
+    public ArrayList<Customer> getAllCustomer() throws CustomerException {
         return (ArrayList<Customer>)customerDAO.readAll();
     }
 
-    public Customer getCustomerById(int id) throws CustomerException
-    {
+    public Customer getCustomerById(int id) throws CustomerException {
         return customerDAO.getCustomerById(id);
     }
 }

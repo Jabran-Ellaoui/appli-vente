@@ -26,8 +26,7 @@ public class FidelityService {
 
     private static final double DEFAULT_PURCHASE_AMOUNT = 50.0;
     
-    public FidelityService() throws ConnectionException
-    {
+    public FidelityService() throws ConnectionException {
         this.customerDAO = new CustomerDAO();
         this.salesDAO = new SalesDetailsDAO();
         this.productDAO = new ProductModelDAO();
