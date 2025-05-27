@@ -172,7 +172,6 @@ public class UpdateSalesDetailsPanel extends JPanel {
             JOptionPane.showMessageDialog(this, errors, "Erreur de validation", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
         return true;
     }
     private class CopyButtonListener implements ActionListener {
