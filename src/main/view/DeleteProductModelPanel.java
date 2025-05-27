@@ -1,6 +1,7 @@
 package main.view;
 
 import main.controller.ProductModelController;
+import main.exception.ProductModelException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,24 +35,39 @@ public class DeleteProductModelPanel extends JPanel {
 
         submit = new JButton("Supprimer un produit");
         submit.addActionListener(e -> {
-            if(!validateDeleteProductModelForm()) {
-                return;
-            }
+            if (!validateDeleteProductModelForm()) return;
+
             try {
-                productModelController.deleteProductModel(Integer.parseInt(barcode.getText()));
-                String[] options = {"Oui", "Non"};
-                int response = JOptionPane.showOptionDialog(this, "Produit supprimé.\nVoulez-vous en supprimer un autre ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                productModelController.deleteProductModel(
+                        Integer.parseInt(barcode.getText()));
+                // si on arrive ici, suppression OK
+                int response = JOptionPane.showOptionDialog(
+                        this,
+                        "Produit supprimé.\nVoulez-vous en supprimer un autre ?",
+                        "Confirmation",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[]{"Oui", "Non"},
+                        "Oui"
+                );
                 if (response == JOptionPane.YES_OPTION) {
                     barcode.setText("");
                 } else {
                     mainWindow.homePage();
                 }
 
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(formPanel, exception.getMessage(), "Erreur dans l'écriture des informations", JOptionPane.ERROR_MESSAGE);
+            } catch (ProductModelException exception) {
+                // suppression impossible
+                JOptionPane.showMessageDialog(
+                        this,
+                        exception.getMessage(),
+                        "Erreur suppression",
+                        JOptionPane.ERROR_MESSAGE
+                );
             }
-
         });
+
         buttonsPanel.add(submit);
 
         this.setLayout(new BorderLayout());

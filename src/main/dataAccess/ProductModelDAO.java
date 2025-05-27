@@ -130,17 +130,20 @@ public class ProductModelDAO implements ProductModelDAOInterface {
 
     @Override
     public void delete(int barcode) throws ProductModelException {
-        String sqlInstruction = "DELETE FROM product_model WHERE barcode = ? ";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction))
-        {
-            preparedStatement.setInt(1, barcode);
-            preparedStatement.executeUpdate();
+        String sql = "DELETE FROM product_model WHERE barcode = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, barcode);
+            int affected = ps.executeUpdate();
+            if (affected == 0) {
+                // aucune ligne supprimée → le code-barres n'existait pas
+                throw new ProductModelException(
+                        "Aucun produit trouvé avec le code-barres " + barcode);
+            }
         }
-        catch (SQLException productModelException)
-        {
-            throw new ProductModelException("Erreur lors de la suppression du produit", productModelException);
+        catch (SQLException e) {
+            throw new ProductModelException(
+                    "Erreur lors de la suppression du produit", e);
         }
-
     }
 
     @Override
