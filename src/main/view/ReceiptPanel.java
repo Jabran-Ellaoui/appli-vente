@@ -97,19 +97,24 @@ public class ReceiptPanel extends JPanel {
         receipt += "Vendeur : " + employee.getFirstname() + " " + employee.getLastname() + "\n";
         receipt += generateProductList(productList);
         receipt += "Bonne journée";
-        return null;
+        return receipt;
     }
 
     private String generateProductList(ArrayList<Product> productList) {
         String productsListReceipt = "";
-        for (int i = 1 ; i<= productList.size( ) ; i++) {
-            productList.get(i-1);
+        double prixTotal = 0;
+        for (int i = 0; i < productList.size(); i++) {
+            Product product = productList.get(i);
             try {
-                productsListReceipt += i + " " + productList.get(i - 1).getId() + " " + productModelController.getProductModelById(productList.get(i - 1).getId()).getLabel() + "\n";
+                int productModelId = product.getModel().getBarcode();
+                String label = productModelController.getProductModelById(productModelId).getLabel();
+                productsListReceipt += (i + 1) + ". " + product.getId() + " - " + label + " " + product.getUnitPrice() + "€\n";
+                prixTotal += product.getUnitPrice();
             } catch (ProductModelException exception) {
-                throw new RuntimeException(exception);
+                productsListReceipt += (i + 1) + ". Produit " + product.getId() + " : modèle introuvable\n";
             }
         }
+        productsListReceipt += "Prix Total : " + Math.round(prixTotal) + "€\n";
         return productsListReceipt;
     }
 }

@@ -30,6 +30,13 @@ public class Product {
         return id;
     }
 
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public ProductModel getModel() {
+        return model;
+    }
 
     public void setPromotionPercentage(Integer promotionPercentage)
     {
