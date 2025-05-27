@@ -5,7 +5,6 @@ import main.exception.ConnectionException;
 import main.model.Customer;
 import main.model.Employee;
 import main.model.SalesDetails;
-import main.model.*;
 
 
 import java.sql.*;
@@ -40,7 +39,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             preparedStatement.executeUpdate();
         } catch (SQLException exception)
         {
-            throw new SalesDetailsException("Erreur lors de la création du détail de vente", exception);
+            throw new SalesDetailsException("Erreur lors de la création du détail de vente");
         }
 
         if (salesDetails.getBuyer() != null)
@@ -54,7 +53,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             }
             catch (SQLException exception)
             {
-                throw new SalesDetailsException("Erreur lors de l'insertion de l'acheteur", exception);
+                throw new SalesDetailsException("Erreur lors de l'insertion de l'acheteur");
             }
         }
 
@@ -69,7 +68,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             }
             catch (SQLException exception)
             {
-                throw new SalesDetailsException("Erreur lors de l'insertion du moyen de paiement", exception);
+                throw new SalesDetailsException("Erreur lors de l'insertion du moyen de paiement");
             }
         }
 
@@ -84,7 +83,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             }
             catch (SQLException exception)
             {
-                throw new SalesDetailsException("Erreur lors de l'insertion du commentaire", exception);
+                throw new SalesDetailsException("Erreur lors de l'insertion du commentaire");
             }
         }
     }
@@ -99,7 +98,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException exception) {
-            throw new SalesDetailsException("Erreur lors de la suppression", exception);
+            throw new SalesDetailsException("Erreur lors de la suppression");
         }
     }
 
@@ -116,7 +115,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
             {
                 if (!data.next())
                 {
-                    throw new SalesDetailsException("Aucune vente trouvée pour l'ID" + id, new SQLException("Data non trouvée"));
+                    throw new SalesDetailsException("Aucune vente trouvée pour l'ID" + id);
                 }
                 Customer buyer;
                 String paymentMethod;
@@ -139,7 +138,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
         }
         catch (SQLException exception)
         {
-            throw new SalesDetailsException("Erreur lors de la lecture des détails de vente", exception);
+            throw new SalesDetailsException("Erreur lors de la lecture des détails de vente");
         }
     }
 
@@ -162,7 +161,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
         }
         catch (SQLException exception)
         {
-            throw new SalesDetailsException("Erreur lors de la mise à jour du détail de vente", exception);
+            throw new SalesDetailsException("Erreur lors de la mise à jour du détail de vente");
         }
     }
 
@@ -199,7 +198,7 @@ public class SalesDetailsDAO implements SalesDetailsDAOInterface {
         }
         catch (SQLException exception)
         {
-            throw new SalesDetailsException("Erreur lors de la lecture de tous les enregistrements des détails de vente", exception);
+            throw new SalesDetailsException("Erreur lors de la lecture de tous les enregistrements des détails de vente");
         }
     }
 }

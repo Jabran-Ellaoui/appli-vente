@@ -23,12 +23,20 @@ public class SalesDetailsService {
         return (ArrayList<SalesDetails>)salesDetailsDAO.readAll();
     }
 
-    // à finir
+
     public void addNewSalesDetails(SalesDetails salesDetails) throws SalesDetailsException {
+        if (salesDetails.getQuantity() <= 0) {
+            throw new SalesDetailsException("La quantité doit être strictement supérieure à 0.");
+        }
+
         salesDetailsDAO.create(salesDetails);
     }
 
+
     public void updateSalesDetails(SalesDetails salesDetails) throws SalesDetailsException {
+        if (salesDetails.getQuantity() <= 0) {
+            throw new SalesDetailsException("La quantité doit être strictement supérieure à 0");
+        }
         salesDetailsDAO.update(salesDetails);
     }
 
