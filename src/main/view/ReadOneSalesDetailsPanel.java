@@ -85,24 +85,33 @@ public class ReadOneSalesDetailsPanel extends JPanel {
     private class IdSearchListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            String text = idField.getText().trim();
+
+            if (text.isEmpty()) {
+                JOptionPane.showMessageDialog(ReadOneSalesDetailsPanel.this,
+                        "Veuillez entrer un ID.",
+                        "Champ vide", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            int saleId;
             try {
-                int saleId = Integer.parseInt(idField.getText());
-
-                SalesDetails sd = salesDetailsController.getSalesDetails(saleId);
-                List<Product> products = productController.getAllProductsBySalesID(saleId);
-
-                displaySalesDetails(sd, products);
-
+                saleId = Integer.parseInt(text);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(ReadOneSalesDetailsPanel.this,
-                        "L'ID doit être un entier.",
+                        "L'ID doit être un entier valide.",
                         "Format invalide", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
+            try {
+                SalesDetails sd = salesDetailsController.getSalesDetails(saleId);
+                List<Product> products = productController.getAllProductsBySalesID(saleId);
+                displaySalesDetails(sd, products);
             } catch (SalesDetailsException ex) {
                 JOptionPane.showMessageDialog(ReadOneSalesDetailsPanel.this,
-                        "Aucune vente trouvée pour l'ID " + idField.getText(),
+                        "Aucune vente trouvée pour l'ID " + saleId,
                         "Vente introuvable", JOptionPane.WARNING_MESSAGE);
-
                 salesDetailsResultsPanel.removeAll();
                 productsListPanel.removeAll();
                 revalidate();
@@ -114,4 +123,5 @@ public class ReadOneSalesDetailsPanel extends JPanel {
             }
         }
     }
+
 }
