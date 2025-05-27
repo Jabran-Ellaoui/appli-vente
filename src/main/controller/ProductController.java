@@ -22,4 +22,9 @@ public class ProductController {
         return productService.getAllProductsBySalesID(saleID);
     }
 
+    public void updateProduct(int productID, int salesID)
+    {
+        productService.updateProduct(productID, salesID);
+    }
+
 }
