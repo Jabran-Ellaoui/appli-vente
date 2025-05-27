@@ -1,5 +1,6 @@
 package main.view;
 
+import com.sun.tools.javac.Main;
 import main.controller.*;
 import main.exception.ConnectionException;
 import main.exception.CustomerException;
@@ -21,8 +22,8 @@ public class MainWindow extends JFrame
 {
     Container frameContainer;
     private JMenuBar menuBar;
-    private JMenu file, administration, productModelAdministration, salesDetailsAdministration, search, helpMenu, loyaltyMenu;
-    private JMenuItem exit, createProductModel, deleteProductModel, updateProductModel, readOneProductModel, readAllProductModel, createSalesDetails, deleteSalesDetails, updateSalesDetails, readOneSalesDetails, readAllSalesDetails, searchProduct, searchSalesDetails, searchCustomer, animation, helpItem, customerLoyalty;
+    private JMenu file, administration, productModelAdministration, salesDetailsAdministration, search, helpMenu, customerMenu;
+    private JMenuItem exit, createProductModel, deleteProductModel, updateProductModel, readOneProductModel, readAllProductModel, createSalesDetails, deleteSalesDetails, updateSalesDetails, readOneSalesDetails, readAllSalesDetails, searchProduct, searchSalesDetails, searchCustomer, animation, helpItem, customerLoyalty, receipt;
 
     public MainWindow() {
         super("Le Grand Bazar");
@@ -53,8 +54,8 @@ public class MainWindow extends JFrame
         search = new JMenu("Recherche");
         menuBar.add(search);
 
-        loyaltyMenu = new JMenu("Fidélité");
-        menuBar.add(loyaltyMenu);
+        customerMenu = new JMenu("Client");
+        menuBar.add(customerMenu);
 
         helpMenu = new JMenu("Aide");
         menuBar.add(helpMenu);
@@ -89,7 +90,6 @@ public class MainWindow extends JFrame
                     CreateProductModelPanel createProductModelPanel = new CreateProductModelPanel(productModelController, lotController, MainWindow.this);
                     switchPanel(createProductModelPanel);
                 } catch (ConnectionException exception) {
-                    exception.printStackTrace();
                     JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -105,7 +105,6 @@ public class MainWindow extends JFrame
                     DeleteProductModelPanel deleteProductModelPanel = new DeleteProductModelPanel(productModelController, MainWindow.this);
                     switchPanel(deleteProductModelPanel);
                 } catch (ConnectionException exception) {
-                    exception.printStackTrace();
                     JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -121,7 +120,6 @@ public class MainWindow extends JFrame
                     UpdateProductModelPanel updateProductModelPanel = new UpdateProductModelPanel(productModelController, lotController, MainWindow.this);
                     switchPanel(updateProductModelPanel);
                 } catch (ConnectionException exception) {
-                    exception.printStackTrace();
                     JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -135,7 +133,6 @@ public class MainWindow extends JFrame
                 ReadOneProductModelPanel readOneProductModelPanel = new ReadOneProductModelPanel(productModelController, MainWindow.this);
                 switchPanel(readOneProductModelPanel);
             } catch (ConnectionException exception) {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -152,7 +149,6 @@ public class MainWindow extends JFrame
                 ReadAllProductModelPanel readAllProductModelPanel = new ReadAllProductModelPanel(productModelController, MainWindow.this);
                 switchPanel(readAllProductModelPanel);
             } catch (ConnectionException exception) {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             } catch (ProductModelException exception) {
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de lecture des produits", JOptionPane.ERROR_MESSAGE);
@@ -171,10 +167,9 @@ public class MainWindow extends JFrame
                 CreateSalesDetailsPanel createSalesDetailsPanel = new CreateSalesDetailsPanel(salesDetailsController, employeeController, customerController, productController, MainWindow.this);
                 switchPanel(createSalesDetailsPanel);
             } catch (ConnectionException exception) {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
-            } catch (CustomerException ex) {
-                throw new RuntimeException(ex);
+            } catch (CustomerException exception) {
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de Client", JOptionPane.ERROR_MESSAGE);
             }
 
         });
@@ -188,7 +183,6 @@ public class MainWindow extends JFrame
                 DeleteSalesDetailsPanel deleteSalesDetailsPanel = new DeleteSalesDetailsPanel(salesDetailsController, productController, MainWindow.this);
                 switchPanel(deleteSalesDetailsPanel);
             } catch (ConnectionException exception) {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -204,7 +198,6 @@ public class MainWindow extends JFrame
                 UpdateSalesDetailsPanel updateSalesDetailsPanel = new UpdateSalesDetailsPanel(salesDetailsController, employeeController, customerController, productController, MainWindow.this);
                 switchPanel(updateSalesDetailsPanel);
             } catch (ConnectionException exception) {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -218,7 +211,6 @@ public class MainWindow extends JFrame
                 ReadOneSalesDetailsPanel readOneSalesDetailsPanel = new ReadOneSalesDetailsPanel(salesDetailsController, productController, MainWindow.this);
                 switchPanel(readOneSalesDetailsPanel);
             } catch (ConnectionException exception) {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -236,7 +228,6 @@ public class MainWindow extends JFrame
                 ReadAllSalesDetailsPanel readAllSalesDetailsPanel = new ReadAllSalesDetailsPanel(salesDetailsController, productController, MainWindow.this);
                 switchPanel(readAllSalesDetailsPanel);
             } catch (ConnectionException exception) {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -252,7 +243,6 @@ public class MainWindow extends JFrame
                 switchPanel(searchCustomerPanel);
             } catch (SearchException exception)
             {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             }
 
@@ -267,7 +257,6 @@ public class MainWindow extends JFrame
                 SearchProductPanel searchProductPanel = new SearchProductPanel(searchController, lotController,MainWindow.this);
                 switchPanel(searchProductPanel);
             } catch (SearchException exception) {
-                exception.printStackTrace();
                 JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
             } catch (ConnectionException ex) {
                 throw new RuntimeException(ex);
@@ -296,7 +285,23 @@ public class MainWindow extends JFrame
             CustomerLoyaltyPanel customerLoyaltyPanel = new CustomerLoyaltyPanel(MainWindow.this);
             switchPanel(customerLoyaltyPanel);
         });
-        loyaltyMenu.add(customerLoyalty);
+        customerMenu.add(customerLoyalty);
+
+        receipt = new JMenuItem("Ticket de caisse");
+        receipt.addActionListener(e -> {
+            try {
+                SalesDetailsController salesDetailsController = new SalesDetailsController();
+                ProductController productController = new ProductController();
+                ProductModelController productModelController = new ProductModelController();
+                EmployeeController employeeController = new EmployeeController();
+                CustomerController customerController = new CustomerController();
+                ReceiptPanel receiptPanel = new ReceiptPanel(salesDetailsController, productController, productModelController, employeeController, customerController, MainWindow.this);
+                switchPanel(receiptPanel);
+            } catch (ConnectionException exception) {
+                JOptionPane.showMessageDialog (null, exception.toString(), "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        customerMenu.add(receipt);
 
         // Aide
         helpItem = new JMenuItem("Documentation");
